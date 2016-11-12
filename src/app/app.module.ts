@@ -12,11 +12,21 @@ import {AuthService} from './service/auth-service/auth.service';
 import {AppRoutingModule} from './app-routing.module';
 import {LoginFormComponent} from './main_page/login-form/login-form.component';
 import {RegisterFormComponent} from './main_page/register-form/register-form.component';
+import {ContactViewComponent} from './main_page/contact-view/contact-view.component';
+import {AccountViewComponent} from './main_page/account-view/account-view.component';
+import {SearchComponentComponent} from './main_page/search-component/search-component.component';
+import {AboutViewComponent} from './main_page/about-view/about-view.component';
+import {HelpViewComponent} from './main_page/help-view/help-view.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginFormComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    ContactViewComponent,
+    AccountViewComponent,
+    SearchComponentComponent,
+    AboutViewComponent,
+    HelpViewComponent
   ],
   imports: [
     BrowserModule,

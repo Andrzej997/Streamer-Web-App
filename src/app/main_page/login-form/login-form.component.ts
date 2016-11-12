@@ -9,8 +9,7 @@ import {Router} from '@angular/router';
 })
 export class LoginFormComponent implements OnInit {
 
-  public active: boolean;
-  public logedIn: boolean = false;
+  private _loggedIn: boolean = false;
 
   errorMessage: string;
   registerMode: boolean = false;
@@ -24,26 +23,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.active = false;
-  }
-
-  setActive() {
-    if (!this.logedIn) {
-      this.active = true;
-    }
   }
 
   onSubmit() {
     this.login();
-    this.active = false;
-  }
-
-  onRegisterClick() {
-    this.registerMode = true;
-  }
-
-  onLoginClick() {
-    this.registerMode = false;
   }
 
   login() {
@@ -51,17 +34,23 @@ export class LoginFormComponent implements OnInit {
       return;
     } else if (this.userName.indexOf('@') < 0) {
       this.authSevice.login(this.userName, this.password)
-        .subscribe(success => this.logedIn = success,
-          error => this.errorMessage = <any>error,
-          () => this.active = false);
-      console.log(this.logedIn);
-      console.log(this.active);
+        .subscribe(success => this._loggedIn = success,
+          error => this.errorMessage = <any>error
+        );
     } else {
       this.authSevice.loginByEmail(this.userName, this.password)
-        .subscribe(success => this.logedIn = success,
-          error => this.errorMessage = <any>error,
-          () => this.active = false);
+        .subscribe(success => this._loggedIn = success,
+          error => this.errorMessage = <any>error
+        );
     }
   }
 
+
+  get loggedIn(): boolean {
+    return this._loggedIn;
+  }
+
+  set loggedIn(value: boolean) {
+    this._loggedIn = value;
+  }
 }

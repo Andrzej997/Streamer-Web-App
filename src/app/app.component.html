@@ -10,22 +10,22 @@
     </div>
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li class="li dropdown" dropdown>
+        <li [hidden]="loginForm.logedIn" class="li dropdown" dropdown>
           <a id="login-href" href="/" class="a dropdown-toggle" dropdownToggle>LOGIN</a>
           <ul dropdownMenu role="menu" aria-labelledby="login-href">
-            <app-login-form></app-login-form>
+            <app-login-form #loginForm></app-login-form>
           </ul>
         </li>
+        <li [hidden]="!loginForm.logedIn"><a href="#">LOGOUT</a></li>
+        <li [hidden]="!loginForm.logedIn"><a href="#">ACCOUNT</a></li>
         <li><a href="#">CONTACT</a></li>
         <li><a href="#">TOP</a></li>
         <li class="dropdown" dropdown>
-          <a id="more-href" href="/" class="dropdown-toggle" dropdownToggle>MORE</a>
+          <a id="more-href" class="dropdown-toggle" dropdownToggle>MORE</a>
           <ul dropdownMenu role="menu" aria-labelledby="more-href">
-            <li role="menuitem"><a class="dropdown-item" href="#">Action</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Another action</a></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Something else here</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">ABOUT</a></li>
             <li class="divider dropdown-divider"></li>
-            <li role="menuitem"><a class="dropdown-item" href="#">Separated link</a></li>
+            <li role="menuitem"><a class="dropdown-item" href="#">HELP</a></li>
           </ul>
         </li>
         <li><a><span class="glyphicon glyphicon-search"></span></a></li>

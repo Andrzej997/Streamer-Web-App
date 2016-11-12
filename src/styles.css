@@ -10,12 +10,10 @@ body {
 }
 
 .center {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  position: fixed;
-  align-items: center;
-  justify-content: center;
+  vertical-align: middle;
+  padding: 120px 0;
+  margin: auto;
+  width: 50%;
 }
 
 .logo-button, .logo-button:visited, .logo-button:link, .logo-button:active, .logo-button:hover, .logo-button:focus {

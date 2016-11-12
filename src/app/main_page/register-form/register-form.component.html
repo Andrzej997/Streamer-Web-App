@@ -1,55 +1,58 @@
-<div class="form-group" style="height: 100px">
-
+<div class="center">
+  <h1>
+    Create your own account
+  </h1>
+  <form style="width: 30%" class="form " role="form" (submit)="register()" #registerForm="ngForm" accept-charset="UTF-8"
+        id="registerForm">
+    <div class="form-group">
+      <label class="sr-only" for="inpUsername">Username</label>
+      <input type="text" class="form-control" id="inpUsername" placeholder="Username" required
+             [(ngModel)]="username" name="inpUsername" #inpUsername="ngModel" (blur)="checkUsernameExists()">
+      <div [hidden]="inpUsername.valid || inpUsername.pristine"
+           class="alert alert-danger">
+        Username is required
+      </div>
+      <div [hidden]="!usernameExists"
+           class="alert alert-danger">
+        Username already exists
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="inpEmail">Username</label>
+      <input type="email" class="form-control" id="inpEmail" placeholder="Email" required
+             [(ngModel)]="email" name="inpEmail" #inpEmail="ngModel" (blur)="checkEmailUnique()">
+      <div [hidden]="inpEmail.valid || inpEmail.pristine"
+           class="alert alert-danger">
+        Email is required
+      </div>
+      <div [hidden]="!emailNotUnique"
+           class="alert alert-danger">
+        Email is not unique
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="inpPassword">Password</label>
+      <input type="password" class="form-control" id="inpPassword" placeholder="Password" required
+             [(ngModel)]="password" name="inpPassword" #inpPassword="ngModel">
+      <div [hidden]="inpPassword.valid || inpPassword.pristine"
+           class="alert alert-danger">
+        Password is required
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="sr-only" for="inpPassword2">Confirm password</label>
+      <input type="password" class="form-control" id="inpPassword2" placeholder="Password" required
+             [(ngModel)]="password2" name="inpPassword2" #inpPassword2="ngModel">
+      <div [hidden]="inpPassword2.valid || inpPassword2.pristine"
+           class="alert alert-danger">
+        Password is required
+      </div>
+      <div [hidden]="inpPassword2.pristine || inpPassword.pristine || password == password2" class="alert alert-danger">
+        Passwords not matches
+      </div>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.form.valid">Register</button>
+    </div>
+  </form>
 </div>
-<h1>
-  Create your own account
-</h1>
-<form style="width: 30%" class="form " role="form" (submit)="register()" #registerForm="ngForm" accept-charset="UTF-8"
-      id="registerForm">
-  <div class="form-group">
-    <label class="sr-only" for="inpUsername">Username</label>
-    <input type="text" class="form-control" id="inpUsername" placeholder="Username" required
-           [(ngModel)]="username" name="inpUsername" #inpUsername="ngModel" (blur)="checkUsernameExists()">
-    <div [hidden]="inpUsername.valid || inpUsername.pristine"
-         class="alert alert-danger">
-      Username is required
-    </div>
-    <div *ngIf="inpUsername.textContent != null && inpUsername.textContent.length > 0 &&  usernameExists == true"
-         class="alert alert-danger">
-      Username already exists!
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="inpEmail">Username</label>
-    <input type="text" class="form-control" id="inpEmail" placeholder="Email" required
-           [(ngModel)]="email" name="inpEmail" #inpEmail="ngModel">
-    <div [hidden]="inpEmail.valid || inpEmail.pristine"
-         class="alert alert-danger">
-      Email is required
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="inpPassword">Password</label>
-    <input type="password" class="form-control" id="inpPassword" placeholder="Password" required
-           [(ngModel)]="password" name="inpPassword" #inpPassword="ngModel">
-    <div [hidden]="inpPassword.valid || inpPassword.pristine"
-         class="alert alert-danger">
-      Password is required
-    </div>
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="inpPassword2">Confirm password</label>
-    <input type="password" class="form-control" id="inpPassword2" placeholder="Password" required
-           [(ngModel)]="password2" name="inpPassword2" #inpPassword2="ngModel">
-    <div [hidden]="inpPassword2.valid || inpPassword2.pristine"
-         class="alert alert-danger">
-      Password is required
-    </div>
-    <div [hidden]="inpPassword2.pristine || inpPassword.pristine || password == password2" class="alert alert-danger">
-      Passwords not matches
-    </div>
-  </div>
-  <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="!registerForm.form.valid">Register</button>
-  </div>
-</form>

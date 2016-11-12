@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {AuthService} from '../../service/auth-service/auth.service';
 import {Router} from '@angular/router';
 
@@ -16,6 +16,9 @@ export class RegisterFormComponent implements OnInit {
 
   registered: boolean = false;
   usernameExists: boolean = false;
+  emailNotUnique: boolean = false;
+
+  @Output() onRegisteredChange = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService,
               private router: Router) {
@@ -26,15 +29,34 @@ export class RegisterFormComponent implements OnInit {
 
   public register() {
     this.authService.register(this.username, this.password, this.email)
-      .subscribe(success => this.registered = success,
-        (error) => console.log(error));
+      .subscribe((result) => {
+          this.onRegister(result);
+        },
+        (error) => console.log(error)
+      );
   }
+
+  onRegister(result: boolean) {
+    this.registered = result;
+    this.onRegisteredChange.emit(result);
+    if (result) {
+      this.router.navigate(['/']);
+    }
+  }
+
 
   public checkUsernameExists() {
     this.authService.usernameExists(this.username)
       .subscribe(success => this.usernameExists = <boolean>success,
         (error) => console.log(error));
-    console.log(<boolean>this.usernameExists);
   }
+
+  public checkEmailUnique() {
+    this.authService.checkEmailUnique(this.email)
+      .subscribe(success => this.emailNotUnique = <boolean>success,
+        error => console.log(error));
+  }
+
+
 
 }

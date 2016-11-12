@@ -17,8 +17,5 @@
     "typeRoots": [
       "../node_modules/@types"
     ]
-  },
-  "include": [
-    "node_modules/typescript/lib/lib.es6.d.ts"
-  ]
+  }
 }

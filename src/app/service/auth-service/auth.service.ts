@@ -1,11 +1,16 @@
 import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {authEndpoint} from '../../constants';
 import {Observable} from 'rxjs';
 import {UsersDTO} from '../../model/UsersDTO';
+import {RegistrationDTO} from '../../model/RegistrationDTO';
+
 
 @Injectable()
 export class AuthService {
+
+  headers: Headers = new Headers({'Content-Type': 'application/json'});
+  options: RequestOptions = new RequestOptions({headers: this.headers});
 
   constructor(private http: Http) {
   }
@@ -24,10 +29,10 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-  public register(username: String, password: String, email: String): Observable<boolean> {
+  public register(username: string, password: string, email: string): Observable<boolean> {
     const url = `${authEndpoint}/register`;
-    let params: any = {username: username, password: password, email: email};
-    return this.http.post(url, JSON.stringify(params))
+    let registrationDTO: RegistrationDTO = new RegistrationDTO(username, password, email);
+    return this.http.post(url, JSON.stringify(registrationDTO), this.options)
       .map(this.extractData)
       .catch(this.handleError);
   }
@@ -46,10 +51,17 @@ export class AuthService {
       .catch(this.handleError);
   }
 
+  public checkEmailUnique(email: String): Observable<boolean> {
+    const url = `${authEndpoint}/email/exists?email=${email}`;
+    return this.http.get(url)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     console.log(body);
-    return body.data || {};
+    return body.data || body;
   }
 
   private handleError(error: Response | any) {
