@@ -1,0 +1,271 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  background: url(./assets/background.jpg);
+  width: auto;
+  height: auto;
+  margin: 0 auto;
+  overflow: hidden;
+  font: 400 15px/1.8 Lato, sans-serif;
+  color: #777;
+}
+
+.center {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-button, .logo-button:visited, .logo-button:link, .logo-button:active, .logo-button:hover, .logo-button:focus {
+  background: transparent;
+  height: 120px;
+  width: 500px;
+  text-decoration: none;
+  color: #d85a1d;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: #cccccc;
+  border: transparent;
+  font-size: 100px;
+  font-style: italic;
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+}
+
+#title {
+  color: #4f41d8;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: #cccccc;
+  font-size: 30px;
+  font-style: italic;
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+}
+
+@-moz-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+@-webkit-keyframes slidein {
+  from {
+    margin-left: 100%;
+    width: 300%
+  }
+  to {
+    margin-left: 0%;
+    width: 100%;
+  }
+}
+
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+  display: block;
+  zoom: 1;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: none;
+}
+
+/* change colours to suit your needs */
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+/* change colours to suit your needs */
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* change border colour to suit your needs */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #cccccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+input, select {
+  vertical-align: middle;
+}
+
+.ng-valid[required], .ng-valid.required {
+  border-left: 5px solid #42A948;
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442;
+}
+
+h3, h4 {
+  margin: 10px 0 30px 0;
+  letter-spacing: 10px;
+  font-size: 20px;
+  color: #111;
+}
+
+.thumbnail p {
+  margin-top: 15px;
+  color: #555;
+}
+
+.nav-tabs li a {
+  color: #777;
+}
+
+.navbar {
+  font-family: Montserrat, sans-serif;
+  margin-bottom: 0;
+  background-color: #2d2d30;
+  border: 0;
+  font-size: 11px !important;
+  letter-spacing: 4px;
+  opacity: 0.9;
+}
+
+.navbar li a, .navbar .navbar-brand {
+  color: #d5d5d5 !important;
+}
+
+.navbar-nav li a:hover {
+  color: #fff !important;
+}
+
+.navbar-nav li.active a {
+  color: #fff !important;
+  background-color: #29292c !important;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent;
+}
+
+.dropdown-menu li a {
+  color: #000 !important;
+}
+
+.dropdown-menu li a:hover {
+  background-color: red !important;
+}
+
+.logo-button, .logo-button:visited, .logo-button:link, .logo-button:active, .logo-button:hover, .logo-button:focus {
+  background: transparent;
+  height: 120px;
+  width: 500px;
+  text-decoration: none;
+  color: #d85a1d;
+  text-align: center;
+  vertical-align: middle;
+  text-shadow: #cccccc;
+  border: transparent;
+  font-size: 100px;
+  font-style: italic;
+  -moz-animation-duration: 3s;
+  -webkit-animation-duration: 3s;
+  -moz-animation-name: slidein;
+  -webkit-animation-name: slidein;
+}
+
+#login-dp {
+  min-width: 250px;
+  padding: 14px 14px 0;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, .8);
+}
+
+#login-dp .help-block {
+  font-size: 12px
+}
+
+#login-dp .bottom {
+  background-color: rgba(255, 255, 255, .8);
+  border-top: 1px solid #ddd;
+  clear: both;
+  padding: 14px;
+}
+
+#login-dp .social-buttons {
+  margin: 12px 0
+}
+
+#login-dp .social-buttons a {
+  width: 49%;
+}
+
+#login-dp .form-group {
+  margin-bottom: 10px;
+}
+
+.btn-fb {
+  color: #fff;
+  background-color: #3b5998;
+}
+
+.btn-fb:hover {
+  color: #fff;
+  background-color: #496ebc
+}
+
+.btn-tw {
+  color: #fff;
+  background-color: #55acee;
+}
+
+.btn-tw:hover {
+  color: #fff;
+  background-color: #59b5fa;
+}
+
+@media (max-width: 768px) {
+  #login-dp {
+    background-color: inherit;
+    color: #fff;
+  }
+
+  #login-dp .bottom {
+    background-color: inherit;
+    border-top: 0 none;
+  }
+}
+
+

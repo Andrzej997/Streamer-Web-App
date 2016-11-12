@@ -1,0 +1,33 @@
+<li role="menuitem" style="width: 300px">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form dropdown-item" role="form" (submit)="login()" #loginForm="ngForm" accept-charset="UTF-8"
+            id="login-nav">
+        <div class="form-group">
+          <label class="sr-only" for="inpUsername">Username</label>
+          <input type="text" class="form-control" id="inpUsername" placeholder="Username" required
+                 [(ngModel)]="userName" name="inpUsername" #inpUsername="ngModel">
+          <div [hidden]="inpUsername.valid || inpUsername.pristine"
+               class="alert alert-danger">
+            Username is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="inpPassword">Password</label>
+          <input type="password" class="form-control" id="inpPassword" placeholder="Password" required
+                 [(ngModel)]="password" name="inpPassword" #inpPassword="ngModel">
+          <div [hidden]="inpPassword.valid || inpPassword.pristine"
+               class="alert alert-danger">
+            Password is required
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.form.valid">Sign in</button>
+        </div>
+      </form>
+    </div>
+    <div class="bottom text-center col-md-12">
+      New here ? <a href="/register" class="dropdown-item"><b>Join Us</b></a>
+    </div>
+  </div>
+</li>
