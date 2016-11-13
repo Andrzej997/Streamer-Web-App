@@ -1,10 +1,11 @@
 import {NgModule}             from '@angular/core';
-import {RouterModule} from '@angular/router';
+import {RouterModule, RouterOutletMap} from '@angular/router';
 import {RegisterFormComponent} from './main_page/register-form/register-form.component';
 import {AboutViewComponent} from './main_page/about-view/about-view.component';
 import {AccountViewComponent} from './main_page/account-view/account-view.component';
 import {ContactViewComponent} from './main_page/contact-view/contact-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
+import {AppComponent} from "./app.component";
 
 @NgModule({
   imports: [

@@ -6,7 +6,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Logo</a>
+      <a class="navbar-brand" [routerLink]="['/']">Logo</a>
     </div>
     <div class="collapse navbar-collapse" id="mainNavbar">
       <ul class="nav navbar-nav navbar-right">
@@ -16,10 +16,10 @@
             <app-login-form (loginEvent)="onLoginChange($event)"></app-login-form>
           </ul>
         </li>
-        <li [hidden]="!loggedIn"><a href="/">LOGOUT</a></li>
+        <li [hidden]="!loggedIn"><a [routerLink]="['/']">LOGOUT</a></li>
         <li [hidden]="!loggedIn"><a [routerLink]="['/account']">ACCOUNT</a></li>
         <li><a [routerLink]="['/contact']">CONTACT</a></li>
-        <li><a href="#">TOP</a></li>
+        <li><a [routerLink]="['/']">TOP</a></li>
         <li class="dropdown" dropdown>
           <a id="more-href" class="dropdown-toggle" dropdownToggle>MORE</a>
           <ul dropdownMenu role="menu" aria-labelledby="more-href">
@@ -47,7 +47,7 @@
     </div>
   </div>
   <div id="divMainPage">
-    <router-outlet></router-outlet>
     <app-snack-bar [timeout]="3000" [message]="this.snackMessage"></app-snack-bar>
+    <router-outlet></router-outlet>
   </div>
 </div>

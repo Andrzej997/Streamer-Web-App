@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Router} from '@angular/router';
+import {Router, RouterOutlet} from '@angular/router';
 import {title} from './constants';
 import {BaseComponent} from './base-component/base-component';
 import {SnackBarComponent} from "./components/snack-bar/snack-bar.component";
