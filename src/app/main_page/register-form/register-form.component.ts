@@ -1,13 +1,14 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Output, EventEmitter, Inject} from '@angular/core';
 import {AuthService} from '../../service/auth-service/auth.service';
 import {Router} from '@angular/router';
+import {BaseComponent} from '../../base-component/base-component';
 
 @Component({
   selector: 'app-register-form',
   templateUrl: 'register-form.component.html',
-  styleUrls: ['register-form.component.css']
+  styleUrls: ['register-form.component.css'],
 })
-export class RegisterFormComponent implements OnInit {
+export class RegisterFormComponent extends BaseComponent {
 
   username: string = '';
   password: string = '';
@@ -21,11 +22,11 @@ export class RegisterFormComponent implements OnInit {
   @Output() onRegisteredChange = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              @Inject('Window') window: Window) {
+    super();
   }
 
-  ngOnInit() {
-  }
 
   public register() {
     this.authService.register(this.username, this.password, this.email)
@@ -40,7 +41,7 @@ export class RegisterFormComponent implements OnInit {
     this.registered = result;
     this.onRegisteredChange.emit(result);
     if (result) {
-      this.router.navigate(['/']);
+      window.location.href = '/';
     }
   }
 

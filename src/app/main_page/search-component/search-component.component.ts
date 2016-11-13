@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
 
 @Component({
   selector: 'app-search-component',
   templateUrl: './search-component.component.html',
   styleUrls: ['./search-component.component.css']
 })
-export class SearchComponentComponent implements OnInit {
+export class SearchComponentComponent extends BaseComponent {
 
   constructor() {
-  }
-
-  ngOnInit() {
+    super();
   }
 
 }

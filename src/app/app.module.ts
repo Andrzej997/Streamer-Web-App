@@ -17,6 +17,8 @@ import {AccountViewComponent} from './main_page/account-view/account-view.compon
 import {SearchComponentComponent} from './main_page/search-component/search-component.component';
 import {AboutViewComponent} from './main_page/about-view/about-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
+import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import {HelpViewComponent} from './main_page/help-view/help-view.component';
     AccountViewComponent,
     SearchComponentComponent,
     AboutViewComponent,
-    HelpViewComponent
+    HelpViewComponent,
+    SnackBarComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import {HelpViewComponent} from './main_page/help-view/help-view.component';
     ReactiveFormsModule,
     DropdownModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, {provide: 'Window', useValue: window}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
