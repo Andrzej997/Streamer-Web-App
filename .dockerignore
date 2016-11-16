@@ -1,0 +1,7 @@
+node*
+.idea
+.git
+.gitignore
+.editorconfig
+LICENSE
+README.md

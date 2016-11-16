@@ -6,10 +6,13 @@ import {AccountViewComponent} from './main_page/account-view/account-view.compon
 import {ContactViewComponent} from './main_page/contact-view/contact-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
 import {AppComponent} from "./app.component";
+import {MainComponent} from "./main_page/main/main.component";
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
+      {path: '', redirectTo: '/main', pathMatch: 'full'},
+      {path: 'main', component: MainComponent},
       {path: 'register', component: RegisterFormComponent},
       {path: 'about', component: AboutViewComponent},
       {path: 'account', component: AccountViewComponent},

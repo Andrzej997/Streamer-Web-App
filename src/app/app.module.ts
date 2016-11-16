@@ -18,6 +18,7 @@ import {SearchComponentComponent} from './main_page/search-component/search-comp
 import {AboutViewComponent} from './main_page/about-view/about-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
 import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
+import {MainComponent} from './main_page/main/main.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
     SearchComponentComponent,
     AboutViewComponent,
     HelpViewComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
