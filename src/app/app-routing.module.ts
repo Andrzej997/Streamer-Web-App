@@ -9,6 +9,7 @@ import {AppComponent} from "./app.component";
 import {MainComponent} from "./main_page/main/main.component";
 import {AuthGuard} from "./common/auth.guard";
 import {ChangePasswordFormComponent} from "./main_page/change-password-form/change-password-form.component";
+import {UploadFormComponent} from "./main_page/upload-form/upload-form.component";
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import {ChangePasswordFormComponent} from "./main_page/change-password-form/chan
       {path: 'account', component: AccountViewComponent, canActivate: [AuthGuard]},
       {path: 'password', component: ChangePasswordFormComponent, canActivate: [AuthGuard]},
       {path: 'contact', component: ContactViewComponent},
-      {path: 'help', component: HelpViewComponent}
+      {path: 'help', component: HelpViewComponent},
+      {path: 'upload', component: UploadFormComponent}
     ])
   ],
   exports: [

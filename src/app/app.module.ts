@@ -5,6 +5,7 @@ import {HttpModule} from '@angular/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {DropdownModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {FileUploadModule} from 'ng2-file-upload';
 
 import {AuthHttp} from 'angular2-jwt';
 import {AppComponent} from './app.component';
@@ -23,6 +24,8 @@ import {MainComponent} from './main_page/main/main.component';
 import {AuthGuard} from "./common/auth.guard";
 import {AuthProvider} from "./common/auth.provider";
 import {ChangePasswordFormComponent} from './main_page/change-password-form/change-password-form.component';
+import {UploadFormComponent} from './main_page/upload-form/upload-form.component';
+import {MediaFileUploader} from "./common/media.file.uploader";
 
 @NgModule({
   declarations: [
@@ -36,7 +39,8 @@ import {ChangePasswordFormComponent} from './main_page/change-password-form/chan
     HelpViewComponent,
     SnackBarComponent,
     MainComponent,
-    ChangePasswordFormComponent
+    ChangePasswordFormComponent,
+    UploadFormComponent
   ],
   imports: [
     BrowserModule,
@@ -44,13 +48,15 @@ import {ChangePasswordFormComponent} from './main_page/change-password-form/chan
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    DropdownModule
+    DropdownModule,
+    FileUploadModule
   ],
   providers: [
     AuthService,
     {provide: 'Window', useValue: window},
     AuthGuard,
-    {provide: AuthHttp, useClass: AuthProvider}
+    {provide: AuthHttp, useClass: AuthProvider},
+    MediaFileUploader
   ],
   bootstrap: [AppComponent]
 })
