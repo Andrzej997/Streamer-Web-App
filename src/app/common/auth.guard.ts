@@ -1,17 +1,32 @@
 import {Injectable} from '@angular/core';
-import {Router, CanActivate} from '@angular/router';
+import {
+  Router,
+  CanActivate,
+  CanActivateChild,
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+  NavigationExtras
+} from '@angular/router';
 import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
 
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router) {
   }
 
-  public canActivate() {
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (tokenNotExpired()) {
       return true;
     }
-    this.router.navigate(['/', {showLoginForm: true}]);
+    let params: NavigationExtras = {
+      queryParams: {'showLoginForm': true}
+    }
+    this.router.navigate(['/main'], params);
+    return false;
+  }
+
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    return this.canActivate(childRoute, state);
   }
 }

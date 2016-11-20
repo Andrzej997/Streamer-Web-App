@@ -18,6 +18,7 @@ export class LoginFormComponent extends BaseComponent {
   password: string;
 
   @Output() loginEvent = new EventEmitter<boolean>();
+  @Output() loginErrorEvent = new EventEmitter<string>();
 
   constructor(private authSevice: AuthService,
               private router: Router) {
@@ -35,21 +36,39 @@ export class LoginFormComponent extends BaseComponent {
     this.loginEvent.emit(this._loggedIn);
   }
 
+  onError(value: any) {
+    this.errorMessage = value;
+    console.log('onError' + this.errorMessage);
+    this.loginErrorEvent.emit(this.errorMessage);
+  }
+
   login() {
     if (!this.userName || !this.password) {
       return;
     } else if (this.userName.indexOf('@') < 0) {
       this.authSevice.login(this.userName, this.password)
-        .subscribe(success => this._loggedIn = success,
-          error => this.errorMessage = <any>error,
+        .subscribe(res => {
+            this._loggedIn = res != null && res.length > 0;
+            if (this._loggedIn) {
+              localStorage.setItem('id_token', res);
+              localStorage.setItem('username', this.userName);
+            }
+          },
+          error => this.onError(error),
           () => {
             this.onLoginComplete();
           }
         );
     } else {
       this.authSevice.loginByEmail(this.userName, this.password)
-        .subscribe(success => this._loggedIn = success,
-          error => this.errorMessage = <any>error,
+        .subscribe(res => {
+            this._loggedIn = res != null && res.length > 0;
+            if (this._loggedIn) {
+              localStorage.setItem('id_token', res);
+              localStorage.setItem('username', this.userName);
+            }
+          },
+          error => this.onError(error),
           () => {
             this.onLoginComplete();
           }

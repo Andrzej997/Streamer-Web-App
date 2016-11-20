@@ -22,7 +22,7 @@ export class AccountViewComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    this.username = 'admin';
+    this.username = localStorage.getItem('username');
     this.authService.getUserData(this.username)
       .subscribe((userdata) => this.userData = <UsersDTO>userdata,
         (error) => console.log(error),

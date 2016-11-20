@@ -400,3 +400,13 @@ h3, h4 {
     opacity: 0;
   }
 }
+
+.search-control {
+  width: 130px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+.search-control:focus {
+  width: 100%;
+}

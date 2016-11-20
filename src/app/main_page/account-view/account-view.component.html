@@ -275,6 +275,7 @@
     <button class="btn btn-primary btn-block" (click)="onSaveData()">SAVE</button>
   </div>
   <div class="form-group">
-    <button class="btn btn-primary btn-block">CHANGE PASSWORD</button>
+    <button class="btn btn-primary btn-block" [routerLink]="['/password']">CHANGE PASSWORD</button>
   </div>
+  <router-outlet></router-outlet>
 </div>

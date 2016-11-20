@@ -2,7 +2,7 @@
  * Created by Mateusz on 06.11.2016.
  */
 
-export var serverEndpoint = 'http://157.158.170.40:8080';
+export var serverEndpoint = 'http://192.168.1.3:8080';
 export var authEndpoint = `${serverEndpoint}/auth`;
 export var ebookEndpoint = `${serverEndpoint}/ebook`;
 export var imageEndpoint = `${serverEndpoint}/image`;

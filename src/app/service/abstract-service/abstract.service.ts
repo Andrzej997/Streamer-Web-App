@@ -1,11 +1,12 @@
 import {Http, Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs';
+import {AuthHttp} from 'angular2-jwt';
 
 export abstract class AbstractService {
   private _headers: Headers = new Headers({'Content-Type': 'application/json'});
   private _options: RequestOptions = new RequestOptions({headers: this._headers});
 
-  constructor(protected http: Http) {
+  constructor(protected http: AuthHttp) {
 
   }
 

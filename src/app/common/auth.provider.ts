@@ -9,8 +9,8 @@ import {AuthHttp, AuthConfig} from 'angular2-jwt';
 export class AuthProvider extends AuthHttp {
 
   constructor(http: Http) {
-    return new AuthHttp(new AuthConfig({
-      headerName: 'token',
+    super(new AuthConfig({
+      headerName: 'AuthHeader',
       headerPrefix: '',
       tokenName: 'id_token',
       tokenGetter: (() => localStorage.getItem('id_token')),

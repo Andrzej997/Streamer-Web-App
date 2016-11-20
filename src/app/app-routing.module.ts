@@ -7,6 +7,8 @@ import {ContactViewComponent} from './main_page/contact-view/contact-view.compon
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
 import {AppComponent} from "./app.component";
 import {MainComponent} from "./main_page/main/main.component";
+import {AuthGuard} from "./common/auth.guard";
+import {ChangePasswordFormComponent} from "./main_page/change-password-form/change-password-form.component";
 
 @NgModule({
   imports: [
@@ -15,7 +17,8 @@ import {MainComponent} from "./main_page/main/main.component";
       {path: 'main', component: MainComponent},
       {path: 'register', component: RegisterFormComponent},
       {path: 'about', component: AboutViewComponent},
-      {path: 'account', component: AccountViewComponent},
+      {path: 'account', component: AccountViewComponent, canActivate: [AuthGuard]},
+      {path: 'password', component: ChangePasswordFormComponent, canActivate: [AuthGuard]},
       {path: 'contact', component: ContactViewComponent},
       {path: 'help', component: HelpViewComponent}
     ])

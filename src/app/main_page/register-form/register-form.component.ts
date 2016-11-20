@@ -1,6 +1,6 @@
 import {Component, Output, EventEmitter, Inject} from '@angular/core';
 import {AuthService} from '../../service/auth-service/auth.service';
-import {Router} from '@angular/router';
+import {Router, NavigationExtras} from '@angular/router';
 import {BaseComponent} from '../../base-component/base-component';
 
 @Component({
@@ -37,11 +37,16 @@ export class RegisterFormComponent extends BaseComponent {
       );
   }
 
-  onRegister(result: boolean) {
-    this.registered = result;
-    this.onRegisteredChange.emit(result);
-    if (result) {
-      window.location.href = '/';
+  onRegister(result: string) {
+    this.registered = result != null && result.length > 0;
+    this.onRegisteredChange.emit(this.registered);
+    if (this.registered) {
+      localStorage.setItem('id_token', result);
+      localStorage.setItem('username', this.username);
+      let params: NavigationExtras = {
+        queryParams: {'showSnackBar': 'true', 'snackBarMessage': 'Registration successful'}
+      };
+      this.router.navigate(['/main', params]);
     }
   }
 

@@ -1,3 +1,43 @@
-<p>
-  search-component works!
-</p>
+<li role="menuitem" style="width: 450px">
+  <div class="row">
+    <div class="col-md-12">
+      <form class="form dropdown-item" role="form" accept-charset="UTF-8"
+            #searchForm="ngForm" id="searchForm" (submit)="onSubmit()">
+        <div class="form-group">
+          <input class="form-control search-control" type="text" name="inpSearch"
+                 placeholder="Search.." id="inpSearch" required
+                 [(ngModel)]="searchText" #inpSearch="ngModel">
+          <div [hidden]="inpSearch.valid || inpSearch.pristine"
+               class="alert alert-danger">
+            Search text is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="selType">Type: </label>
+          <select class="form-control" id="selType" name="selType"
+                  #selType="ngModel" [(ngModel)]="type">
+            <option value="A">All</option>
+            <option value="M">Music</option>
+            <option value="V">Video</option>
+            <option value="I">Image</option>
+            <option value="E">Ebook</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="sr-only">Search by:</label>
+          <select class="form-control" id="selFilter" name="selFilter"
+                  #selFilter="ngModel" [(ngModel)]="filterType">
+            <option value="ALL">All</option>
+            <option value="TITLE">Title</option>
+            <option value="AUTHOR">Author</option>
+            <option value="GENRE">Genre</option>
+            <option value="YEAR">Year</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="!searchForm.form.valid">Search</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</li>

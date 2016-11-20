@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {BaseComponent} from '../../base-component/base-component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search-component',
@@ -8,8 +9,20 @@ import {BaseComponent} from '../../base-component/base-component';
 })
 export class SearchComponentComponent extends BaseComponent {
 
-  constructor() {
+  @Input() searchText: string = '';
+  @Input() type: string;
+  @Input() filterType: string;
+
+  constructor(private router: Router) {
     super();
+  }
+
+  public ngOnInit(): void {
+
+  }
+
+  public onSubmit() {
+
   }
 
 }
