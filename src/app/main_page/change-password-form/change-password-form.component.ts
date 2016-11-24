@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
-import {BaseComponent} from "../../base-component/base-component";
-import {AuthService} from "../../service/auth-service/auth.service";
+import {BaseComponent} from '../../base-component/base-component';
+import {AuthService} from '../../service/auth-service/auth.service';
 
 @Component({
   selector: 'app-change-password-form',

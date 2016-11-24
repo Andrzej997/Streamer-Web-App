@@ -2,9 +2,9 @@ import {Injectable} from '@angular/core';
 import {AuthHttp} from 'angular2-jwt';
 import {authEndpoint} from '../../constants';
 import {Observable} from 'rxjs';
-import {UsersDTO} from '../../model/UsersDTO';
-import {RegistrationDTO} from '../../model/RegistrationDTO';
 import {AbstractService} from '../abstract-service/abstract.service';
+import {UsersDTO} from '../../model/users.dto';
+import {RegistrationDTO} from '../../model/registration.dto';
 
 
 @Injectable()
@@ -57,7 +57,7 @@ export class AuthService extends AbstractService {
 
   public changePassword(username: string, password: string): Observable<boolean> {
     const url = `${authEndpoint}/auth/password/change`;
-    var params: any = {username: username, password: password};
+    let params: any = {username: username, password: password};
     return this.performPost(url, JSON.stringify(params));
   }
 

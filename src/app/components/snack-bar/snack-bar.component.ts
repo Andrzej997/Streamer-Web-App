@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {BaseComponent} from "../../base-component/base-component";
+import {BaseComponent} from '../../base-component/base-component';
 
 @Component({
   selector: 'app-snack-bar',
@@ -25,10 +25,10 @@ export class SnackBarComponent extends BaseComponent {
     if (!this.visible) {
       return;
     }
-    var snack = document.getElementById('snackbar');
+    let snack = document.getElementById('snackbar');
     snack.className = 'show';
     setTimeout(function () {
-      snack.className = snack.className.replace("show", "");
+      snack.className = snack.className.replace('show', '');
     }, this.timeout);
   }
 

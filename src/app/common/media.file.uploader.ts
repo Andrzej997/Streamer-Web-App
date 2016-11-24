@@ -1,19 +1,25 @@
+import {OnInit} from '@angular/core';
 import {FileUploader, FileUploaderOptions} from 'ng2-file-upload';
 import * as constants from '../constants';
 
 
-export class MediaFileUploader extends FileUploader {
+export class MediaFileUploader extends FileUploader implements OnInit {
 
   private _endpoint: string = constants.serverEndpoint;
   private _category: string = 'M';
   private _uploadOptions: FileUploaderOptions = {
     authTokenHeader: 'AuthHeader',
-    authToken: localStorage.getItem('id_token'), disableMultipart: false
+    authToken: localStorage.getItem('id_token'), disableMultipart: false,
+    isHTML5: true
   };
   private _typeFilter: string = 'audio/*';
 
   constructor() {
     super({});
+  }
+
+  public ngOnInit(): void {
+    this.changeEndpoint();
   }
 
   public changeEndpoint() {
@@ -60,9 +66,26 @@ export class MediaFileUploader extends FileUploader {
 
   public changeUrl() {
     this._uploadOptions.url = this._endpoint;
+    this._uploadOptions.allowedMimeType = this.getMimeType();
     this.setOptions(this._uploadOptions);
   }
 
+  public getMimeType(): string[] {
+    if (this._typeFilter !== '.pdf') {
+      return [this._typeFilter.substr(0, 5)];
+    } else {
+      return [this._typeFilter.substr(1, 3)];
+    }
+  }
+
+
+  get uploadOptions(): FileUploaderOptions {
+    return this._uploadOptions;
+  }
+
+  set uploadOptions(value: FileUploaderOptions) {
+    this._uploadOptions = value;
+  }
 
   get typeFilter(): string {
     return this._typeFilter;

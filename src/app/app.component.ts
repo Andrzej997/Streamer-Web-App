@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
-import {Router, RouterOutlet, ActivatedRoute, Params} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {title} from './constants';
 import {BaseComponent} from './base-component/base-component';
-import {SnackBarComponent} from "./components/snack-bar/snack-bar.component";
+import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
 import {Observable}         from 'rxjs/Observable';
 
 @Component({
@@ -27,15 +27,15 @@ export class AppComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    var showLogin: Observable<string> = this.route.queryParams.map(params => params['showLoginForm'] || 'false');
-    showLogin.subscribe((value: string) => this.showLoginForm = value != null && value == 'true');
+    let showLogin: Observable<string> = this.route.queryParams.map(params => params['showLoginForm'] || 'false');
+    showLogin.subscribe((value: string) => this.showLoginForm = value != null && value === 'true');
     this._loggedIn = localStorage.getItem('id_token') != null;
     this.menuVisible = false;
     this.menuStyle = 'width: 0%; float: left; margin-left: 0px';
     this.mainContentStyle = 'width: 100%; float: left margin-left: 0px';
-    var sMessage: Observable<string> = this.route.queryParams.map(params => params['snackBarMessage'] || '');
+    let sMessage: Observable<string> = this.route.queryParams.map(params => params['snackBarMessage'] || '');
     sMessage.subscribe((value) => this.snackMessage = value != null ? value : '');
-    var showSnackBar: Observable<string> = this.route.queryParams.map(params => params['showSnackBar'] || 'false');
+    let showSnackBar: Observable<string> = this.route.queryParams.map(params => params['showSnackBar'] || 'false');
     showSnackBar.subscribe((value) => {
       if (value) {
         this.snack.showSnackMessage();
@@ -53,8 +53,8 @@ export class AppComponent extends BaseComponent {
   }
 
   public getMainStyle() {
-    var divMenu = document.getElementById('divMenu');
-    var divMainPage = document.getElementById('divMainPage');
+    let divMenu = document.getElementById('divMenu');
+    let divMainPage = document.getElementById('divMainPage');
     if (this.menuVisible) {
       divMenu.style.width = '15%';
       divMainPage.style.marginLeft = '15%';
@@ -65,7 +65,7 @@ export class AppComponent extends BaseComponent {
   }
 
   public performLogout() {
-    var token = localStorage.getItem('id_token');
+    let token = localStorage.getItem('id_token');
     if (token != null && token.length > 0) {
       localStorage.removeItem('id_token');
       this._loggedIn = false;

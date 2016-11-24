@@ -1,8 +1,9 @@
 /**
  * Created by Mateusz on 06.11.2016.
+ * 157.158.170.90
  */
 
-export var serverEndpoint = 'http://192.168.1.3:8080';
+export var serverEndpoint = 'http://localhost:8080';
 export var authEndpoint = `${serverEndpoint}/auth`;
 export var ebookEndpoint = `${serverEndpoint}/ebook`;
 export var imageEndpoint = `${serverEndpoint}/image`;

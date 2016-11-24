@@ -7,7 +7,7 @@ import {
   RouterStateSnapshot,
   NavigationExtras
 } from '@angular/router';
-import {tokenNotExpired, JwtHelper} from 'angular2-jwt';
+import {tokenNotExpired} from 'angular2-jwt';
 
 
 @Injectable()
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     }
     let params: NavigationExtras = {
       queryParams: {'showLoginForm': true}
-    }
+    };
     this.router.navigate(['/main'], params);
     return false;
   }

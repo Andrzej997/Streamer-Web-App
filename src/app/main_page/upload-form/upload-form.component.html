@@ -19,7 +19,7 @@
   <table class="table label-low">
     <thead>
     <tr>
-      <th width="50%">Name</th>
+      <th width="40%">Name</th>
       <th>Size</th>
       <th>Progress</th>
       <th>Status</th>
@@ -29,8 +29,8 @@
     <tbody>
     <tr *ngFor="let item of uploader.queue">
       <td><strong>{{ item?.file?.name }}</strong></td>
-      <td *ngIf="uploader.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-      <td *ngIf="uploader.isHTML5">
+      <td *ngIf="uploader?.uploadOptions?.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+      <td *ngIf="uploader?.uploadOptions?.isHTML5">
         <div class="progress" style="margin-bottom: 0;">
           <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
         </div>
@@ -52,6 +52,10 @@
         <button type="button" class="btn btn-danger btn-xs"
                 (click)="item.remove()">
           <span class="glyphicon glyphicon-trash"></span> Remove
+        </button>
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="showMetadataModal(item)" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+          <span class="glyphicon glyphicon-plus"></span> Describe
         </button>
       </td>
     </tr>
@@ -76,5 +80,22 @@
             (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
       <span class="glyphicon glyphicon-trash"></span> Remove all
     </button>
+  </div>
+
+  <div class="modal fade" bsModal #metadataModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="Metadata label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="hideMetadataModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <p class="modal-title">Add metadata</p>
+        </div>
+        <div class="modal-body">
+          <app-file-metadata-form [item]="selectedItem" [visible]="metadataModal.isShown"></app-file-metadata-form>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

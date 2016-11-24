@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
-import {DropdownModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {DropdownModule, ModalModule, TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
 
 import {AuthHttp} from 'angular2-jwt';
@@ -21,11 +21,16 @@ import {AboutViewComponent} from './main_page/about-view/about-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
 import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
 import {MainComponent} from './main_page/main/main.component';
-import {AuthGuard} from "./common/auth.guard";
-import {AuthProvider} from "./common/auth.provider";
+import {AuthGuard} from './common/auth.guard';
+import {AuthProvider} from './common/auth.provider';
 import {ChangePasswordFormComponent} from './main_page/change-password-form/change-password-form.component';
 import {UploadFormComponent} from './main_page/upload-form/upload-form.component';
-import {MediaFileUploader} from "./common/media.file.uploader";
+import {MediaFileUploader} from './common/media.file.uploader';
+import {FileMetadataFormComponent} from './main_page/upload-form/file-metadata-form/file-metadata-form.component';
+import {MusicService} from "./service/music-service/music.service";
+import {VideoService} from "./service/video-service/video.service";
+import {ImageService} from "./service/image-service/image.service";
+import {EbookService} from "./service/ebook-service/ebook.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +45,8 @@ import {MediaFileUploader} from "./common/media.file.uploader";
     SnackBarComponent,
     MainComponent,
     ChangePasswordFormComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    FileMetadataFormComponent
   ],
   imports: [
     BrowserModule,
@@ -49,14 +55,20 @@ import {MediaFileUploader} from "./common/media.file.uploader";
     AppRoutingModule,
     ReactiveFormsModule,
     DropdownModule,
-    FileUploadModule
+    FileUploadModule,
+    ModalModule,
+    TypeaheadModule
   ],
   providers: [
     AuthService,
     {provide: 'Window', useValue: window},
     AuthGuard,
     {provide: AuthHttp, useClass: AuthProvider},
-    MediaFileUploader
+    MediaFileUploader,
+    MusicService,
+    VideoService,
+    ImageService,
+    EbookService
   ],
   bootstrap: [AppComponent]
 })
