@@ -1,31 +1,33 @@
-import {Component, Input, SimpleChanges} from '@angular/core';
-import {FileItem} from 'ng2-file-upload/file-upload/file-item.class';
-import {BaseComponent} from '../../../base-component/base-component';
-import {FileUtils} from '../../../common/file.utils';
-import {UploadSongMetadataDTO} from '../../../model/music/upload.song.metadata.dto';
-import {MusicService} from "../../../service/music-service/music.service";
-import {MusicArtistsDTO} from "../../../model/music/music.artist.dto";
+import {Component, Input, SimpleChanges, Output, EventEmitter} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {FileUtils} from '../../common/file.utils';
+import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {MusicService} from "../../service/music-service/music.service";
+import {MusicArtistsDTO} from "../../model/music/music.artist.dto";
 import {Observable} from 'rxjs';
-import {MusicAlbumDTO} from "../../../model/music/music.album.dto";
-import {MusicGenreDTO} from "../../../model/music/music.genre.dto";
-import {MusicFileMetadataDTO} from "../../../model/music/music.file.metadata.dto";
+import {MusicAlbumDTO} from "../../model/music/music.album.dto";
+import {MusicGenreDTO} from "../../model/music/music.genre.dto";
+import {MetadataFileItem} from "../../common/metadata.file.item";
 
 @Component({
-  selector: 'app-file-metadata-form',
-  templateUrl: './file-metadata-form.component.html',
-  styleUrls: ['./file-metadata-form.component.css']
+  selector: 'app-edit-music-metadata',
+  templateUrl: './edit-music-metadata.component.html',
+  styleUrls: ['./edit-music-metadata.component.css']
 })
-export class FileMetadataFormComponent extends BaseComponent {
+export class EditMusicMetadataComponent extends BaseComponent {
 
-  @Input() item: FileItem;
+  @Input() item: MetadataFileItem;
   private musicMetadata: UploadSongMetadataDTO;
-  @Input() visible: boolean;
+
+  @Output() hide = new EventEmitter<boolean>();
 
   public typeaheadLoading: boolean = false;
 
   private artistsTypeaheadList: Observable<MusicArtistsDTO[]>;
   private albumsTypeaheadList: Observable<MusicAlbumDTO[]>;
   private genresTypeaheadList: Observable<MusicGenreDTO[]>;
+
+  private isAuthorsValid: boolean = true;
 
   constructor(private musicService: MusicService) {
     super();
@@ -36,23 +38,34 @@ export class FileMetadataFormComponent extends BaseComponent {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    let change = changes['visible'];
+    let change = changes['item'];
     let current = change.currentValue;
     let previous = change.previousValue;
-    if (current !== previous && current === true && this.item != null) {
+    if (current !== previous) {
+      this.prepareForm();
       this.prepareMusicMetadata();
     }
   }
 
   private prepareForm(): void {
+    if (this.item == null) {
+      return;
+    }
     this.musicMetadata = new UploadSongMetadataDTO();
   }
 
   private prepareMusicMetadata(): void {
+    let data = this.musicMetadata.song.fileMetadata.fileName;
+    if (data != null) {
+      return;
+    }
     this.musicMetadata.song.fileMetadata.fileName = FileUtils.getFileName(this.item);
     this.musicMetadata.song.fileMetadata.extension = FileUtils.getExtension(this.item);
     this.musicMetadata.song.fileMetadata.fileSize = FileUtils.getFileSize(this.item);
     this.musicMetadata.song.fileMetadata.creationDate = FileUtils.getFileCreationDate(this.item);
+    if (this.musicMetadata.song.fileMetadata.creationDate == null) {
+      this.musicMetadata.song.fileMetadata.creationDate = new Date();
+    }
     this.musicMetadata.song.title = FileUtils.getFileName(this.item);
     this.musicMetadata.song.productionYear = new Date().getFullYear();
   }
@@ -102,6 +115,34 @@ export class FileMetadataFormComponent extends BaseComponent {
 
   private getGenresPredictionList(): Observable<MusicGenreDTO[]> {
     return this.musicService.getGenresPredictionList(this.musicMetadata.song.genre.name);
+  }
+
+  public onSave() {
+    this.musicMetadata.userName = localStorage.getItem('username');
+    this.item.metadata = this.musicMetadata;
+    this.hide.emit(true);
+  }
+
+  public checkAuthorsValidation(): void {
+    if (this.musicMetadata.song.authors == null) {
+      this.isAuthorsValid = true;
+      return;
+    }
+    if (this.musicMetadata.song.authors.length <= 0) {
+      this.isAuthorsValid = true;
+      return;
+    }
+    this.musicMetadata.song.authors.forEach((item: MusicArtistsDTO) => {
+      if (item.name == null || item.name.length <= 0) {
+        this.isAuthorsValid = false;
+        return;
+      }
+      if (item.surname == null || item.surname.length <= 0) {
+        this.isAuthorsValid = false;
+        return;
+      }
+    });
+    this.isAuthorsValid = true;
   }
 
 }

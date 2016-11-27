@@ -1,0 +1,207 @@
+<form style="width: 100%" class="form"
+      role="form" (submit)="onSave()"
+      #metadataForm="ngForm"
+      accept-charset="UTF-8"
+      id="metadataForm">
+  <section>
+    <h2>Song </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpTitle">Title: </label>
+        <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
+               [(ngModel)]="musicMetadata.song.title" name="inpTitle" #inpTitle="ngModel" required>
+      </div>
+      <div class="form-group">
+        <label for="inpYear">Year: </label>
+        <input type="number" class="form-control" id="inpYear" placeholder="Year..."
+               [(ngModel)]="musicMetadata.song.productionYear" name="inpYear" #inpYear="ngModel">
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Artists </h2>
+    <button type="button" class="btn btn-success btn-xs"
+            (click)="onAddMusicAuthor()">
+      <span class="glyphicon glyphicon-plus"></span>
+    </button>
+    <button type="button" class="btn btn-danger btn-xs"
+            (click)="onRemoveMusicAuthor()"
+            [disabled]="musicMetadata.song.authors.length <= 0">
+      <span class="glyphicon glyphicon-minus"></span>
+    </button>
+    <div class="form-group" style="margin-left: 20px;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Second name</th>
+          <th>Surname</th>
+          <th>Birth year</th>
+          <th>Death year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let author of musicMetadata.song.authors; let i = index">
+          <td>
+            <input [(ngModel)]="author.name"
+                   [typeahead]="artistsTypeaheadList"
+                   (typeaheadLoading)="changeTypeaheadLoading($event)"
+                   [typeaheadOptionsLimit]="8"
+                   [typeaheadOptionField]="'_name'"
+                   (input)="onMusicAuthorInput(i)"
+                   placeholder="Name.."
+                   class="form-control"
+                   name="inpAuthorName"
+                   #inpAuthorName="ngModel"
+                   id="inpAuthorName"
+                   (blur)="checkAuthorsValidation()">
+          </td>
+          <td>
+            <input [(ngModel)]="author.name2"
+                   [typeahead]="artistsTypeaheadList"
+                   (typeaheadLoading)="changeTypeaheadLoading($event)"
+                   [typeaheadOptionsLimit]="8"
+                   [typeaheadOptionField]="'_name2'"
+                   (input)="onMusicAuthorInput(i)"
+                   placeholder="Second name.."
+                   class="form-control"
+                   name="inpAuthorName2"
+                   #inpAuthorName2="ngModel"
+                   id="inpAuthorName2"
+                   (blur)="checkAuthorsValidation()">
+          </td>
+          <td>
+            <input [(ngModel)]="author.surname"
+                   [typeahead]="artistsTypeaheadList"
+                   (typeaheadLoading)="changeTypeaheadLoading($event)"
+                   [typeaheadOptionsLimit]="8"
+                   [typeaheadOptionField]="'_surname'"
+                   (input)="onMusicAuthorInput(i)"
+                   placeholder="Surname.."
+                   class="form-control"
+                   name="inpAuthorSurname"
+                   #inpAuthorSurname="ngModel"
+                   id="inpAuthorSurname"
+                   (blur)="checkAuthorsValidation()">
+          </td>
+          <td>
+            <input type="number"
+                   [(ngModel)]="author.birthYear"
+                   [typeahead]="artistsTypeaheadList"
+                   (typeaheadLoading)="changeTypeaheadLoading($event)"
+                   [typeaheadOptionsLimit]="8"
+                   [typeaheadOptionField]="'_birthYear'"
+                   placeholder="Birth"
+                   class="form-control"
+                   name="inpAuthorBirth"
+                   #inpAuthorBirth="ngModel"
+                   id="inpAuthorBirth"
+                   (blur)="checkAuthorsValidation()">
+          </td>
+          <td>
+            <input type="number"
+                   [(ngModel)]="author.deathYear"
+                   [typeahead]="artistsTypeaheadList"
+                   (typeaheadLoading)="changeTypeaheadLoading($event)"
+                   [typeaheadOptionsLimit]="8"
+                   [typeaheadOptionField]="'_deathYear'"
+                   placeholder="Death"
+                   class="form-control"
+                   name="inpAuthorDeath"
+                   #inpAuthorDeath="ngModel"
+                   id="inpAuthorDeath"
+                   (blur)="checkAuthorsValidation()">
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div [hidden]="isAuthorsValid"
+         class="alert alert-danger">
+      There should be at least one author.
+    </div>
+  </section>
+  <section>
+    <h2>Album </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpAlbumTitle">Album title: </label>
+
+        <input type="text" class="form-control"
+               id="inpAlbumTitle"
+               placeholder="Album title..."
+               name="inpAlbumTitle"
+               #inpAlbumTitle="ngModel"
+               [(ngModel)]="musicMetadata.song.album.albumTitle"
+               [typeahead]="albumsTypeaheadList"
+               (typeaheadLoading)="changeTypeaheadLoading($event)"
+               [typeaheadOptionsLimit]="6"
+               [typeaheadOptionField]="'_albumTitle'"
+               (input)="onMusicAlbumInput()">
+      </div>
+      <div class="form-group">
+        <label for="inpAlbumYear">Album year: </label>
+        <input type="number" class="form-control"
+               id="inpAlbumYear"
+               placeholder="Album year..."
+               name="inpAlbumYear"
+               #inpAlbumYear="ngModel"
+               [(ngModel)]="musicMetadata.song.album.albumYear"
+               [typeahead]="albumsTypeaheadList"
+               (typeaheadLoading)="changeTypeaheadLoading($event)"
+               [typeaheadOptionsLimit]="6"
+               [typeaheadOptionField]="'_albumYear'">
+      </div>
+      <div class="form-group">
+        <label for="taComments">Album comments: </label>
+        <textarea class="form-control" id="taComments"
+                  placeholder="Comments..."
+                  [(ngModel)]="musicMetadata.song.album.comments"
+                  name="taComments"
+                  #taComments="ngModel">
+
+        </textarea>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Genre </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpGenre">Genre: </label>
+        <input type="text" class="form-control"
+               id="inpGenre"
+               placeholder="Genre..."
+               [(ngModel)]="musicMetadata.song.genre.name"
+               name="inpGenre"
+               #inpGenre="ngModel"
+               [typeahead]="genresTypeaheadList"
+               (typeaheadLoading)="changeTypeaheadLoading($event)"
+               [typeaheadOptionsLimit]="6"
+               [typeaheadOptionField]="name"
+               (input)="onMusicGenreInput()">
+      </div>
+      <div class="form-group">
+        <label for="inpGenreComments">Comments: </label>
+        <input type="text" class="form-control"
+               id="inpGenreComments"
+               placeholder="Comments..."
+               [(ngModel)]="musicMetadata.song.genre.comments"
+               name="inpGenreComments"
+               #inpGenreComments="ngModel">
+      </div>
+    </div>
+  </section>
+  <div class="form-group">
+    <label>
+      <input type="checkbox" class="form-control" id="inpIsPublic"
+             [(ngModel)]="musicMetadata.song.fileMetadata.isPublic"
+             name="inpIsPublic"
+             #inpIsPublic="ngModel">
+      Set as public
+    </label>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="!metadataForm.form.valid">Save</button>
+  </div>
+</form>

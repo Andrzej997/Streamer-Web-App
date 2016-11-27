@@ -42,7 +42,8 @@
       </td>
       <td nowrap>
         <button type="button" class="btn btn-success btn-xs"
-                (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                (click)="uploader.uploadItem(item)"
+                [disabled]="item.isReady || item.isUploading || item.isSuccess || !item.metadata.isValid()">
           <span class="glyphicon glyphicon-upload"></span> Upload
         </button>
         <button type="button" class="btn btn-warning btn-xs"
@@ -69,7 +70,8 @@
       </div>
     </div>
     <button type="button" class="btn btn-success btn-s"
-            (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+            (click)="uploader.uploadAll()"
+            [disabled]="!uploader.getNotUploadedItems().length || _isAllItemsValid">
       <span class="glyphicon glyphicon-upload"></span> Upload all
     </button>
     <button type="button" class="btn btn-warning btn-s"
@@ -90,10 +92,17 @@
           <button type="button" class="close" aria-label="Close" (click)="hideMetadataModal()">
             <span aria-hidden="true">&times;</span>
           </button>
-          <p class="modal-title">Add metadata</p>
+          <p class="modal-title">Add description</p>
         </div>
         <div class="modal-body">
-          <app-file-metadata-form [item]="selectedItem" [visible]="metadataModal.isShown"></app-file-metadata-form>
+          <app-edit-music-metadata *ngIf="uploader.category == 'M'"
+                                   [item]="selectedItem"
+                                   (hide)="hideMetadataModal()">
+          </app-edit-music-metadata>
+          <app-edit-video-metadata *ngIf="uploader.category == 'V'"
+                                   [item]="selectedItem"
+                                   (hide)="hideMetadataModal()">
+          </app-edit-video-metadata>
         </div>
       </div>
     </div>

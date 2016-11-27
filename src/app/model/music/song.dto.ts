@@ -20,7 +20,7 @@ export class SongDTO {
   private _album: MusicAlbumDTO;
 
   constructor() {
-    this._authors = new Array();
+    this._authors = [];
     this._fileMetadata = new MusicFileMetadataDTO();
     this._genre = new MusicGenreDTO();
     this._album = new MusicAlbumDTO();

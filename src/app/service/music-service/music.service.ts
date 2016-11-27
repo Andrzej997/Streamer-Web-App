@@ -6,6 +6,7 @@ import {MusicArtistsDTO} from "../../model/music/music.artist.dto";
 import {musicEndpoint} from '../../constants';
 import {MusicAlbumDTO} from "../../model/music/music.album.dto";
 import {MusicGenreDTO} from "../../model/music/music.genre.dto";
+import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
 
 @Injectable()
 export class MusicService extends AbstractService {
@@ -27,6 +28,11 @@ export class MusicService extends AbstractService {
   public getGenresPredictionList(genreName: string): Observable<MusicGenreDTO[]> {
     const url = `${musicEndpoint}/noauth/genres/prediction?genreName=${genreName}`;
     return this.performGet(url);
+  }
+
+  public saveMusicFileMetadata(metadata: UploadSongMetadataDTO): Observable<UploadSongMetadataDTO> {
+    const url = `${musicEndpoint}/auth/file/metadata`;
+    return this.performPost(url, JSON.stringify(metadata));
   }
 
 }

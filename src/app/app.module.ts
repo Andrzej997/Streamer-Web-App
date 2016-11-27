@@ -26,11 +26,15 @@ import {AuthProvider} from './common/auth.provider';
 import {ChangePasswordFormComponent} from './main_page/change-password-form/change-password-form.component';
 import {UploadFormComponent} from './main_page/upload-form/upload-form.component';
 import {MediaFileUploader} from './common/media.file.uploader';
-import {FileMetadataFormComponent} from './main_page/upload-form/file-metadata-form/file-metadata-form.component';
 import {MusicService} from "./service/music-service/music.service";
 import {VideoService} from "./service/video-service/video.service";
 import {ImageService} from "./service/image-service/image.service";
 import {EbookService} from "./service/ebook-service/ebook.service";
+import {EditEbookMetadataComponent} from './main_page/edit-ebook-metadata/edit-ebook-metadata.component';
+import {EditImageMetadataComponent} from './main_page/edit-image-metadata/edit-image-metadata.component';
+import {EditMusicMetadataComponent} from './main_page/edit-music-metadata/edit-music-metadata.component';
+import {EditVideoMetadataComponent} from './main_page/edit-video-metadata/edit-video-metadata.component';
+import {MetadataFileItem} from "./common/metadata.file.item";
 
 @NgModule({
   declarations: [
@@ -46,7 +50,10 @@ import {EbookService} from "./service/ebook-service/ebook.service";
     MainComponent,
     ChangePasswordFormComponent,
     UploadFormComponent,
-    FileMetadataFormComponent
+    EditEbookMetadataComponent,
+    EditImageMetadataComponent,
+    EditMusicMetadataComponent,
+    EditVideoMetadataComponent
   ],
   imports: [
     BrowserModule,
@@ -61,14 +68,14 @@ import {EbookService} from "./service/ebook-service/ebook.service";
   ],
   providers: [
     AuthService,
-    {provide: 'Window', useValue: window},
     AuthGuard,
     {provide: AuthHttp, useClass: AuthProvider},
     MediaFileUploader,
     MusicService,
     VideoService,
     ImageService,
-    EbookService
+    EbookService,
+    {provide: 'Window', useValue: window}
   ],
   bootstrap: [AppComponent]
 })
