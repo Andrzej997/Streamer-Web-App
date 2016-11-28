@@ -35,4 +35,9 @@ export class MusicService extends AbstractService {
     return this.performPost(url, JSON.stringify(metadata));
   }
 
+  public streamMusicFile(fileId: number): Observable<string> {
+    const url = `${musicEndpoint}/noauth/download?id=${fileId}`;
+    return this.performGet(url);
+  }
+
 }

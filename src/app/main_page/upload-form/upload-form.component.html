@@ -103,6 +103,14 @@
                                    [item]="selectedItem"
                                    (hide)="hideMetadataModal()">
           </app-edit-video-metadata>
+          <app-edit-image-metadata *ngIf="uploader.category == 'I'"
+                                   [item]="selectedItem"
+                                   (hide)="hideMetadataModal()">
+          </app-edit-image-metadata>
+          <app-edit-ebook-metadata *ngIf="uploader.category == 'E'"
+                                   [item]="selectedItem"
+                                   (hide)="hideMetadataModal()">
+          </app-edit-ebook-metadata>
         </div>
       </div>
     </div>

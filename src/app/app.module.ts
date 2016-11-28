@@ -35,6 +35,7 @@ import {EditImageMetadataComponent} from './main_page/edit-image-metadata/edit-i
 import {EditMusicMetadataComponent} from './main_page/edit-music-metadata/edit-music-metadata.component';
 import {EditVideoMetadataComponent} from './main_page/edit-video-metadata/edit-video-metadata.component';
 import {MetadataFileItem} from "./common/metadata.file.item";
+import {MusicPlayerComponent} from './main_page/music-player/music-player.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MetadataFileItem} from "./common/metadata.file.item";
     EditEbookMetadataComponent,
     EditImageMetadataComponent,
     EditMusicMetadataComponent,
-    EditVideoMetadataComponent
+    EditVideoMetadataComponent,
+    MusicPlayerComponent
   ],
   imports: [
     BrowserModule,

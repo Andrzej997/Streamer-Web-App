@@ -10,6 +10,10 @@ import {Observable} from 'rxjs';
 import {UploadSongMetadataDTO} from '../model/music/upload.song.metadata.dto';
 import {UploadVideoMetadataDTO} from "../model/video/upload.video.metadata.dto";
 import {VideoService} from "../service/video-service/video.service";
+import {ImageService} from "../service/image-service/image.service";
+import {UploadImageMetadataDTO} from "../model/image/upload.image.metadata.dto";
+import {UploadEbookMetadataDTO} from "../model/ebook/upload.ebook.metadata.dto";
+import {EbookService} from "../service/ebook-service/ebook.service";
 
 @Injectable()
 export class MediaFileUploader extends FileUploader implements OnInit {
@@ -29,7 +33,9 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   private _typeFilter: string = 'audio/*';
 
   constructor(private musicService: MusicService,
-              private videoService: VideoService) {
+              private videoService: VideoService,
+              private imageService: ImageService,
+              private ebookService: EbookService) {
     super({});
     this.musicQueue = [];
     this.videoQueue = [];
@@ -115,9 +121,9 @@ export class MediaFileUploader extends FileUploader implements OnInit {
       case 'V':
         return new UploadVideoMetadataDTO();
       case 'I':
-        return null;
+        return new UploadImageMetadataDTO();
       case 'E':
-        return null;
+        return new UploadEbookMetadataDTO();
       default:
         return null;
     }
@@ -134,13 +140,13 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   public onCompleteItem(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
     switch (this.category) {
       case 'M':
-        this.onCompleteItemMusic(item, response, status, headers);
+        return this.onCompleteItemMusic(item, response, status, headers);
       case 'V':
-        this.onCompleteItemVideo(item, response, status, headers);
+        return this.onCompleteItemVideo(item, response, status, headers);
       case 'I':
-        return null;
+        return this.onCompleteItemImage(item, response, status, headers);
       case 'E':
-        return null;
+        return this.onCompleteItemEbook(item, response, status, headers);
     }
   }
 
@@ -166,6 +172,28 @@ export class MediaFileUploader extends FileUploader implements OnInit {
     });
   }
 
+  public onCompleteItemImage(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    let id: number = parseInt(response);
+    (<UploadImageMetadataDTO>item.metadata).imageDTO.imageFileId = id;
+    (<UploadImageMetadataDTO>item.metadata).imageDTO.imageFileDTO.imageFileId = id;
+    this.saveMetadata(item).subscribe((value: UploadImageMetadataDTO) => {
+      if (value == null) {
+        console.log('Error !');
+      }
+    });
+  }
+
+  public onCompleteItemEbook(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
+    let id: number = parseInt(response);
+    (<UploadEbookMetadataDTO>item.metadata).ebookDTO.ebookFileId = id;
+    (<UploadEbookMetadataDTO>item.metadata).ebookDTO.ebookFileMetadataDTO.ebookFileId = id;
+    this.saveMetadata(item).subscribe((value: UploadEbookMetadataDTO) => {
+      if (value == null) {
+        console.log('Error !');
+      }
+    });
+  }
+
   public checkValidation(): boolean {
     if (this.queue.length > 0) {
       this.queue.forEach((item: MetadataFileItem) => {
@@ -184,9 +212,9 @@ export class MediaFileUploader extends FileUploader implements OnInit {
       case 'V':
         return this.videoService.saveVideoFileMetadata(<UploadVideoMetadataDTO>file.metadata);
       case 'I':
-        return null;
+        return this.imageService.saveImageFileMetadata(<UploadImageMetadataDTO>file.metadata);
       case 'E':
-        return null;
+        return this.ebookService.saveEbookFileMetadata(<UploadEbookMetadataDTO>file.metadata);
     }
   }
 

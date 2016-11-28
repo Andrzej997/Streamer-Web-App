@@ -53,9 +53,9 @@ export abstract class AbstractService {
   }
 
   protected extractData(res: Response) {
-    let body = res.json();
+    let body: Blob = new Blob([res], {type: 'audio/mp3'});
     console.log(body);
-    return body.data || body;
+    return body;
   }
 
   protected handleError(error: Response | any) {
