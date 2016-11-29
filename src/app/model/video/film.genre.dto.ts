@@ -1,8 +1,8 @@
 export class FilmGenreDTO {
 
-  private _filmGenreId: number;
-  private _name: string;
-  private _comments: string;
+  public _filmGenreId: number;
+  public _name: string;
+  public _comments: string;
 
   constructor() {
 

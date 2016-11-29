@@ -1,8 +1,8 @@
 export class ImageTypeDTO {
 
-  private _typeId: number;
-  private _name: string;
-  private _comments: string;
+  public _typeId: number;
+  public _name: string;
+  public _comments: string;
 
   constructor() {
 

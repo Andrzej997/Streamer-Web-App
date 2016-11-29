@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import {MusicAlbumDTO} from "../../model/music/music.album.dto";
 import {MusicGenreDTO} from "../../model/music/music.genre.dto";
 import {MetadataFileItem} from "../../common/metadata.file.item";
+import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
 
 @Component({
   selector: 'app-edit-music-metadata',
@@ -51,12 +52,16 @@ export class EditMusicMetadataComponent extends BaseComponent {
     if (this.item == null) {
       return;
     }
+    if (this.item.metadata != null && this.item.metadata.isValid()) {
+      this.musicMetadata = <UploadSongMetadataDTO>this.item.metadata;
+      return;
+    }
     this.musicMetadata = new UploadSongMetadataDTO();
   }
 
   private prepareMusicMetadata(): void {
-    let data = this.musicMetadata.song.fileMetadata.fileName;
-    if (data != null) {
+    let isValid: boolean = this.musicMetadata.isValid();
+    if (isValid) {
       return;
     }
     this.musicMetadata.song.fileMetadata.fileName = FileUtils.getFileName(this.item);
@@ -81,6 +86,9 @@ export class EditMusicMetadataComponent extends BaseComponent {
 
   public onRemoveMusicAuthor(): void {
     this.musicMetadata.song.authors.pop();
+    if (this.musicMetadata.song.authors.length <= 0) {
+      this.isAuthorsValid = true;
+    }
   }
 
   public onMusicAuthorInput(index: number): void {
@@ -132,17 +140,30 @@ export class EditMusicMetadataComponent extends BaseComponent {
       this.isAuthorsValid = true;
       return;
     }
+    let itemIsValid: boolean = true;
     this.musicMetadata.song.authors.forEach((item: MusicArtistsDTO) => {
-      if (item.name == null || item.name.length <= 0) {
-        this.isAuthorsValid = false;
+      if (item._name == null || item._name.length <= 0) {
+        itemIsValid = false;
         return;
       }
-      if (item.surname == null || item.surname.length <= 0) {
-        this.isAuthorsValid = false;
+      if (item._surname == null || item._surname.length <= 0) {
+        itemIsValid = false;
         return;
       }
     });
-    this.isAuthorsValid = true;
+    this.isAuthorsValid = itemIsValid;
   }
 
+  public onTypeaheadAuthorSelect(match: TypeaheadMatch, index: number): void {
+    this.musicMetadata.song.authors[index] = <MusicArtistsDTO>match.item;
+    this.checkAuthorsValidation();
+  }
+
+  public onTypeaheadAlbumSelect(match: TypeaheadMatch): void {
+    this.musicMetadata.song._album = <MusicAlbumDTO>match.item;
+  }
+
+  public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
+    this.musicMetadata.song._genre = <MusicGenreDTO>match.item;
+  }
 }

@@ -1,9 +1,9 @@
 export class MusicAlbumDTO {
 
-  private _albumId: number;
-  private _albumTitle: string;
-  private _albumYear: number;
-  private _comments: string;
+  public _albumId: number;
+  public _albumTitle: string;
+  public _albumYear: number;
+  public _comments: string;
 
 
   constructor() {

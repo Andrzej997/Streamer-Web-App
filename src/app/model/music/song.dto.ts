@@ -5,19 +5,19 @@ import {MusicAlbumDTO} from './music.album.dto';
 
 export class SongDTO {
 
-  private _songId: number;
-  private _title: string;
-  private _fileId: number;
-  private _authorId: number;
-  private _albumId: number;
-  private _musicGenreId: number;
-  private _rating: number;
-  private _productionYear: number;
-  private _ownerId: number;
-  private _authors: MusicArtistsDTO[];
-  private _fileMetadata: MusicFileMetadataDTO;
-  private _genre: MusicGenreDTO;
-  private _album: MusicAlbumDTO;
+  public _songId: number;
+  public _title: string;
+  public _fileId: number;
+  public _ratingTimes: number;
+  public _albumId: number;
+  public _musicGenreId: number;
+  public _rating: number;
+  public _productionYear: number;
+  public _ownerId: number;
+  public _authors: MusicArtistsDTO[];
+  public _fileMetadata: MusicFileMetadataDTO;
+  public _genre: MusicGenreDTO;
+  public _album: MusicAlbumDTO;
 
   constructor() {
     this._authors = [];
@@ -50,12 +50,12 @@ export class SongDTO {
     this._fileId = value;
   }
 
-  get authorId(): number {
-    return this._authorId;
+  get ratingTimes(): number {
+    return this._ratingTimes;
   }
 
-  set authorId(value: number) {
-    this._authorId = value;
+  set ratingTimes(value: number) {
+    this._ratingTimes = value;
   }
 
   get albumId(): number {

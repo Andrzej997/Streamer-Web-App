@@ -1,10 +1,10 @@
 export class VideoSerieDTO {
 
-  private _videoSerieId: number;
-  private _title: string;
-  private _number: number;
-  private _comments: string;
-  private _year: Date;
+  public _videoSerieId: number;
+  public _title: string;
+  public _number: number;
+  public _comments: string;
+  public _year: Date;
 
   constructor() {
   }

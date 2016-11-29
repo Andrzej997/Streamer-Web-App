@@ -11,6 +11,10 @@
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
                [(ngModel)]="videoMetadata.video.title" name="inpTitle" #inpTitle="ngModel" required>
       </div>
+      <div [hidden]="inpTitle.valid || inpTitle.prisitne"
+           class="alert alert-danger">
+        Title can't be empty
+      </div>
       <div class="form-group">
         <label for="inpYear">Year: </label>
         <input type="number" class="form-control" id="inpYear" placeholder="Year..."
@@ -43,12 +47,16 @@
         <tbody>
         <tr *ngFor="let author of videoMetadata.video.directorList; let i = index">
           <td>
-            <input [(ngModel)]="author.name"
+            <input [(ngModel)]="author._name"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_name"
+                   [typeaheadOptionField]="'_name'"
                    (input)="onDirectorsInput(i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadDirectorSelect($event, i)"
                    placeholder="Name.."
                    class="form-control"
                    name="inpAuthorName"
@@ -57,12 +65,16 @@
                    (blur)="checkAuthorsValidation()">
           </td>
           <td>
-            <input [(ngModel)]="author.name2"
+            <input [(ngModel)]="author._name2"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_name2"
+                   [typeaheadOptionField]="'_name2'"
                    (input)="onDirectorsInput(i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadDirectorSelect($event, i)"
                    placeholder="Second name.."
                    class="form-control"
                    name="inpAuthorName2"
@@ -71,12 +83,16 @@
                    (blur)="checkAuthorsValidation()">
           </td>
           <td>
-            <input [(ngModel)]="author.surname"
+            <input [(ngModel)]="author._surname"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_surname"
+                   [typeaheadOptionField]="'_surname'"
                    (input)="onDirectorsInput(i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadDirectorSelect($event, i)"
                    placeholder="Surname.."
                    class="form-control"
                    name="inpAuthorSurname"
@@ -86,11 +102,15 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author.birthYear"
+                   [(ngModel)]="author._birthYear"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_birthYear"
+                   [typeaheadOptionField]="'_birthYear'"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadDirectorSelect($event, i)"
                    placeholder="Birth"
                    class="form-control"
                    name="inpAuthorBirth"
@@ -100,11 +120,15 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author.deathYear"
+                   [(ngModel)]="author._deathYear"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_deathYear"
+                   [typeaheadOptionField]="'_deathYear'"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadDirectorSelect($event, i)"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeath"
@@ -118,7 +142,7 @@
     </div>
     <div [hidden]="isDirectorsValid"
          class="alert alert-danger">
-      There should be at least one director.
+      Director name or surname cannot be empty
     </div>
   </section>
   <section>
@@ -132,11 +156,15 @@
                placeholder="Serie title..."
                name="inpSerieTitle"
                #inpSerieTitle="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie.title"
+               [(ngModel)]="videoMetadata.video.videoSerie._title"
                [typeahead]="videoSeriesTypeahedList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadOptionsLimit]="6"
-               [typeaheadOptionField]="_title"
+               [typeaheadOptionField]="'_title'"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
+               (typeaheadOnSelect)="onTypeaheadSerieSelect($event)"
                (input)="onVideoSeriesInput()">
       </div>
       <div class="form-group">
@@ -146,11 +174,12 @@
                placeholder="Serie number..."
                name="inpSerieNumber"
                #inpSerieNumber="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie.number"
+               [(ngModel)]="videoMetadata.video.videoSerie._number"
                [typeahead]="videoSeriesTypeahedList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadOptionsLimit]="6"
-               [typeaheadOptionField]="_number">
+               (typeaheadOnSelect)="onTypeaheadSerieSelect($event)"
+               [typeaheadOptionField]="'_number'">
       </div>
       <div class="form-group">
         <label for="inpSerieYear">Serie year: </label>
@@ -159,17 +188,21 @@
                placeholder="Serie year..."
                name="inpSerieYear"
                #inpSerieYear="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie.year"
+               [(ngModel)]="videoMetadata.video.videoSerie._year"
                [typeahead]="videoSeriesTypeahedList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
                [typeaheadOptionsLimit]="6"
-               [typeaheadOptionField]="_year">
+               (typeaheadOnSelect)="onTypeaheadSerieSelect($event)"
+               [typeaheadOptionField]="'_year'">
       </div>
       <div class="form-group">
         <label for="taSerieComments">Serie comments: </label>
         <textarea class="form-control" id="taSerieComments"
                   placeholder="Comments..."
-                  [(ngModel)]="videoMetadata.video.videoSerie.comments"
+                  [(ngModel)]="videoMetadata.video.videoSerie._comments"
                   name="taSerieComments"
                   #taSerieComments="ngModel">
 
@@ -185,13 +218,17 @@
         <input type="text" class="form-control"
                id="inpGenre"
                placeholder="Genre..."
-               [(ngModel)]="videoMetadata.video.filmGenre.name"
+               [(ngModel)]="videoMetadata.video.filmGenre._name"
                name="inpGenre"
                #inpGenre="ngModel"
                [typeahead]="filmGenresTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadOptionsLimit]="6"
-               [typeaheadOptionField]="name"
+               [typeaheadOptionField]="'_name'"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
+               (typeaheadOnSelect)="onTypeaheadGenreSelect($event)"
                (input)="onFilmGenreInput()">
       </div>
       <div class="form-group">
@@ -199,7 +236,7 @@
         <input type="text" class="form-control"
                id="inpGenreComments"
                placeholder="Comments..."
-               [(ngModel)]="videoMetadata.video.filmGenre.comments"
+               [(ngModel)]="videoMetadata.video.filmGenre._comments"
                name="inpGenreComments"
                #inpGenreComments="ngModel">
       </div>
@@ -208,13 +245,20 @@
   <div class="form-group" style="margin-left: 20px;">
     <label>
       <input type="checkbox" id="inpIsPublic"
-             [(ngModel)]="videoMetadata.video.videoFileMetadata.isPublic"
+             [(ngModel)]="videoMetadata.video.videoFileMetadata._isPublic"
              name="inpIsPublic"
              #inpIsPublic="ngModel">
       Set as public
     </label>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="!metadataForm.form.valid">Save</button>
+    <button type="submit" class="btn btn-primary btn-block"
+            [disabled]="!metadataForm.form.valid || videoMetadata.video.directorList.length <= 0 || !isDirectorsValid">
+      Save
+    </button>
+    <div [hidden]="videoMetadata.video.directorList.length > 0"
+         class="alert alert-danger">
+      There should be at least one director.
+    </div>
   </div>
 </form>

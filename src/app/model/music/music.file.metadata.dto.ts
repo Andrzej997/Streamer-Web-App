@@ -1,11 +1,11 @@
 export class MusicFileMetadataDTO {
 
-  private _musicFileId: number;
-  private _fileName: string;
-  private _fileSize: number;
-  private _extension: string;
-  private _creationDate: Date;
-  private _isPublic: boolean;
+  public _musicFileId: number;
+  public _fileName: string;
+  public _fileSize: number;
+  public _extension: string;
+  public _creationDate: Date;
+  public _isPublic: boolean;
 
   constructor() {
   }

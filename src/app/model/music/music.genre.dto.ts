@@ -1,8 +1,8 @@
 export class MusicGenreDTO {
 
-  private _musicGenreId: number;
-  private _name: string;
-  private _comments: string;
+  public _musicGenreId: number;
+  public _name: string;
+  public _comments: string;
 
   constructor() {
   }

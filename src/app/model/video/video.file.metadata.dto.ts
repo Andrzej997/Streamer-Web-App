@@ -1,11 +1,11 @@
 export class VideoFileMetadataDTO {
 
-  private _videoFileId: number;
-  private _fileName: string;
-  private _fileSize: number;
-  private _extension: string;
-  private _creationDate: Date;
-  private _isPublic: boolean;
+  public _videoFileId: number;
+  public _fileName: string;
+  public _fileSize: number;
+  public _extension: string;
+  public _creationDate: Date;
+  public _isPublic: boolean;
 
   constructor() {
 

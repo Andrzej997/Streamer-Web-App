@@ -1,12 +1,12 @@
 export class WriterDTO {
-  private _writerId: number;
-  private _name: string;
-  private _name2: string;
-  private _surname: string;
-  private _birthDate: Date;
-  private _deathDate: Date;
-  private _comments: string;
-  private _ratings: number;
+  public _writerId: number;
+  public _name: string;
+  public _name2: string;
+  public _surname: string;
+  public _birthDate: Date;
+  public _deathDate: Date;
+  public _comments: string;
+  public _ratings: number;
 
 
   constructor() {

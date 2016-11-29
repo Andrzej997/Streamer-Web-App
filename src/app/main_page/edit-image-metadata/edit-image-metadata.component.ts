@@ -7,6 +7,7 @@ import {Observable} from 'rxjs';
 import {ImageTypeDTO} from "../../model/image/image.type.dto";
 import {ImageService} from "../../service/image-service/image.service";
 import {FileUtils} from "../../common/file.utils";
+import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
 
 @Component({
   selector: 'app-edit-image-metadata',
@@ -48,12 +49,16 @@ export class EditImageMetadataComponent extends BaseComponent {
     if (this.item == null) {
       return;
     }
+    if (this.item.metadata != null && this.item.metadata.isValid()) {
+      this.imageMetadata = <UploadImageMetadataDTO>this.item.metadata;
+      return;
+    }
     this.imageMetadata = new UploadImageMetadataDTO();
   }
 
   public prepareMusicMetadata() {
-    let data = this.imageMetadata.imageDTO.imageFileDTO.fileName;
-    if (data != null) {
+    let isValid: boolean = this.imageMetadata.isValid();
+    if (isValid) {
       return;
     }
     this.imageMetadata.imageDTO.imageFileDTO.fileName = FileUtils.getFileName(this.item);
@@ -84,6 +89,9 @@ export class EditImageMetadataComponent extends BaseComponent {
 
   public onRemoveArtist(): void {
     this.imageMetadata.imageDTO.artistDTOList.pop();
+    if (this.imageMetadata.imageDTO.artistDTOList.length <= 0) {
+      this.isArtistsValid = true;
+    }
   }
 
   public onArtistInput(index: number): void {
@@ -118,17 +126,27 @@ export class EditImageMetadataComponent extends BaseComponent {
       this.isArtistsValid = true;
       return;
     }
+    let isItemValid: boolean = true;
     this.imageMetadata.imageDTO.artistDTOList.forEach((item: ArtistDTO) => {
-      if (item.name == null || item.name.length <= 0) {
-        this.isArtistsValid = false;
+      if (item._name == null || item._name.length <= 0) {
+        isItemValid = false;
         return;
       }
-      if (item.surname == null || item.surname.length <= 0) {
-        this.isArtistsValid = false;
+      if (item._surname == null || item._surname.length <= 0) {
+        isItemValid = false;
         return;
       }
     });
-    this.isArtistsValid = true;
+    this.isArtistsValid = isItemValid;
+  }
+
+  public onTypeaheadArtistSelect(match: TypeaheadMatch, index: number): void {
+    this.imageMetadata.imageDTO.artistDTOList[index] = <ArtistDTO> match.item;
+    this.checkArtistsValidation();
+  }
+
+  public onTypeaheadTypeSelect(match: TypeaheadMatch): void {
+    this.imageMetadata.imageDTO.imageTypeDTO = <ImageTypeDTO> match.item;
   }
 
 }

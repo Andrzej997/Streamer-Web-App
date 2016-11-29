@@ -3,25 +3,41 @@ import {FileMetadata} from "../abstract/file.metadata";
 
 export class UploadSongMetadataDTO implements FileMetadata {
 
-  private _song: SongDTO;
+  public _song: SongDTO;
 
-  private _userName: string;
+  public _userName: string;
 
   constructor() {
     this._song = new SongDTO();
   }
 
   public isValid(): boolean {
-    if (this._userName == null || this.song.title == null)
+    if (this._userName == null || this._song._title == null)
       return false;
-    if (this.song.title.length <= 0)
+    if (!this.validateFileMetadata())
       return false;
-    if (this.song.authors == null || this.song.authors.length <= 0)
+    if (this._song._title.length <= 0)
       return false;
-    if (this.song.authors[0].name == null || this.song.authors[0].surname == null)
+    if (this._song._authors == null || this._song._authors.length <= 0)
       return false;
-    if (this.song.authors[0].name.length <= 0 || this.song.authors[0].surname.length <= 0)
+    if (this._song._authors[0]._name == null || this._song._authors[0]._surname == null)
       return false;
+    return !(this._song._authors[0]._name.length <= 0 || this._song._authors[0]._surname.length <= 0);
+  }
+
+  private validateFileMetadata(): boolean {
+    if (this._song._fileMetadata._creationDate == null) {
+      return false;
+    }
+    if (this._song._fileMetadata._extension == null) {
+      return false;
+    }
+    if (this._song._fileMetadata._fileName == null) {
+      return false;
+    }
+    if (this._song._fileMetadata._fileSize == null) {
+      return false;
+    }
     return true;
   }
 

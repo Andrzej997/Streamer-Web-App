@@ -5,19 +5,19 @@ import {VideoSerieDTO} from "./video.serie.dto";
 
 export class VideoDTO {
 
-  private _videoId: number;
-  private _videoFileId: number;
-  private _title: string;
-  private _directorId: number;
-  private _filmGenreId: number;
-  private _videoSerieId: number;
-  private _rating: number;
-  private _productionYear: number;
-  private _ownerId: number;
-  private _directorList: DirectorDTO[];
-  private _videoFileMetadata: VideoFileMetadataDTO;
-  private _filmGenre: FilmGenreDTO;
-  private _videoSerie: VideoSerieDTO;
+  public _videoId: number;
+  public _videoFileId: number;
+  public _title: string;
+  public _ratingTimes: number;
+  public _filmGenreId: number;
+  public _videoSerieId: number;
+  public _rating: number;
+  public _productionYear: number;
+  public _ownerId: number;
+  public _directorList: DirectorDTO[];
+  public _videoFileMetadata: VideoFileMetadataDTO;
+  public _filmGenre: FilmGenreDTO;
+  public _videoSerie: VideoSerieDTO;
 
   constructor() {
     this._directorList = [];
@@ -50,12 +50,12 @@ export class VideoDTO {
     this._title = value;
   }
 
-  get directorId(): number {
-    return this._directorId;
+  get ratingTimes(): number {
+    return this._ratingTimes;
   }
 
-  set directorId(value: number) {
-    this._directorId = value;
+  set ratingTimes(value: number) {
+    this._ratingTimes = value;
   }
 
   get filmGenreId(): number {

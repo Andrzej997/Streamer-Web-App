@@ -1,11 +1,11 @@
 export class ImageFileDTO {
 
-  private _imageFileId: number;
-  private _fileName: string;
-  private _fileSize: number;
-  private _fileExtension: string;
-  private _creationDate: Date;
-  private _isPublic: boolean;
+  public _imageFileId: number;
+  public _fileName: string;
+  public _fileSize: number;
+  public _fileExtension: string;
+  public _creationDate: Date;
+  public _isPublic: boolean;
 
   constructor() {
 

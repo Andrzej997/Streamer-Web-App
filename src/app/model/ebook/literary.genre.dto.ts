@@ -1,7 +1,7 @@
 export class LiteraryGenreDTO {
-  private _genreId: number;
-  private _name: string;
-  private _comments: number;
+  public _genreId: number;
+  public _name: string;
+  public _comments: number;
 
 
   constructor() {

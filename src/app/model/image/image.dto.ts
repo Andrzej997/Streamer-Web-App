@@ -4,21 +4,22 @@ import {ImageTypeDTO} from "./image.type.dto";
 
 export class ImageDTO {
 
-  private _imageId: number;
-  private _title: string;
-  private _imageFileId: number;
-  private _nativeWidth: number;
-  private _nativeHeight: number;
-  private _resolution: number;
-  private _depth: number;
-  private _comments: number;
-  private _rating: number;
-  private _typeId: number;
-  private _year: number;
-  private _ownerId: number;
-  private _artistDTOList: ArtistDTO[];
-  private _imageFileDTO: ImageFileDTO;
-  private _imageTypeDTO: ImageTypeDTO;
+  public _imageId: number;
+  public _title: string;
+  public _imageFileId: number;
+  public _nativeWidth: number;
+  public _nativeHeight: number;
+  public _resolution: number;
+  public _depth: number;
+  public _comments: number;
+  public _rating: number;
+  public _typeId: number;
+  public _year: number;
+  public _ownerId: number;
+  public _ratingTimes: number;
+  public _artistDTOList: ArtistDTO[];
+  public _imageFileDTO: ImageFileDTO;
+  public _imageTypeDTO: ImageTypeDTO;
 
   constructor() {
     this._artistDTOList = [];
@@ -121,6 +122,14 @@ export class ImageDTO {
 
   set ownerId(value: number) {
     this._ownerId = value;
+  }
+
+  get ratingTimes(): number {
+    return this._ratingTimes;
+  }
+
+  set ratingTimes(value: number) {
+    this._ratingTimes = value;
   }
 
   get artistDTOList(): ArtistDTO[] {

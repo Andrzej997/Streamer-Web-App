@@ -11,6 +11,10 @@
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
                [(ngModel)]="ebookMetadata.ebookDTO.title" name="inpTitle" #inpTitle="ngModel" required>
       </div>
+      <div [hidden]="inpTitle.valid || inpTitle.prisitne"
+           class="alert alert-danger">
+        Title can't be empty
+      </div>
       <div class="form-group">
         <label for="inpYear">Year: </label>
         <input type="number" class="form-control" id="inpYear" placeholder="Year..."
@@ -43,11 +47,15 @@
         <tbody>
         <tr *ngFor="let author of ebookMetadata.ebookDTO.writerDTOList; let i = index">
           <td>
-            <input [(ngModel)]="author.name"
+            <input [(ngModel)]="author._name"
                    [typeahead]="writersTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_name"
+                   [typeaheadOptionField]="'_name'"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadWriterSelect($event, i)"
                    (input)="onWritersInput(i)"
                    placeholder="Name.."
                    class="form-control"
@@ -57,11 +65,15 @@
                    (blur)="checkWritersValidation()">
           </td>
           <td>
-            <input [(ngModel)]="author.name2"
+            <input [(ngModel)]="author._name2"
                    [typeahead]="writersTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_name2"
+                   [typeaheadOptionField]="'_name2'"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadWriterSelect($event, i)"
                    (input)="onWritersInput(i)"
                    placeholder="Second name.."
                    class="form-control"
@@ -71,11 +83,15 @@
                    (blur)="checkWritersValidation()">
           </td>
           <td>
-            <input [(ngModel)]="author.surname"
+            <input [(ngModel)]="author._surname"
                    [typeahead]="writersTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_surname"
+                   [typeaheadOptionField]="'_surname'"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
+                   (typeaheadOnSelect)="onTypeaheadWriterSelect($event, i)"
                    (input)="onWritersInput(i)"
                    placeholder="Surname.."
                    class="form-control"
@@ -86,11 +102,12 @@
           </td>
           <td>
             <input type="date"
-                   [(ngModel)]="author.birthYear"
+                   [(ngModel)]="author._birthYear"
                    [typeahead]="writersTypeaheadList"
                    (typeaheadLoading)="onWritersInput($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_birthYear"
+                   [typeaheadOptionField]="'_birthYear'"
+                   (typeaheadOnSelect)="onTypeaheadWriterSelect($event, i)"
                    placeholder="Birth"
                    class="form-control"
                    name="inpAuthorBirth"
@@ -100,11 +117,15 @@
           </td>
           <td>
             <input type="date"
-                   [(ngModel)]="author.deathYear"
+                   [(ngModel)]="author._deathYear"
                    [typeahead]="writersTypeaheadList"
                    (typeaheadLoading)="onWritersInput($event)"
                    [typeaheadOptionsLimit]="8"
-                   [typeaheadOptionField]="_deathYear"
+                   [typeaheadOptionField]="'_deathYear'"
+                   (typeaheadOnSelect)="onTypeaheadWriterSelect($event, i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeath"
@@ -118,7 +139,7 @@
     </div>
     <div [hidden]="isArtistsValid"
          class="alert alert-danger">
-      There should be at least one writer.
+      Writer name or surname cannot be empty
     </div>
   </section>
   <section>
@@ -129,13 +150,17 @@
         <input type="text" class="form-control"
                id="inpGenre"
                placeholder="Genre..."
-               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO.name"
+               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO._name"
                name="inpGenre"
                #inpGenre="ngModel"
                [typeahead]="literaryGenresTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadOptionsLimit]="6"
-               [typeaheadOptionField]="name"
+               [typeaheadOptionField]="'_name'"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
+               (typeaheadOnSelect)="onTypeaheadGenreSelect($event)"
                (input)="onLiteraryTypeInput()">
       </div>
       <div class="form-group">
@@ -143,7 +168,7 @@
         <input type="text" class="form-control"
                id="inpGenreComments"
                placeholder="Comments..."
-               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO.comments"
+               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO._comments"
                name="inpGenreComments"
                #inpGenreComments="ngModel">
       </div>
@@ -152,13 +177,20 @@
   <div class="form-group">
     <label>
       <input type="checkbox" id="inpIsPublic"
-             [(ngModel)]="ebookMetadata.ebookDTO.ebookFileMetadataDTO.isPublic"
+             [(ngModel)]="ebookMetadata.ebookDTO.ebookFileMetadataDTO._isPublic"
              name="inpIsPublic"
              #inpIsPublic="ngModel">
       Set as public
     </label>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="!metadataForm.form.valid">Save</button>
+    <button type="submit" class="btn btn-primary btn-block"
+            [disabled]="!metadataForm.form.valid || ebookMetadata.ebookDTO.writerDTOList.length <= 0 || !isWritersValid">
+      Save
+    </button>
+    <div [hidden]="ebookMetadata.ebookDTO.writerDTOList.length > 0"
+         class="alert alert-danger">
+      There should be at least one writer.
+    </div>
   </div>
 </form>

@@ -7,6 +7,7 @@ import {LiteraryGenreDTO} from "../../model/ebook/literary.genre.dto";
 import {EbookService} from "../../service/ebook-service/ebook.service";
 import {FileUtils} from "../../common/file.utils";
 import {Observable} from 'rxjs';
+import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
 
 @Component({
   selector: 'app-edit-ebook-metadata',
@@ -48,12 +49,16 @@ export class EditEbookMetadataComponent extends BaseComponent {
     if (this.item == null) {
       return;
     }
+    if (this.item.metadata != null && this.item.metadata.isValid()) {
+      this.ebookMetadata = <UploadEbookMetadataDTO>this.item.metadata;
+      return;
+    }
     this.ebookMetadata = new UploadEbookMetadataDTO();
   }
 
   public prepareMusicMetadata() {
-    let data = this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.fileName;
-    if (data != null) {
+    let isValid = this.ebookMetadata.isValid();
+    if (isValid) {
       return;
     }
     this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.fileName = FileUtils.getFileName(this.item);
@@ -84,6 +89,9 @@ export class EditEbookMetadataComponent extends BaseComponent {
 
   public onRemoveWriter(): void {
     this.ebookMetadata.ebookDTO.writerDTOList.pop();
+    if (this.ebookMetadata.ebookDTO.writerDTOList.length <= 0) {
+      this.isWritersValid = true;
+    }
   }
 
   public onWritersInput(index: number): void {
@@ -118,17 +126,27 @@ export class EditEbookMetadataComponent extends BaseComponent {
       this.isWritersValid = true;
       return;
     }
+    let isItemValid: boolean = true;
     this.ebookMetadata.ebookDTO.writerDTOList.forEach((item: WriterDTO) => {
-      if (item.name == null || item.name.length <= 0) {
-        this.isWritersValid = false;
+      if (item._name == null || item._name.length <= 0) {
+        isItemValid = false;
         return;
       }
-      if (item.surname == null || item.surname.length <= 0) {
-        this.isWritersValid = false;
+      if (item._surname == null || item._surname.length <= 0) {
+        isItemValid = false;
         return;
       }
     });
-    this.isWritersValid = true;
+    this.isWritersValid = isItemValid;
+  }
+
+  public onTypeaheadWriterSelect(match: TypeaheadMatch, index: number): void {
+    this.ebookMetadata.ebookDTO.writerDTOList[index] = <WriterDTO> match.item;
+    this.checkWritersValidation();
+  }
+
+  public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
+    this.ebookMetadata.ebookDTO.literaryGenreDTO = <LiteraryGenreDTO> match.item;
   }
 
 }

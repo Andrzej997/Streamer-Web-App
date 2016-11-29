@@ -195,14 +195,16 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   }
 
   public checkValidation(): boolean {
+    let itemIsValid: boolean = true;
     if (this.queue.length > 0) {
       this.queue.forEach((item: MetadataFileItem) => {
         if (!item.metadata.isValid()) {
-          return false;
+          itemIsValid = false;
+          return;
         }
       });
     }
-    return true;
+    return itemIsValid;
   }
 
   public saveMetadata(file: MetadataFileItem): Observable<FileMetadata> {

@@ -1,13 +1,13 @@
 export class MusicArtistsDTO {
 
-  private _authorId: number;
-  private _name: string;
-  private _name2: string;
-  private _surname: string;
-  private _birthYear: number;
-  private _deathYear: number;
-  private _comments: string;
-  private _ratings: number;
+  public _authorId: number;
+  public _name: string;
+  public _name2: string;
+  public _surname: string;
+  public _birthYear: number;
+  public _deathYear: number;
+  public _comments: string;
+  public _ratings: number;
 
 
   get authorId(): number {

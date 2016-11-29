@@ -4,19 +4,19 @@ import {WriterDTO} from "./writer.dto";
 
 export class EbookDTO {
 
-  private _ebookId: number;
-  private _title: string;
-  private _numOfPages: number;
-  private _year: number;
-  private _rating: number;
-  private _genreId: number;
-  private _comments: string;
-  private _authorId: number;
-  private _ownerId: number;
-  private _ebookFileId: number;
-  private _literaryGenreDTO: LiteraryGenreDTO;
-  private _ebookFileMetadataDTO: EbookFileMetadataDTO;
-  private _writerDTOList: WriterDTO[];
+  public _ebookId: number;
+  public _title: string;
+  public _numOfPages: number;
+  public _year: number;
+  public _rating: number;
+  public _genreId: number;
+  public _comments: string;
+  public _ratingTimes: number;
+  public _ownerId: number;
+  public _ebookFileId: number;
+  public _literaryGenreDTO: LiteraryGenreDTO;
+  public _ebookFileMetadataDTO: EbookFileMetadataDTO;
+  public _writerDTOList: WriterDTO[];
 
   constructor() {
     this._writerDTOList = [];
@@ -80,12 +80,12 @@ export class EbookDTO {
     this._comments = value;
   }
 
-  get authorId(): number {
-    return this._authorId;
+  get ratingTimes(): number {
+    return this._ratingTimes;
   }
 
-  set authorId(value: number) {
-    this._authorId = value;
+  set ratingTimes(value: number) {
+    this._ratingTimes = value;
   }
 
   get ownerId(): number {

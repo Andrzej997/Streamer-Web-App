@@ -11,6 +11,10 @@
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
                [(ngModel)]="musicMetadata.song.title" name="inpTitle" #inpTitle="ngModel" required>
       </div>
+      <div [hidden]="inpTitle.valid || inpTitle.prisitne"
+           class="alert alert-danger">
+        Title can't be empty
+      </div>
       <div class="form-group">
         <label for="inpYear">Year: </label>
         <input type="number" class="form-control" id="inpYear" placeholder="Year..."
@@ -41,14 +45,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let author of musicMetadata.song.authors; let i = index">
+        <tr id="test" *ngFor="let author of musicMetadata.song.authors; let i = index">
           <td>
-            <input [(ngModel)]="author.name"
+            <input [(ngModel)]="author._name"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
                    [typeaheadOptionField]="'_name'"
                    (input)="onMusicAuthorInput(i)"
+                   (typeaheadOnSelect)="onTypeaheadAuthorSelect($event, i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
                    placeholder="Name.."
                    class="form-control"
                    name="inpAuthorName"
@@ -57,12 +65,16 @@
                    (blur)="checkAuthorsValidation()">
           </td>
           <td>
-            <input [(ngModel)]="author.name2"
+            <input [(ngModel)]="author._name2"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
                    [typeaheadOptionField]="'_name2'"
+                   (typeaheadOnSelect)="onTypeaheadAuthorSelect($event, i)"
                    (input)="onMusicAuthorInput(i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
                    placeholder="Second name.."
                    class="form-control"
                    name="inpAuthorName2"
@@ -71,12 +83,16 @@
                    (blur)="checkAuthorsValidation()">
           </td>
           <td>
-            <input [(ngModel)]="author.surname"
+            <input [(ngModel)]="author._surname"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
                    [typeaheadOptionField]="'_surname'"
+                   (typeaheadOnSelect)="onTypeaheadAuthorSelect($event, i)"
                    (input)="onMusicAuthorInput(i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
                    placeholder="Surname.."
                    class="form-control"
                    name="inpAuthorSurname"
@@ -86,11 +102,15 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author.birthYear"
+                   [(ngModel)]="author._birthYear"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
                    [typeaheadOptionsLimit]="8"
                    [typeaheadOptionField]="'_birthYear'"
+                   (typeaheadOnSelect)="onTypeaheadAuthorSelect($event, i)"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
                    placeholder="Birth"
                    class="form-control"
                    name="inpAuthorBirth"
@@ -100,11 +120,15 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author.deathYear"
+                   [(ngModel)]="author._deathYear"
                    [typeahead]="artistsTypeaheadList"
                    (typeaheadLoading)="changeTypeaheadLoading($event)"
+                   (typeaheadOnSelect)="onTypeaheadAuthorSelect($event, i)"
                    [typeaheadOptionsLimit]="8"
                    [typeaheadOptionField]="'_deathYear'"
+                   [typeaheadWaitMs]="300"
+                   [typeaheadAsync]="true"
+                   [typeaheadMinLength]="0"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeath"
@@ -118,7 +142,7 @@
     </div>
     <div [hidden]="isAuthorsValid"
          class="alert alert-danger">
-      There should be at least one author.
+      Author name or surname cannot be empty
     </div>
   </section>
   <section>
@@ -132,10 +156,14 @@
                placeholder="Album title..."
                name="inpAlbumTitle"
                #inpAlbumTitle="ngModel"
-               [(ngModel)]="musicMetadata.song.album.albumTitle"
+               [(ngModel)]="musicMetadata.song.album._albumTitle"
                [typeahead]="albumsTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
+               (typeaheadOnSelect)="onTypeaheadAlbumSelect($event)"
                [typeaheadOptionsLimit]="6"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
                [typeaheadOptionField]="'_albumTitle'"
                (input)="onMusicAlbumInput()">
       </div>
@@ -146,9 +174,13 @@
                placeholder="Album year..."
                name="inpAlbumYear"
                #inpAlbumYear="ngModel"
-               [(ngModel)]="musicMetadata.song.album.albumYear"
+               [(ngModel)]="musicMetadata.song.album._albumYear"
                [typeahead]="albumsTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
+               (typeaheadOnSelect)="onTypeaheadAlbumSelect($event)"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
                [typeaheadOptionsLimit]="6"
                [typeaheadOptionField]="'_albumYear'">
       </div>
@@ -156,7 +188,7 @@
         <label for="taComments">Album comments: </label>
         <textarea class="form-control" id="taComments"
                   placeholder="Comments..."
-                  [(ngModel)]="musicMetadata.song.album.comments"
+                  [(ngModel)]="musicMetadata.song.album._comments"
                   name="taComments"
                   #taComments="ngModel">
 
@@ -172,13 +204,17 @@
         <input type="text" class="form-control"
                id="inpGenre"
                placeholder="Genre..."
-               [(ngModel)]="musicMetadata.song.genre.name"
+               [(ngModel)]="musicMetadata.song.genre._name"
                name="inpGenre"
                #inpGenre="ngModel"
                [typeahead]="genresTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
+               (typeaheadOnSelect)="onTypeaheadGenreSelect($event)"
+               [typeaheadWaitMs]="300"
+               [typeaheadAsync]="true"
+               [typeaheadMinLength]="0"
                [typeaheadOptionsLimit]="6"
-               [typeaheadOptionField]="name"
+               [typeaheadOptionField]="'_name'"
                (input)="onMusicGenreInput()">
       </div>
       <div class="form-group">
@@ -186,7 +222,7 @@
         <input type="text" class="form-control"
                id="inpGenreComments"
                placeholder="Comments..."
-               [(ngModel)]="musicMetadata.song.genre.comments"
+               [(ngModel)]="musicMetadata.song.genre._comments"
                name="inpGenreComments"
                #inpGenreComments="ngModel">
       </div>
@@ -195,13 +231,20 @@
   <div class="form-group">
     <label>
       <input type="checkbox" id="inpIsPublic"
-             [(ngModel)]="musicMetadata.song.fileMetadata.isPublic"
+             [(ngModel)]="musicMetadata.song.fileMetadata._isPublic"
              name="inpIsPublic"
              #inpIsPublic="ngModel">
       Set as public
     </label>
   </div>
   <div class="form-group">
-    <button type="submit" class="btn btn-primary btn-block" [disabled]="!metadataForm.form.valid">Save</button>
+    <button type="submit" class="btn btn-primary btn-block"
+            [disabled]="!metadataForm.form.valid || musicMetadata.song.authors.length <= 0 || !isAuthorsValid">
+      Save
+    </button>
+    <div [hidden]="musicMetadata.song.authors.length > 0"
+         class="alert alert-danger">
+      There should be at least one author.
+    </div>
   </div>
 </form>
