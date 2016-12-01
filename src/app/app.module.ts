@@ -4,7 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {ReactiveFormsModule} from '@angular/forms';
 
-import {DropdownModule, ModalModule, TypeaheadModule} from 'ng2-bootstrap/ng2-bootstrap';
+import {DropdownModule, ModalModule, TypeaheadModule, RatingModule} from 'ng2-bootstrap/ng2-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
 
 import {AuthHttp} from 'angular2-jwt';
@@ -34,8 +34,7 @@ import {EditEbookMetadataComponent} from './main_page/edit-ebook-metadata/edit-e
 import {EditImageMetadataComponent} from './main_page/edit-image-metadata/edit-image-metadata.component';
 import {EditMusicMetadataComponent} from './main_page/edit-music-metadata/edit-music-metadata.component';
 import {EditVideoMetadataComponent} from './main_page/edit-video-metadata/edit-video-metadata.component';
-import {MetadataFileItem} from "./common/metadata.file.item";
-import {MusicPlayerComponent} from './main_page/music-player/music-player.component';
+import {TopListViewComponent} from './main_page/top-list-view/top-list-view.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +54,7 @@ import {MusicPlayerComponent} from './main_page/music-player/music-player.compon
     EditImageMetadataComponent,
     EditMusicMetadataComponent,
     EditVideoMetadataComponent,
-    MusicPlayerComponent
+    TopListViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +65,8 @@ import {MusicPlayerComponent} from './main_page/music-player/music-player.compon
     DropdownModule,
     FileUploadModule,
     ModalModule,
-    TypeaheadModule
+    TypeaheadModule,
+    RatingModule
   ],
   providers: [
     AuthService,

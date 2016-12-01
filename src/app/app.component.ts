@@ -4,6 +4,7 @@ import {title} from './constants';
 import {BaseComponent} from './base-component/base-component';
 import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
 import {Observable}         from 'rxjs/Observable';
+import {SearchCriteria} from "./view-objects/search.criteria";
 
 @Component({
   selector: 'app-root',
@@ -84,6 +85,10 @@ export class AppComponent extends BaseComponent {
       this.snackMessage = 'Login failed';
       this.snack.showSnackMessage();
     }
+  }
+
+  public onSearchData(value: SearchCriteria): void {
+
   }
 
   get loggedIn(): boolean {

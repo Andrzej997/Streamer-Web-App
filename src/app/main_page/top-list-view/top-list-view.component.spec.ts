@@ -3,21 +3,21 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {DebugElement} from '@angular/core';
 
-import {MusicPlayerComponent} from './music-player.component';
+import {TopListViewComponent} from './top-list-view.component';
 
-describe('MusicPlayerComponent', () => {
-  let component: MusicPlayerComponent;
-  let fixture: ComponentFixture<MusicPlayerComponent>;
+describe('TopListViewComponent', () => {
+  let component: TopListViewComponent;
+  let fixture: ComponentFixture<TopListViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MusicPlayerComponent]
+      declarations: [TopListViewComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MusicPlayerComponent);
+    fixture = TestBed.createComponent(TopListViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

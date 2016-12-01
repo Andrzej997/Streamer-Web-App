@@ -27,9 +27,15 @@ export class EditEbookMetadataComponent extends BaseComponent {
 
   private isWritersValid: boolean = true;
 
+  public overStar: number;
+  public percent: number;
+  public rate: number;
+  public maxRate: number = 10;
+
   constructor(private ebookService: EbookService) {
     super();
     this.ebookMetadata = new UploadEbookMetadataDTO();
+    this.percent = 0;
   }
 
   public ngOnInit() {
@@ -73,6 +79,8 @@ export class EditEbookMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
+    this.ebookMetadata.ebookDTO.rating = this.percent;
+    this.ebookMetadata.ebookDTO.ratingTimes = 1;
     this.ebookMetadata.username = localStorage.getItem('username');
     this.item.metadata = this.ebookMetadata;
     this.hide.emit(true);
@@ -147,6 +155,15 @@ export class EditEbookMetadataComponent extends BaseComponent {
 
   public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
     this.ebookMetadata.ebookDTO.literaryGenreDTO = <LiteraryGenreDTO> match.item;
+  }
+
+  public hoveringOver(value: number): void {
+    this.overStar = value;
+    this.percent = 100 * (value / 10);
+  };
+
+  public resetStar(): void {
+    this.overStar = void 0;
   }
 
 }

@@ -29,9 +29,15 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   private isDirectorsValid: boolean = true;
 
+  public overStar: number;
+  public percent: number;
+  public rate: number;
+  public maxRate: number = 10;
+
   constructor(private videoService: VideoService) {
     super();
     this.videoMetadata = new UploadVideoMetadataDTO();
+    this.percent = 0;
   }
 
   public ngOnInit() {
@@ -79,6 +85,8 @@ export class EditVideoMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
+    this.videoMetadata.video.rating = this.percent;
+    this.videoMetadata.video.ratingTimes = 1;
     this.videoMetadata.username = localStorage.getItem('username');
     this.item.metadata = this.videoMetadata;
     this.hide.emit(true);
@@ -164,6 +172,15 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
     this.videoMetadata.video.filmGenre = <FilmGenreDTO>match.item;
+  }
+
+  public hoveringOver(value: number): void {
+    this.overStar = value;
+    this.percent = 100 * (value / 10);
+  };
+
+  public resetStar(): void {
+    this.overStar = void 0;
   }
 
 }

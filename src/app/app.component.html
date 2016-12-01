@@ -35,7 +35,8 @@
             <span class="glyphicon glyphicon-search"></span>
           </a>
           <ul dropdownMenu role="menu" aria-labelledby="search-href">
-            <app-search-component [filterType]="'ALL'" [type]="'A'"></app-search-component>
+            <app-search-component [filterType]="'ALL'" [type]="'A'"
+                                  (search)="onSearchData($event)"></app-search-component>
           </ul>
         </li>
       </ul>

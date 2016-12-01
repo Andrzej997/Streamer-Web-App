@@ -174,14 +174,31 @@
       </div>
     </div>
   </section>
-  <div class="form-group">
-    <label>
-      <input type="checkbox" id="inpIsPublic"
-             [(ngModel)]="ebookMetadata.ebookDTO.ebookFileMetadataDTO._isPublic"
-             name="inpIsPublic"
-             #inpIsPublic="ngModel">
-      Set as public
-    </label>
+  <div class="form-group" style="overflow-y: auto">
+    <div style="float: left; margin-left: 20px">
+      <label>Rating: </label>
+      <rating [(ngModel)]="rate"
+              #inpRating="ngModel"
+              id="inpRating"
+              name="inpRating"
+              [max]="maxRate"
+              (onHover)="hoveringOver($event)"
+              (onLeave)="resetStar($event)">
+      </rating>
+      <span class="label"
+            [ngClass]="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+            [ngStyle]="{display: (overStar) ? 'inline' : 'none'}">{{percent}}%
+      </span>
+    </div>
+    <div style="float: right; margin-right: 25px">
+      <label>
+        <input type="checkbox" id="inpIsPublic"
+               [(ngModel)]="ebookMetadata.ebookDTO.ebookFileMetadataDTO._isPublic"
+               name="inpIsPublic"
+               #inpIsPublic="ngModel">
+        Set as public
+      </label>
+    </div>
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary btn-block"

@@ -30,9 +30,15 @@ export class EditMusicMetadataComponent extends BaseComponent {
 
   private isAuthorsValid: boolean = true;
 
+  public overStar: number;
+  public percent: number;
+  public rate: number;
+  public maxRate: number = 10;
+
   constructor(private musicService: MusicService) {
     super();
     this.musicMetadata = new UploadSongMetadataDTO();
+    this.percent = 0;
   }
 
   ngOnInit() {
@@ -126,6 +132,8 @@ export class EditMusicMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
+    this.musicMetadata.song.rating = this.percent;
+    this.musicMetadata.song.ratingTimes = 1;
     this.musicMetadata.userName = localStorage.getItem('username');
     this.item.metadata = this.musicMetadata;
     this.hide.emit(true);
@@ -165,5 +173,14 @@ export class EditMusicMetadataComponent extends BaseComponent {
 
   public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
     this.musicMetadata.song._genre = <MusicGenreDTO>match.item;
+  }
+
+  public hoveringOver(value: number): void {
+    this.overStar = value;
+    this.percent = 100 * (value / 10);
+  };
+
+  public resetStar(): void {
+    this.overStar = void 0;
   }
 }

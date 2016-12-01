@@ -27,9 +27,15 @@ export class EditImageMetadataComponent extends BaseComponent {
 
   private isArtistsValid: boolean = true;
 
+  public overStar: number;
+  public percent: number;
+  public rate: number;
+  public maxRate: number = 10;
+
   constructor(private imageService: ImageService) {
     super();
     this.imageMetadata = new UploadImageMetadataDTO();
+    this.percent = 0;
   }
 
   ngOnInit() {
@@ -73,6 +79,8 @@ export class EditImageMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
+    this.imageMetadata.imageDTO.rating = this.percent;
+    this.imageMetadata.imageDTO.ratingTimes = 1;
     this.imageMetadata.username = localStorage.getItem('username');
     this.item.metadata = this.imageMetadata;
     this.hide.emit(true);
@@ -147,6 +155,15 @@ export class EditImageMetadataComponent extends BaseComponent {
 
   public onTypeaheadTypeSelect(match: TypeaheadMatch): void {
     this.imageMetadata.imageDTO.imageTypeDTO = <ImageTypeDTO> match.item;
+  }
+
+  public hoveringOver(value: number): void {
+    this.overStar = value;
+    this.percent = 100 * (value / 10);
+  };
+
+  public resetStar(): void {
+    this.overStar = void 0;
   }
 
 }
