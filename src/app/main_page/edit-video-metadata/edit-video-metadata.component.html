@@ -2,14 +2,15 @@
       role="form" (submit)="onSave()"
       #metadataForm="ngForm"
       accept-charset="UTF-8"
-      id="metadataForm">
+      id="metadataForm"
+      *ngIf="isVisible">
   <section>
     <h2>Film </h2>
     <div class="form-group" style="margin-left: 20px;">
       <div class="form-group">
         <label for="inpTitle">Title: </label>
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
-               [(ngModel)]="videoMetadata.video.title" name="inpTitle" #inpTitle="ngModel" required>
+               [(ngModel)]="videoMetadata._video._title" name="inpTitle" #inpTitle="ngModel" required>
       </div>
       <div [hidden]="inpTitle.valid || inpTitle.prisitne"
            class="alert alert-danger">
@@ -18,7 +19,7 @@
       <div class="form-group">
         <label for="inpYear">Year: </label>
         <input type="number" class="form-control" id="inpYear" placeholder="Year..."
-               [(ngModel)]="videoMetadata.video.productionYear" name="inpYear" #inpYear="ngModel">
+               [(ngModel)]="videoMetadata._video._productionYear" name="inpYear" #inpYear="ngModel">
       </div>
     </div>
   </section>
@@ -30,7 +31,7 @@
     </button>
     <button type="button" class="btn btn-danger btn-xs"
             (click)="onRemoveDirector()"
-            [disabled]="videoMetadata.video.directorList.length <= 0">
+            [disabled]="videoMetadata._video._directorList.length <= 0">
       <span class="glyphicon glyphicon-minus"></span>
     </button>
     <div class="form-group" style="margin-left: 20px;">
@@ -45,7 +46,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let author of videoMetadata.video.directorList; let i = index">
+        <tr *ngFor="let author of videoMetadata._video._directorList; let i = index">
           <td>
             <input [(ngModel)]="author._name"
                    [typeahead]="artistsTypeaheadList"
@@ -156,7 +157,7 @@
                placeholder="Serie title..."
                name="inpSerieTitle"
                #inpSerieTitle="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie._title"
+               [(ngModel)]="videoMetadata._video._videoSerie._title"
                [typeahead]="videoSeriesTypeahedList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadOptionsLimit]="6"
@@ -174,7 +175,7 @@
                placeholder="Serie number..."
                name="inpSerieNumber"
                #inpSerieNumber="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie._number"
+               [(ngModel)]="videoMetadata._video._videoSerie._number"
                [typeahead]="videoSeriesTypeahedList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadOptionsLimit]="6"
@@ -188,7 +189,7 @@
                placeholder="Serie year..."
                name="inpSerieYear"
                #inpSerieYear="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie._year"
+               [(ngModel)]="videoMetadata._video._videoSerie._year"
                [typeahead]="videoSeriesTypeahedList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                [typeaheadWaitMs]="300"
@@ -202,7 +203,7 @@
         <label for="taSerieComments">Serie comments: </label>
         <textarea class="form-control" id="taSerieComments"
                   placeholder="Comments..."
-                  [(ngModel)]="videoMetadata.video.videoSerie._comments"
+                  [(ngModel)]="videoMetadata._video._videoSerie._comments"
                   name="taSerieComments"
                   #taSerieComments="ngModel">
 
@@ -218,7 +219,7 @@
         <input type="text" class="form-control"
                id="inpGenre"
                placeholder="Genre..."
-               [(ngModel)]="videoMetadata.video.filmGenre._name"
+               [(ngModel)]="videoMetadata._video._filmGenre._name"
                name="inpGenre"
                #inpGenre="ngModel"
                [typeahead]="filmGenresTypeaheadList"
@@ -236,7 +237,7 @@
         <input type="text" class="form-control"
                id="inpGenreComments"
                placeholder="Comments..."
-               [(ngModel)]="videoMetadata.video.filmGenre._comments"
+               [(ngModel)]="videoMetadata._video._filmGenre._comments"
                name="inpGenreComments"
                #inpGenreComments="ngModel">
       </div>
@@ -261,7 +262,7 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublic"
-               [(ngModel)]="videoMetadata.video.videoFileMetadata._isPublic"
+               [(ngModel)]="videoMetadata._video._videoFileMetadata._isPublic"
                name="inpIsPublic"
                #inpIsPublic="ngModel">
         Set as public
@@ -270,10 +271,10 @@
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary btn-block"
-            [disabled]="!metadataForm.form.valid || videoMetadata.video.directorList.length <= 0 || !isDirectorsValid">
+            [disabled]="!metadataForm.form.valid || videoMetadata._video._directorList.length <= 0 || !isDirectorsValid">
       Save
     </button>
-    <div [hidden]="videoMetadata.video.directorList.length > 0"
+    <div [hidden]="videoMetadata._video._directorList.length > 0"
          class="alert alert-danger">
       There should be at least one director.
     </div>

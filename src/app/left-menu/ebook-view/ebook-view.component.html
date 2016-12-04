@@ -1,0 +1,41 @@
+<div class="center" style="width: 100%; height: 100%;">
+  <h1 [hidden]="ebookList == null || ebookList.length <=0">Ebooks: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let ebook of ebookList; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook)">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(ebook)">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
+        <rating [(ngModel)]="ebook.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <div class="modal fade" bsModal #metadataModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="Metadata label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="hideMetadataModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h1 class="modal-title">Description:</h1>
+        </div>
+        <div class="modal-body">
+          <app-metadata-info-view [category]="'E'">
+          </app-metadata-info-view>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

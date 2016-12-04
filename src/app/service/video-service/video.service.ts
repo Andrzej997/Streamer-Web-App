@@ -90,4 +90,23 @@ export class VideoService extends AbstractService {
     return this.performGet(url);
   }
 
+  public deleteFileAndMetadata(id: number): Observable<boolean> {
+    let username = localStorage.getItem('username');
+    if (username == null) {
+      return null;
+    }
+    let url = `${videoEndpoint}/auth/delete/video?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
+  public updateVideoMetadata(video: VideoDTO): Observable<VideoDTO> {
+    let url = `${videoEndpoint}/auth/update/video`;
+    return this.performPut(url, JSON.stringify(video));
+  }
+
+  public getVideosTop50(): Observable<VideoDTO[]> {
+    let url = `${videoEndpoint}/noauth/video/top50`;
+    return this.performGet(url);
+  }
+
 }

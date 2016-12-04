@@ -52,11 +52,10 @@ export abstract class AbstractService {
       .catch(this.handleError);
   }
 
-  protected extractData(res: Response) {
-    //let body: Blob = new Blob([res], {type: 'video/mp4'});
-    let body = res.json();
-    console.log(body);
-    return body.body || body;
+  protected extractData(res: Response): any {
+    let response = res.json();
+    console.log(response);
+    return response.body || response;
   }
 
   protected handleError(error: Response | any) {

@@ -1,7 +1,107 @@
-<div>
-  <ul style="display:inline;">
-    <li id="music" *ngFor="let song of top10Songs; let i = index">
-      {{song}}
+<div class="center" style="width: 100%; height: 100%;">
+  <h1 [hidden]="top10Songs == null || top10Songs.length <= 0">Songs: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let song of top10Songs; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(song, 'M')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(song, 'M')">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{song?._title}}</label>
+        <rating [(ngModel)]="song.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
     </li>
   </ul>
+  <h1 [hidden]="top10Videos == null || top10Videos.length <=0">Videos: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let video of top10Videos; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video, 'V')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(video, 'V')">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
+        <rating [(ngModel)]="video.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <h1 [hidden]="top10Images == null || top10Images.length <=0">Images: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let image of top10Images; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(image, 'I')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(image, 'I')">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{image?._title}}</label>
+        <rating [(ngModel)]="image.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <h1 [hidden]="top10Ebooks == null || top10Ebooks.length <=0">Ebooks: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let ebook of top10Ebooks; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook, 'E')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(ebook, 'E')">
+          <span class="glyphicon glyphicon-info-sign"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
+        <rating [(ngModel)]="ebook.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <div class="modal fade" bsModal #metadataModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="Metadata label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="hideMetadataModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h1 class="modal-title">Description:</h1>
+        </div>
+        <div class="modal-body">
+          <app-metadata-info-view [category]="category">
+          </app-metadata-info-view>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

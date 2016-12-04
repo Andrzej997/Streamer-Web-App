@@ -2,14 +2,15 @@
       role="form" (submit)="onSave()"
       #metadataForm="ngForm"
       accept-charset="UTF-8"
-      id="metadataForm">
+      id="metadataForm"
+      *ngIf="isVisible">
   <section>
     <h2>Song </h2>
     <div class="form-group" style="margin-left: 20px;">
       <div class="form-group">
         <label for="inpTitle">Title: </label>
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
-               [(ngModel)]="musicMetadata.song.title" name="inpTitle" #inpTitle="ngModel" required>
+               [(ngModel)]="musicMetadata._song._title" name="inpTitle" #inpTitle="ngModel" required>
       </div>
       <div [hidden]="inpTitle.valid || inpTitle.prisitne"
            class="alert alert-danger">
@@ -18,19 +19,21 @@
       <div class="form-group">
         <label for="inpYear">Year: </label>
         <input type="number" class="form-control" id="inpYear" placeholder="Year..."
-               [(ngModel)]="musicMetadata.song.productionYear" name="inpYear" #inpYear="ngModel">
+               [(ngModel)]="musicMetadata._song._productionYear" name="inpYear" #inpYear="ngModel">
       </div>
     </div>
   </section>
   <section>
     <h2>Artists </h2>
     <button type="button" class="btn btn-success btn-xs"
-            (click)="onAddMusicAuthor()">
+            (click)="onAddMusicAuthor()"
+            [hidden]="modeInfo">
       <span class="glyphicon glyphicon-plus"></span>
     </button>
     <button type="button" class="btn btn-danger btn-xs"
             (click)="onRemoveMusicAuthor()"
-            [disabled]="musicMetadata.song.authors.length <= 0">
+            [disabled]="musicMetadata._song._authors.length <= 0"
+            [hidden]="modeInfo">
       <span class="glyphicon glyphicon-minus"></span>
     </button>
     <div class="form-group" style="margin-left: 20px;">
@@ -45,7 +48,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr id="test" *ngFor="let author of musicMetadata.song.authors; let i = index">
+        <tr id="test" *ngFor="let author of musicMetadata._song._authors; let i = index">
           <td>
             <input [(ngModel)]="author._name"
                    [typeahead]="artistsTypeaheadList"
@@ -156,7 +159,7 @@
                placeholder="Album title..."
                name="inpAlbumTitle"
                #inpAlbumTitle="ngModel"
-               [(ngModel)]="musicMetadata.song.album._albumTitle"
+               [(ngModel)]="musicMetadata._song._album._albumTitle"
                [typeahead]="albumsTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                (typeaheadOnSelect)="onTypeaheadAlbumSelect($event)"
@@ -174,7 +177,7 @@
                placeholder="Album year..."
                name="inpAlbumYear"
                #inpAlbumYear="ngModel"
-               [(ngModel)]="musicMetadata.song.album._albumYear"
+               [(ngModel)]="musicMetadata._song._album._albumYear"
                [typeahead]="albumsTypeaheadList"
                (typeaheadLoading)="changeTypeaheadLoading($event)"
                (typeaheadOnSelect)="onTypeaheadAlbumSelect($event)"
@@ -188,7 +191,7 @@
         <label for="taComments">Album comments: </label>
         <textarea class="form-control" id="taComments"
                   placeholder="Comments..."
-                  [(ngModel)]="musicMetadata.song.album._comments"
+                  [(ngModel)]="musicMetadata._song._album._comments"
                   name="taComments"
                   #taComments="ngModel">
 
@@ -204,7 +207,7 @@
         <input type="text" class="form-control"
                id="inpGenre"
                placeholder="Genre..."
-               [(ngModel)]="musicMetadata.song.genre._name"
+               [(ngModel)]="musicMetadata._song._genre._name"
                name="inpGenre"
                #inpGenre="ngModel"
                [typeahead]="genresTypeaheadList"
@@ -222,7 +225,7 @@
         <input type="text" class="form-control"
                id="inpGenreComments"
                placeholder="Comments..."
-               [(ngModel)]="musicMetadata.song.genre._comments"
+               [(ngModel)]="musicMetadata._song._genre._comments"
                name="inpGenreComments"
                #inpGenreComments="ngModel">
       </div>
@@ -247,7 +250,7 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublic"
-               [(ngModel)]="musicMetadata.song.fileMetadata._isPublic"
+               [(ngModel)]="musicMetadata._song._fileMetadata._isPublic"
                name="inpIsPublic"
                #inpIsPublic="ngModel">
         Set as public
@@ -256,10 +259,10 @@
   </div>
   <div class="form-group">
     <button type="submit" class="btn btn-primary btn-block"
-            [disabled]="!metadataForm.form.valid || musicMetadata.song.authors.length <= 0 || !isAuthorsValid">
+            [disabled]="!metadataForm.form.valid || musicMetadata._song._authors.length <= 0 || !isAuthorsValid">
       Save
     </button>
-    <div [hidden]="musicMetadata.song.authors.length > 0"
+    <div [hidden]="musicMetadata._song._authors.length > 0"
          class="alert alert-danger">
       There should be at least one author.
     </div>

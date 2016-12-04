@@ -66,7 +66,7 @@ export class MusicService extends AbstractService {
     if (title != null && title.length > 0) {
       url += `?title=${title}`;
     }
-    return this.performGet(url);
+    return <Observable<SongDTO[]>>this.performGet(url);
   }
 
   public getTop10SongsOnlyPrivates(title?: string): Observable<SongDTO[]> {
@@ -93,6 +93,25 @@ export class MusicService extends AbstractService {
   public searchSongsByCriteria(searchSongCriteriaDTO: SearchCriteria): Observable<SongDTO[]> {
     let params = JSON.stringify(searchSongCriteriaDTO);
     let url = `${musicEndpoint}/noauth/public/songs?criteria=${params}`;
+    return this.performGet(url);
+  }
+
+  public deleteFileAndMetadata(id: number): Observable<boolean> {
+    let username = localStorage.getItem('username');
+    if (username == null) {
+      return null;
+    }
+    let url = `${musicEndpoint}/auth/delete/song?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
+  public updateSongMetadata(song: SongDTO): Observable<SongDTO> {
+    let url = `${musicEndpoint}/auth/update/song`;
+    return this.performPut(url, JSON.stringify(song));
+  }
+
+  public getSongsTop50(): Observable<SongDTO[]> {
+    let url = `${musicEndpoint}/noauth/song/top50`;
     return this.performGet(url);
   }
 

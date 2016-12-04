@@ -35,6 +35,12 @@ import {EditImageMetadataComponent} from './main_page/edit-image-metadata/edit-i
 import {EditMusicMetadataComponent} from './main_page/edit-music-metadata/edit-music-metadata.component';
 import {EditVideoMetadataComponent} from './main_page/edit-video-metadata/edit-video-metadata.component';
 import {TopListViewComponent} from './main_page/top-list-view/top-list-view.component';
+import {UserMediaViewComponent} from './main_page/user-media-view/user-media-view.component';
+import {MetadataInfoViewComponent} from './main_page/metadata-info-view/metadata-info-view.component';
+import {EbookViewComponent} from './left-menu/ebook-view/ebook-view.component';
+import {ImageViewComponent} from './left-menu/image-view/image-view.component';
+import {MusicViewComponent} from './left-menu/music-view/music-view.component';
+import {VideoViewComponent} from './left-menu/video-view/video-view.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +61,12 @@ import {TopListViewComponent} from './main_page/top-list-view/top-list-view.comp
     EditMusicMetadataComponent,
     EditVideoMetadataComponent,
     TopListViewComponent,
+    UserMediaViewComponent,
+    MetadataInfoViewComponent,
+    EbookViewComponent,
+    ImageViewComponent,
+    MusicViewComponent,
+    VideoViewComponent,
   ],
   imports: [
     BrowserModule,

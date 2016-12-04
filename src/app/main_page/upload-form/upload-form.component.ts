@@ -2,7 +2,6 @@ import {Component, ViewChild} from '@angular/core';
 import {BaseComponent} from '../../base-component/base-component';
 import {MediaFileUploader} from '../../common/media.file.uploader';
 import {ModalDirective} from 'ng2-bootstrap';
-import {FileItem} from 'ng2-file-upload/file-upload/file-item.class';
 import {MetadataFileItem} from "../../common/metadata.file.item";
 
 @Component({
@@ -20,7 +19,7 @@ export class UploadFormComponent extends BaseComponent {
     super();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
 
   }
 

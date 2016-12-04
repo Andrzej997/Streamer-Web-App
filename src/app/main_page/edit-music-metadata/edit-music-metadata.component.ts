@@ -9,6 +9,7 @@ import {MusicAlbumDTO} from "../../model/music/music.album.dto";
 import {MusicGenreDTO} from "../../model/music/music.genre.dto";
 import {MetadataFileItem} from "../../common/metadata.file.item";
 import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {SongDTO} from "../../model/music/song.dto";
 
 @Component({
   selector: 'app-edit-music-metadata',
@@ -18,7 +19,7 @@ import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match
 export class EditMusicMetadataComponent extends BaseComponent {
 
   @Input() item: MetadataFileItem;
-  private musicMetadata: UploadSongMetadataDTO;
+  public musicMetadata: UploadSongMetadataDTO;
 
   @Output() hide = new EventEmitter<boolean>();
 
@@ -35,6 +36,9 @@ export class EditMusicMetadataComponent extends BaseComponent {
   public rate: number;
   public maxRate: number = 10;
 
+  @Input() isVisible: boolean = true;
+  @Input() isEdit: boolean = false;
+
   constructor(private musicService: MusicService) {
     super();
     this.musicMetadata = new UploadSongMetadataDTO();
@@ -46,6 +50,9 @@ export class EditMusicMetadataComponent extends BaseComponent {
 
   public ngOnChanges(changes: SimpleChanges): void {
     let change = changes['item'];
+    if (change == null) {
+      return;
+    }
     let current = change.currentValue;
     let previous = change.previousValue;
     if (current !== previous) {
@@ -132,10 +139,12 @@ export class EditMusicMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
-    this.musicMetadata.song.rating = this.percent;
-    this.musicMetadata.song.ratingTimes = 1;
-    this.musicMetadata.userName = localStorage.getItem('username');
-    this.item.metadata = this.musicMetadata;
+    if (!this.isEdit) {
+      this.musicMetadata.song.rating = this.percent;
+      this.musicMetadata.song.ratingTimes = 1;
+      this.musicMetadata.userName = localStorage.getItem('username');
+      this.item.metadata = this.musicMetadata;
+    }
     this.hide.emit(true);
   }
 
@@ -183,4 +192,13 @@ export class EditMusicMetadataComponent extends BaseComponent {
   public resetStar(): void {
     this.overStar = void 0;
   }
+
+  public setMetadata(item: UploadSongMetadataDTO): void {
+    this.musicMetadata = item;
+  }
+
+  public getMetadata(): SongDTO {
+    return this.musicMetadata._song;
+  }
+
 }

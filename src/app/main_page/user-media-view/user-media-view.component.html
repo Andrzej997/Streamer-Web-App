@@ -1,0 +1,148 @@
+<div class="center" style="width: 100%; height: 100%;">
+  <h1 [hidden]="userSongs == null || userSongs.length <= 0">Songs: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let song of userSongs; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(song, 'M')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(song, 'M')">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(song, 'M')">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{song?._title}}</label>
+        <rating [(ngModel)]="song.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <h1 [hidden]="userVideos == null || userVideos.length <= 0">Videos: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let video of userVideos; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video, 'V')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(video, 'V')">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(video, 'V')">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
+        <rating [(ngModel)]="video.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <h1 [hidden]="userImages == null || userImages.length <= 0">Images: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let image of userImages; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(image, 'I')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(image, 'I')">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(image, 'I')">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{image?._title}}</label>
+        <rating [(ngModel)]="image.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <h1 [hidden]="userEbooks == null || userEbooks.length <= 0">Ebooks: </h1>
+  <ul>
+    <li class="navbar-nav" *ngFor="let ebook of userEbooks; let i = index"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook, 'E')">
+          <span class="glyphicon glyphicon-play"></span>
+        </button>
+        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(ebook, 'E')">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(ebook, 'E')">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <label style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
+        <rating [(ngModel)]="ebook.rate"
+                #inpRating="ngModel"
+                id="inpRating"
+                name="inpRating"
+                [max]="10"
+                [readonly]="true">
+        </rating>
+      </div>
+    </li>
+  </ul>
+  <div class="modal fade" bsModal #metadataModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="Metadata label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="onHideClick()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h1 class="modal-title">Add description</h1>
+        </div>
+        <div class="modal-body">
+          <app-edit-music-metadata [isVisible]="category == 'M'" (hide)="onEditHide($event)" [isEdit]="true">
+
+          </app-edit-music-metadata>
+          <app-edit-video-metadata [isVisible]="category == 'V'" (hide)="onEditHide($event)" [isEdit]="true">
+
+          </app-edit-video-metadata>
+          <app-edit-image-metadata [isVisible]="category == 'I'" (hide)="onEditHide($event)" [isEdit]="true">
+
+          </app-edit-image-metadata>
+          <app-edit-ebook-metadata [isVisible]="category == 'E'" (hide)="onEditHide($event)" [isEdit]="true">
+
+          </app-edit-ebook-metadata>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" bsModal #deleteValidationModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="Are you sure ?" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" aria-label="Close" (click)="deleteValidationModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h1 class="modal-title">Are you sure ?</h1>
+        </div>
+        <div class="modal-body">
+          <div style="display: inline">
+            <button type="button" class="btn btn-success btn-xs" (click)="onDeleteYes()">YES</button>
+            <button type="button" class="btn btn-success btn-xs" (click)="deleteValidationModal.hide()">NO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

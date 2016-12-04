@@ -1,0 +1,635 @@
+<form style="width: 100%" class="form"
+      role="form"
+      #metadataForm="ngForm"
+      accept-charset="UTF-8"
+      id="metadataForm"
+      *ngIf="category == 'M'">
+  <section>
+    <h2>Song </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpTitle">Title: </label>
+        <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
+               [(ngModel)]="musicMetadata._song._title" name="inpTitle" #inpTitle="ngModel" readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpYear">Year: </label>
+        <input type="number" class="form-control" id="inpYear" placeholder="Year..."
+               [(ngModel)]="musicMetadata._song._productionYear" name="inpYear" #inpYear="ngModel" readonly>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Artists </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Second name</th>
+          <th>Surname</th>
+          <th>Birth year</th>
+          <th>Death year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="test" *ngFor="let author of musicMetadata._song._authors; let i = index">
+          <td>
+            <input [(ngModel)]="author._name"
+                   placeholder="Name.."
+                   class="form-control"
+                   name="inpAuthorName"
+                   #inpAuthorName="ngModel"
+                   id="inpAuthorName"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._name2"
+                   placeholder="Second name.."
+                   class="form-control"
+                   name="inpAuthorName2"
+                   #inpAuthorName2="ngModel"
+                   id="inpAuthorName2"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._surname"
+                   placeholder="Surname.."
+                   class="form-control"
+                   name="inpAuthorSurname"
+                   #inpAuthorSurname="ngModel"
+                   id="inpAuthorSurname"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._birthYear"
+                   type="number"
+                   placeholder="Birth"
+                   class="form-control"
+                   name="inpAuthorBirth"
+                   #inpAuthorBirth="ngModel"
+                   id="inpAuthorBirth"
+                   readonly>
+          </td>
+          <td>
+            <input type="number"
+                   [(ngModel)]="author._deathYear"
+                   placeholder="Death"
+                   class="form-control"
+                   name="inpAuthorDeath"
+                   #inpAuthorDeath="ngModel"
+                   id="inpAuthorDeath"
+                   readonly>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2>Album </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpAlbumTitle">Album title: </label>
+
+        <input type="text" class="form-control"
+               id="inpAlbumTitle"
+               placeholder="Album title..."
+               name="inpAlbumTitle"
+               #inpAlbumTitle="ngModel"
+               [(ngModel)]="musicMetadata._song._album._albumTitle"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpAlbumYear">Album year: </label>
+        <input type="number" class="form-control"
+               id="inpAlbumYear"
+               placeholder="Album year..."
+               name="inpAlbumYear"
+               #inpAlbumYear="ngModel"
+               [(ngModel)]="musicMetadata._song._album._albumYear"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="taComments">Album comments: </label>
+        <textarea class="form-control" id="taComments"
+                  placeholder="Comments..."
+                  [(ngModel)]="musicMetadata._song._album._comments"
+                  name="taComments"
+                  readonly
+                  #taComments="ngModel">
+
+        </textarea>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Genre </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpGenre">Genre: </label>
+        <input type="text" class="form-control"
+               id="inpGenre"
+               placeholder="Genre..."
+               [(ngModel)]="musicMetadata._song._genre._name"
+               name="inpGenre"
+               #inpGenre="ngModel"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpGenreComments">Comments: </label>
+        <input type="text" class="form-control"
+               id="inpGenreComments"
+               placeholder="Comments..."
+               [(ngModel)]="musicMetadata._song._genre._comments"
+               name="inpGenreComments"
+               readonly
+               #inpGenreComments="ngModel">
+      </div>
+    </div>
+  </section>
+  <div class="form-group" style="overflow-y: auto">
+    <div style="float: left; margin-left: 20px">
+      <label>Rating: </label>
+      <rating [(ngModel)]="musicMetadata._song._rate"
+              #inpRating="ngModel"
+              id="inpRating"
+              name="inpRating"
+              [max]="10"
+              readonly>
+      </rating>
+    </div>
+    <div style="float: right; margin-right: 25px">
+      <label>
+        <input type="checkbox" id="inpIsPublic"
+               [(ngModel)]="musicMetadata._song._fileMetadata._isPublic"
+               name="inpIsPublic"
+               readonly
+               #inpIsPublic="ngModel">
+        Set as public
+      </label>
+    </div>
+  </div>
+</form>
+
+<form style="width: 100%" class="form"
+      role="form"
+      #metadataFormI="ngForm"
+      accept-charset="UTF-8"
+      id="metadataFormI"
+      *ngIf="category == 'I'">
+  <section>
+    <h2>Image </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpTitleI">Title: </label>
+        <input type="text" class="form-control" id="inpTitleI" placeholder="Title..."
+               [(ngModel)]="imageMetadata.imageDTO.title" name="inpTitleI" #inpTitleI="ngModel" readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpYearI">Year: </label>
+        <input type="number" class="form-control" id="inpYearI" placeholder="Year..."
+               [(ngModel)]="imageMetadata.imageDTO.year" name="inpYearI" #inpYearI="ngModel" readonly>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Artists </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Second name</th>
+          <th>Surname</th>
+          <th>Birth year</th>
+          <th>Death year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let author of imageMetadata.imageDTO.artistDTOList; let i = index">
+          <td>
+            <input [(ngModel)]="author._name"
+                   placeholder="Name.."
+                   class="form-control"
+                   name="inpAuthorNameI"
+                   #inpAuthorNameI="ngModel"
+                   id="inpAuthorNameI"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._name2"
+                   placeholder="Second name.."
+                   class="form-control"
+                   name="inpAuthorName2I"
+                   #inpAuthorName2I="ngModel"
+                   id="inpAuthorName2I"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._surname"
+                   placeholder="Surname.."
+                   class="form-control"
+                   name="inpAuthorSurnameI"
+                   #inpAuthorSurnameI="ngModel"
+                   id="inpAuthorSurnameI"
+                   readonly>
+          </td>
+          <td>
+            <input type="date"
+                   [(ngModel)]="author._birthYear"
+                   placeholder="Birth"
+                   class="form-control"
+                   name="inpAuthorBirthI"
+                   #inpAuthorBirthI="ngModel"
+                   id="inpAuthorBirthI"
+                   readonly>
+          </td>
+          <td>
+            <input type="date"
+                   [(ngModel)]="author._deathYear"
+                   placeholder="Death"
+                   class="form-control"
+                   name="inpAuthorDeathI"
+                   #inpAuthorDeathI="ngModel"
+                   id="inpAuthorDeathI"
+                   readonly>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2>Type </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpType">Type: </label>
+        <input type="text" class="form-control"
+               id="inpType"
+               placeholder="Type..."
+               [(ngModel)]="imageMetadata.imageDTO.imageTypeDTO._name"
+               name="inpType"
+               #inpType="ngModel"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpGenreCommentsI">Comments: </label>
+        <input type="text" class="form-control"
+               id="inpGenreCommentsI"
+               placeholder="Comments..."
+               [(ngModel)]="imageMetadata.imageDTO.imageTypeDTO._comments"
+               name="inpGenreCommentsI"
+               #inpGenreCommentsI="ngModel"
+               readonly>
+      </div>
+    </div>
+  </section>
+  <div class="form-group" style="overflow-y: auto">
+    <div style="float: left; margin-left: 20px">
+      <label>Rating: </label>
+      <rating [(ngModel)]="imageMetadata.imageDTO.rate"
+              #inpRatingI="ngModel"
+              id="inpRatingI"
+              name="inpRatingI"
+              [max]="10"
+              readonly>
+      </rating>
+    </div>
+    <div style="float: right; margin-right: 25px">
+      <label>
+        <input type="checkbox" id="inpIsPublicI"
+               [(ngModel)]="imageMetadata.imageDTO.imageFileDTO._isPublic"
+               name="inpIsPublicI"
+               #inpIsPublicI="ngModel"
+               readonly>
+        Set as public
+      </label>
+    </div>
+  </div>
+</form>
+
+<form style="width: 100%" class="form"
+      role="form"
+      #metadataFormE="ngForm"
+      accept-charset="UTF-8"
+      *ngIf="category == 'E'"
+      id="metadataFormE">
+  <section>
+    <h2>Ebook </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpTitleE">Title: </label>
+        <input type="text" class="form-control" id="inpTitleE" placeholder="Title..."
+               [(ngModel)]="ebookMetadata.ebookDTO.title" name="inpTitleE" #inpTitleE="ngModel" readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpYearE">Year: </label>
+        <input type="number" class="form-control" id="inpYearE" placeholder="Year..."
+               [(ngModel)]="ebookMetadata.ebookDTO.year" name="inpYearE" #inpYearE="ngModel" readonly>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Writer </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Second name</th>
+          <th>Surname</th>
+          <th>Birth year</th>
+          <th>Death year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let author of ebookMetadata.ebookDTO.writerDTOList; let i = index">
+          <td>
+            <input [(ngModel)]="author._name"
+                   placeholder="Name.."
+                   class="form-control"
+                   name="inpAuthorNameE"
+                   #inpAuthorNameE="ngModel"
+                   id="inpAuthorNameE"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._name2"
+                   placeholder="Second name.."
+                   class="form-control"
+                   name="inpAuthorName2E"
+                   #inpAuthorName2E="ngModel"
+                   id="inpAuthorName2E"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._surname"
+                   placeholder="Surname.."
+                   class="form-control"
+                   name="inpAuthorSurnameE"
+                   #inpAuthorSurnameE="ngModel"
+                   id="inpAuthorSurnameE"
+                   readonly>
+          </td>
+          <td>
+            <input type="date"
+                   [(ngModel)]="author._birthYear"
+                   placeholder="Birth"
+                   class="form-control"
+                   name="inpAuthorBirthE"
+                   #inpAuthorBirthE="ngModel"
+                   id="inpAuthorBirthE"
+                   (blur)="checkWritersValidation()"
+                   readonly>
+          </td>
+          <td>
+            <input type="date"
+                   [(ngModel)]="author._deathYear"
+                   placeholder="Death"
+                   class="form-control"
+                   name="inpAuthorDeathE"
+                   #inpAuthorDeathE="ngModel"
+                   id="inpAuthorDeathE"
+                   readonly>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2>Literary genre </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpGenreE">Genre: </label>
+        <input type="text" class="form-control"
+               id="inpGenreE"
+               placeholder="Genre..."
+               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO._name"
+               name="inpGenreE"
+               #inpGenreE="ngModel"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpGenreCommentsE">Comments: </label>
+        <input type="text" class="form-control"
+               id="inpGenreCommentsE"
+               placeholder="Comments..."
+               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO._comments"
+               name="inpGenreCommentsE"
+               #inpGenreCommentsE="ngModel"
+               readonly>
+      </div>
+    </div>
+  </section>
+  <div class="form-group" style="overflow-y: auto">
+    <div style="float: left; margin-left: 20px">
+      <label>Rating: </label>
+      <rating [(ngModel)]="ebookMetadata.ebookDTO.rate"
+              #inpRatingE="ngModel"
+              id="inpRatingE"
+              name="inpRatingE"
+              [max]="10"
+              readonly>
+      </rating>
+    </div>
+    <div style="float: right; margin-right: 25px">
+      <label>
+        <input type="checkbox" id="inpIsPublicE"
+               [(ngModel)]="ebookMetadata.ebookDTO.ebookFileMetadataDTO._isPublic"
+               name="inpIsPublicE"
+               #inpIsPublicE="ngModel"
+               readonly>
+        Set as public
+      </label>
+    </div>
+  </div>
+</form>
+
+<form style="width: 100%" class="form"
+      role="form"
+      #metadataFormV="ngForm"
+      accept-charset="UTF-8"
+      *ngIf="category == 'V'"
+      id="metadataFormV">
+  <section>
+    <h2>Film </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpTitleV">Title: </label>
+        <input type="text" class="form-control" id="inpTitleV" placeholder="Title..."
+               [(ngModel)]="videoMetadata.video.title" name="inpTitleV" #inpTitleV="ngModel" readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpYearV">Year: </label>
+        <input type="number" class="form-control" id="inpYearV" placeholder="Year..."
+               [(ngModel)]="videoMetadata.video.productionYear" name="inpYearV" #inpYearV="ngModel" readonly>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Directors </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Second name</th>
+          <th>Surname</th>
+          <th>Birth year</th>
+          <th>Death year</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let author of videoMetadata.video.directorList; let i = index">
+          <td>
+            <input [(ngModel)]="author._name"
+                   placeholder="Name.."
+                   class="form-control"
+                   name="inpAuthorNameV"
+                   #inpAuthorNameV="ngModel"
+                   id="inpAuthorNameV"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._name2"
+                   placeholder="Second name.."
+                   class="form-control"
+                   name="inpAuthorName2V"
+                   #inpAuthorName2V="ngModel"
+                   id="inpAuthorName2V"
+                   readonly>
+          </td>
+          <td>
+            <input [(ngModel)]="author._surname"
+                   placeholder="Surname.."
+                   class="form-control"
+                   name="inpAuthorSurnameV"
+                   #inpAuthorSurnameV="ngModel"
+                   id="inpAuthorSurnameV"
+                   readonly>
+          </td>
+          <td>
+            <input type="number"
+                   [(ngModel)]="author._birthYear"
+                   placeholder="Birth"
+                   class="form-control"
+                   name="inpAuthorBirthV"
+                   #inpAuthorBirthV="ngModel"
+                   id="inpAuthorBirthV"
+                   readonly>
+          </td>
+          <td>
+            <input type="number"
+                   [(ngModel)]="author._deathYear"
+                   placeholder="Death"
+                   class="form-control"
+                   name="inpAuthorDeathV"
+                   #inpAuthorDeathV="ngModel"
+                   id="inpAuthorDeathV"
+                   readonly>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section>
+    <h2>Serie </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpSerieTitleV">Serie title: </label>
+
+        <input type="text" class="form-control"
+               id="inpSerieTitleV"
+               placeholder="Serie title..."
+               name="inpSerieTitleV"
+               #inpSerieTitleV="ngModel"
+               [(ngModel)]="videoMetadata.video.videoSerie._title"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpSerieNumberV">Serie number: </label>
+        <input type="number" class="form-control"
+               id="inpSerieNumberV"
+               placeholder="Serie number..."
+               name="inpSerieNumberV"
+               #inpSerieNumberV="ngModel"
+               [(ngModel)]="videoMetadata.video.videoSerie._number"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpSerieYearV">Serie year: </label>
+        <input type="number" class="form-control"
+               id="inpSerieYearV"
+               placeholder="Serie year..."
+               name="inpSerieYearV"
+               #inpSerieYearV="ngModel"
+               [(ngModel)]="videoMetadata.video.videoSerie._year"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="taSerieCommentsV">Serie comments: </label>
+        <textarea class="form-control" id="taSerieCommentsV"
+                  placeholder="Comments..."
+                  [(ngModel)]="videoMetadata.video.videoSerie._comments"
+                  name="taSerieCommentsV"
+                  #taSerieCommentsV="ngModel"
+                  readonly>
+
+        </textarea>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2>Film genre </h2>
+    <div class="form-group" style="margin-left: 20px;">
+      <div class="form-group">
+        <label for="inpGenreV">Genre: </label>
+        <input type="text" class="form-control"
+               id="inpGenreV"
+               placeholder="Genre..."
+               [(ngModel)]="videoMetadata.video.filmGenre._name"
+               name="inpGenreV"
+               #inpGenreV="ngModel"
+               readonly>
+      </div>
+      <div class="form-group">
+        <label for="inpGenreCommentsV">Comments: </label>
+        <input type="text" class="form-control"
+               id="inpGenreCommentsV"
+               placeholder="Comments..."
+               [(ngModel)]="videoMetadata.video.filmGenre._comments"
+               name="inpGenreCommentsV"
+               #inpGenreCommentsV="ngModel"
+               readonly>
+      </div>
+    </div>
+  </section>
+  <div class="form-group" style="overflow-y: auto">
+    <div style="float: left; margin-left: 20px">
+      <label>Rating: </label>
+      <rating [(ngModel)]="videoMetadata.video.rate"
+              #inpRatingV="ngModel"
+              id="inpRatingV"
+              name="inpRatingV"
+              [max]="10"
+              [readonly]="true">
+      </rating>
+    </div>
+    <div style="float: right; margin-right: 25px">
+      <label>
+        <input type="checkbox" id="inpIsPublicV"
+               [(ngModel)]="videoMetadata.video.videoFileMetadata._isPublic"
+               name="inpIsPublicV"
+               #inpIsPublicV="ngModel"
+               readonly>
+        Set as public
+      </label>
+    </div>
+  </div>
+</form>
+
+
+

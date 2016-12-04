@@ -8,6 +8,7 @@ import {ImageTypeDTO} from "../../model/image/image.type.dto";
 import {ImageService} from "../../service/image-service/image.service";
 import {FileUtils} from "../../common/file.utils";
 import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {ImageDTO} from "../../model/image/image.dto";
 
 @Component({
   selector: 'app-edit-image-metadata',
@@ -32,6 +33,9 @@ export class EditImageMetadataComponent extends BaseComponent {
   public rate: number;
   public maxRate: number = 10;
 
+  @Input() isVisible: boolean = true;
+  @Input() isEdit: boolean = false;
+
   constructor(private imageService: ImageService) {
     super();
     this.imageMetadata = new UploadImageMetadataDTO();
@@ -43,6 +47,9 @@ export class EditImageMetadataComponent extends BaseComponent {
 
   ngOnChanges(changes: SimpleChanges) {
     let change = changes['item'];
+    if (change == null) {
+      return;
+    }
     let current = change.currentValue;
     let previous = change.previousValue;
     if (current !== previous) {
@@ -79,10 +86,12 @@ export class EditImageMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
-    this.imageMetadata.imageDTO.rating = this.percent;
-    this.imageMetadata.imageDTO.ratingTimes = 1;
-    this.imageMetadata.username = localStorage.getItem('username');
-    this.item.metadata = this.imageMetadata;
+    if (!this.isEdit) {
+      this.imageMetadata.imageDTO.rating = this.percent;
+      this.imageMetadata.imageDTO.ratingTimes = 1;
+      this.imageMetadata.username = localStorage.getItem('username');
+      this.item.metadata = this.imageMetadata;
+    }
     this.hide.emit(true);
   }
 
@@ -164,6 +173,14 @@ export class EditImageMetadataComponent extends BaseComponent {
 
   public resetStar(): void {
     this.overStar = void 0;
+  }
+
+  public setMetadata(item: UploadImageMetadataDTO): void {
+    this.imageMetadata = item;
+  }
+
+  public getMetadata(): ImageDTO {
+    return this.imageMetadata._imageDTO;
   }
 
 }

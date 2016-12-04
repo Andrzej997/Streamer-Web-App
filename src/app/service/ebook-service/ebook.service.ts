@@ -78,4 +78,23 @@ export class EbookService extends AbstractService {
     return this.performGet(url);
   }
 
+  public deleteFileAndMetadata(id: number): Observable<boolean> {
+    let username = localStorage.getItem('username');
+    if (username == null) {
+      return null;
+    }
+    let url = `${ebookEndpoint}/auth/delete/ebook?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
+  public updateEbookMetadata(ebook: EbookDTO): Observable<EbookDTO> {
+    let url = `${ebookEndpoint}/auth/update/ebook`;
+    return this.performPut(url, JSON.stringify(ebook));
+  }
+
+  public getEbooksTop50(): Observable<EbookDTO[]> {
+    let url = `${ebookEndpoint}/noauth/ebook/top50`;
+    return this.performGet(url);
+  }
+
 }

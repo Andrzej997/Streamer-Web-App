@@ -1,8 +1,9 @@
 import {ArtistDTO} from "./artist.dto";
 import {ImageFileDTO} from "./image.file.dto";
 import {ImageTypeDTO} from "./image.type.dto";
+import {MediaItem} from "../abstract/media.item";
 
-export class ImageDTO {
+export class ImageDTO extends MediaItem {
 
   public _imageId: number;
   public _title: string;
@@ -22,11 +23,19 @@ export class ImageDTO {
   public _imageTypeDTO: ImageTypeDTO;
 
   constructor() {
+    super();
     this._artistDTOList = [];
     this._imageFileDTO = new ImageFileDTO();
     this._imageTypeDTO = new ImageTypeDTO();
   }
 
+  get rate(): number {
+    return this._rating / 10;
+  }
+
+  set rate(value: number) {
+    this._rating = value * 10;
+  }
 
   get imageId(): number {
     return this._imageId;

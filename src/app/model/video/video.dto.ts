@@ -2,8 +2,9 @@ import {DirectorDTO} from "./director.dto";
 import {VideoFileMetadataDTO} from "./video.file.metadata.dto";
 import {FilmGenreDTO} from "./film.genre.dto";
 import {VideoSerieDTO} from "./video.serie.dto";
+import {MediaItem} from "../abstract/media.item";
 
-export class VideoDTO {
+export class VideoDTO extends MediaItem {
 
   public _videoId: number;
   public _videoFileId: number;
@@ -20,10 +21,19 @@ export class VideoDTO {
   public _videoSerie: VideoSerieDTO;
 
   constructor() {
+    super();
     this._directorList = [];
     this._videoFileMetadata = new VideoFileMetadataDTO();
     this._filmGenre = new FilmGenreDTO();
     this._videoSerie = new VideoSerieDTO();
+  }
+
+  get rate(): number {
+    return this._rating / 10;
+  }
+
+  set rate(value: number) {
+    this._rating = value * 10;
   }
 
   get videoId(): number {

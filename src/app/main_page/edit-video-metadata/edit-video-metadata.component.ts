@@ -9,6 +9,7 @@ import {BaseComponent} from "../../base-component/base-component";
 import {VideoService} from "../../service/video-service/video.service";
 import {FileUtils} from "../../common/file.utils";
 import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {VideoDTO} from "../../model/video/video.dto";
 
 @Component({
   selector: 'app-edit-video-metadata',
@@ -34,6 +35,9 @@ export class EditVideoMetadataComponent extends BaseComponent {
   public rate: number;
   public maxRate: number = 10;
 
+  @Input() isVisible: boolean = true;
+  @Input() isEdit: boolean = false;
+
   constructor(private videoService: VideoService) {
     super();
     this.videoMetadata = new UploadVideoMetadataDTO();
@@ -45,6 +49,9 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   public ngOnChanges(changes: SimpleChanges) {
     let change = changes['item'];
+    if (change == null) {
+      return;
+    }
     let current = change.currentValue;
     let previous = change.previousValue;
     if (current !== previous) {
@@ -85,10 +92,12 @@ export class EditVideoMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
-    this.videoMetadata.video.rating = this.percent;
-    this.videoMetadata.video.ratingTimes = 1;
-    this.videoMetadata.username = localStorage.getItem('username');
-    this.item.metadata = this.videoMetadata;
+    if (!this.isEdit) {
+      this.videoMetadata.video.rating = this.percent;
+      this.videoMetadata.video.ratingTimes = 1;
+      this.videoMetadata.username = localStorage.getItem('username');
+      this.item.metadata = this.videoMetadata;
+    }
     this.hide.emit(true);
   }
 
@@ -181,6 +190,14 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   public resetStar(): void {
     this.overStar = void 0;
+  }
+
+  public setMetadata(item: UploadVideoMetadataDTO): void {
+    this.videoMetadata = item;
+  }
+
+  public getMetadata(): VideoDTO {
+    return this.videoMetadata._video;
   }
 
 }

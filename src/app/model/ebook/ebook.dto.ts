@@ -1,8 +1,9 @@
 import {LiteraryGenreDTO} from "./literary.genre.dto";
 import {EbookFileMetadataDTO} from "./ebook.file.metadata.dto";
 import {WriterDTO} from "./writer.dto";
+import {MediaItem} from "../abstract/media.item";
 
-export class EbookDTO {
+export class EbookDTO extends MediaItem {
 
   public _ebookId: number;
   public _title: string;
@@ -19,9 +20,18 @@ export class EbookDTO {
   public _writerDTOList: WriterDTO[];
 
   constructor() {
+    super();
     this._writerDTOList = [];
     this._ebookFileMetadataDTO = new EbookFileMetadataDTO();
     this._literaryGenreDTO = new LiteraryGenreDTO();
+  }
+
+  get rate(): number {
+    return this._rating / 10;
+  }
+
+  set rate(value: number) {
+    this._rating = value * 10;
   }
 
   get ebookId(): number {

@@ -78,4 +78,23 @@ export class ImageService extends AbstractService {
     return this.performGet(url);
   }
 
+  public deleteFileAndMetadata(id: number): Observable<boolean> {
+    let username = localStorage.getItem('username');
+    if (username == null) {
+      return null;
+    }
+    let url = `${imageEndpoint}/auth/delete/image?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
+  public updateImageMetadata(image: ImageDTO): Observable<ImageDTO> {
+    let url = `${imageEndpoint}/auth/update/image`;
+    return this.performPut(url, JSON.stringify(image));
+  }
+
+  public getImagesTop50(): Observable<ImageDTO[]> {
+    let url = `${imageEndpoint}/noauth/image/top50`;
+    return this.performGet(url);
+  }
+
 }

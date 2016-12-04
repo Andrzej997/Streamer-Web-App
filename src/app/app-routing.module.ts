@@ -9,19 +9,30 @@ import {MainComponent} from './main_page/main/main.component';
 import {AuthGuard} from './common/auth.guard';
 import {ChangePasswordFormComponent} from './main_page/change-password-form/change-password-form.component';
 import {UploadFormComponent} from './main_page/upload-form/upload-form.component';
+import {TopListViewComponent} from "./main_page/top-list-view/top-list-view.component";
+import {UserMediaViewComponent} from "./main_page/user-media-view/user-media-view.component";
+import {MusicViewComponent} from "./left-menu/music-view/music-view.component";
+import {VideoViewComponent} from "./left-menu/video-view/video-view.component";
+import {ImageViewComponent} from "./left-menu/image-view/image-view.component";
+import {EbookViewComponent} from "./left-menu/ebook-view/ebook-view.component";
 
 @NgModule({
   imports: [
     RouterModule.forRoot([
-      {path: '', redirectTo: '/main', pathMatch: 'full'},
-      {path: 'main', component: MainComponent},
+      {path: '', redirectTo: '/top', pathMatch: 'full'},
       {path: 'register', component: RegisterFormComponent},
       {path: 'about', component: AboutViewComponent},
       {path: 'account', component: AccountViewComponent, canActivate: [AuthGuard]},
       {path: 'password', component: ChangePasswordFormComponent, canActivate: [AuthGuard]},
       {path: 'contact', component: ContactViewComponent},
       {path: 'help', component: HelpViewComponent},
-      {path: 'upload', component: UploadFormComponent, canActivate: [AuthGuard]}
+      {path: 'upload', component: UploadFormComponent, canActivate: [AuthGuard]},
+      {path: 'top', component: TopListViewComponent},
+      {path: 'myfiles', component: UserMediaViewComponent, canActivate: [AuthGuard]},
+      {path: 'music', component: MusicViewComponent},
+      {path: 'video', component: VideoViewComponent},
+      {path: 'image', component: ImageViewComponent},
+      {path: 'ebook', component: EbookViewComponent}
     ])
   ],
   exports: [

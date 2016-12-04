@@ -8,6 +8,7 @@ import {EbookService} from "../../service/ebook-service/ebook.service";
 import {FileUtils} from "../../common/file.utils";
 import {Observable} from 'rxjs';
 import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {EbookDTO} from "../../model/ebook/ebook.dto";
 
 @Component({
   selector: 'app-edit-ebook-metadata',
@@ -32,6 +33,9 @@ export class EditEbookMetadataComponent extends BaseComponent {
   public rate: number;
   public maxRate: number = 10;
 
+  @Input() isVisible: boolean = true;
+  @Input() isEdit: boolean = false;
+
   constructor(private ebookService: EbookService) {
     super();
     this.ebookMetadata = new UploadEbookMetadataDTO();
@@ -43,6 +47,9 @@ export class EditEbookMetadataComponent extends BaseComponent {
 
   public ngOnChanges(changes: SimpleChanges): void {
     let change = changes['item'];
+    if (change == null) {
+      return;
+    }
     let current = change.currentValue;
     let previous = change.previousValue;
     if (current !== previous) {
@@ -79,10 +86,12 @@ export class EditEbookMetadataComponent extends BaseComponent {
   }
 
   public onSave() {
-    this.ebookMetadata.ebookDTO.rating = this.percent;
-    this.ebookMetadata.ebookDTO.ratingTimes = 1;
-    this.ebookMetadata.username = localStorage.getItem('username');
-    this.item.metadata = this.ebookMetadata;
+    if (!this.isEdit) {
+      this.ebookMetadata.ebookDTO.rating = this.percent;
+      this.ebookMetadata.ebookDTO.ratingTimes = 1;
+      this.ebookMetadata.username = localStorage.getItem('username');
+      this.item.metadata = this.ebookMetadata;
+    }
     this.hide.emit(true);
   }
 
@@ -164,6 +173,14 @@ export class EditEbookMetadataComponent extends BaseComponent {
 
   public resetStar(): void {
     this.overStar = void 0;
+  }
+
+  public setMetadata(item: UploadEbookMetadataDTO): void {
+    this.ebookMetadata = item;
+  }
+
+  public getMetadata(): EbookDTO {
+    return this.ebookMetadata._ebookDTO;
   }
 
 }

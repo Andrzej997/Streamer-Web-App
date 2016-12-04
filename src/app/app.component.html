@@ -21,10 +21,12 @@
         <li [hidden]="!loggedIn"><a [routerLink]="['/account']">ACCOUNT</a></li>
         <li [hidden]="!loggedIn"><a [routerLink]="['/upload']">UPLOAD</a></li>
         <li><a [routerLink]="['/contact']">CONTACT</a></li>
-        <li><a [routerLink]="['/']">TOP</a></li>
+        <li><a [routerLink]="['/top']">TOP</a></li>
         <li class="dropdown" dropdown>
           <a id="more-href" class="dropdown-toggle" dropdownToggle>MORE</a>
           <ul dropdownMenu role="menu" aria-labelledby="more-href">
+            <li [hidden]="!loggedIn" role="menuitem"><a class="dropdown-item" [routerLink]="['/myfiles']">MY FILES</a>
+            </li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/about']">ABOUT</a></li>
             <li class="divider dropdown-divider"></li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/help']">HELP</a></li>
@@ -50,15 +52,14 @@
     </a>
     <div id="sideNavbar" class="sidenav" [hidden]="!menuVisible">
       <a class="closebtn" (click)="onMenuShowHideClick()">&times;</a>
-      <a href="/music" class="li" style="padding-top: 60px">music</a>
-      <a href="/videos" class="li">videos</a>
-      <a href="/ebooks" class="li">e-books</a>
-      <a href="/images" class="li">images</a>
+      <a [routerLink]="['/music']" class="li" style="padding-top: 60px">music</a>
+      <a [routerLink]="['/video']" class="li">videos</a>
+      <a [routerLink]="['/ebook']" class="li">e-books</a>
+      <a [routerLink]="['/image']" class="li">images</a>
     </div>
   </div>
   <div id="divMainPage">
-    <app-snack-bar [timeout]="3000" [message]="this.snackMessage"></app-snack-bar>
-    <app-main></app-main>
     <router-outlet></router-outlet>
+    <app-snack-bar [timeout]="3000" [message]="this.snackMessage"></app-snack-bar>
   </div>
 </div>
