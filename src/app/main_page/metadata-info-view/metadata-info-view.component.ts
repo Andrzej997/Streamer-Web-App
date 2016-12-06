@@ -32,24 +32,33 @@ export class MetadataInfoViewComponent extends BaseComponent {
     this.videoMetadata = new UploadVideoMetadataDTO();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  public setCurrentItem() {
+  public setCurrentItem(): void {
     switch (this.category) {
       case 'M':
         this.musicMetadata = <UploadSongMetadataDTO>this.metadata;
+        this.musicMetadata._song._rate = this.musicMetadata._song._rating / 10;
         break;
       case 'V':
         this.videoMetadata = <UploadVideoMetadataDTO>this.metadata;
+        this.videoMetadata._video._rate = this.videoMetadata._video._rating / 10;
         break;
       case 'I':
         this.imageMetadata = <UploadImageMetadataDTO>this.metadata;
+        this.imageMetadata._imageDTO._rate = this.imageMetadata._imageDTO._rating / 10;
         break;
       case 'E':
         this.ebookMetadata = <UploadEbookMetadataDTO>this.metadata;
+        this.ebookMetadata._ebookDTO._rate = this.ebookMetadata._ebookDTO._rating / 10;
         break;
     }
+  }
+
+  /*Jawne przypisanie ze względu na to że jest szybsze niż event*/
+  public setCategory(category: string): void {
+    this.category = category;
   }
 
 }

@@ -20,7 +20,6 @@ import {SearchComponentComponent} from './main_page/search-component/search-comp
 import {AboutViewComponent} from './main_page/about-view/about-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
 import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
-import {MainComponent} from './main_page/main/main.component';
 import {AuthGuard} from './common/auth.guard';
 import {AuthProvider} from './common/auth.provider';
 import {ChangePasswordFormComponent} from './main_page/change-password-form/change-password-form.component';
@@ -53,7 +52,6 @@ import {VideoViewComponent} from './left-menu/video-view/video-view.component';
     AboutViewComponent,
     HelpViewComponent,
     SnackBarComponent,
-    MainComponent,
     ChangePasswordFormComponent,
     UploadFormComponent,
     EditEbookMetadataComponent,

@@ -74,8 +74,8 @@ export class EbookService extends AbstractService {
 
   public searchEbooksByCriteria(searchEbookCriteriaDTO: SearchCriteria): Observable<EbookDTO[]> {
     let params = JSON.stringify(searchEbookCriteriaDTO);
-    let url = `${ebookEndpoint}/noauth/public/ebooks?criteria=${params}`;
-    return this.performGet(url);
+    let url = `${ebookEndpoint}/noauth/public/ebooks`;
+    return this.performPost(url, params);
   }
 
   public deleteFileAndMetadata(id: number): Observable<boolean> {

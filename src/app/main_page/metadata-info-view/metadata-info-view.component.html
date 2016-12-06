@@ -156,7 +156,7 @@
               id="inpRating"
               name="inpRating"
               [max]="10"
-              readonly>
+              [readonly]="true">
       </rating>
     </div>
     <div style="float: right; margin-right: 25px">
@@ -164,7 +164,7 @@
         <input type="checkbox" id="inpIsPublic"
                [(ngModel)]="musicMetadata._song._fileMetadata._isPublic"
                name="inpIsPublic"
-               readonly
+               disabled="disabled"
                #inpIsPublic="ngModel">
         Set as public
       </label>
@@ -184,12 +184,12 @@
       <div class="form-group">
         <label for="inpTitleI">Title: </label>
         <input type="text" class="form-control" id="inpTitleI" placeholder="Title..."
-               [(ngModel)]="imageMetadata.imageDTO.title" name="inpTitleI" #inpTitleI="ngModel" readonly>
+               [(ngModel)]="imageMetadata._imageDTO._title" name="inpTitleI" #inpTitleI="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYearI">Year: </label>
         <input type="number" class="form-control" id="inpYearI" placeholder="Year..."
-               [(ngModel)]="imageMetadata.imageDTO.year" name="inpYearI" #inpYearI="ngModel" readonly>
+               [(ngModel)]="imageMetadata._imageDTO._year" name="inpYearI" #inpYearI="ngModel" readonly>
       </div>
     </div>
   </section>
@@ -207,7 +207,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let author of imageMetadata.imageDTO.artistDTOList; let i = index">
+        <tr *ngFor="let author of imageMetadata._imageDTO._artistDTOList; let i = index">
           <td>
             <input [(ngModel)]="author._name"
                    placeholder="Name.."
@@ -268,7 +268,7 @@
         <input type="text" class="form-control"
                id="inpType"
                placeholder="Type..."
-               [(ngModel)]="imageMetadata.imageDTO.imageTypeDTO._name"
+               [(ngModel)]="imageMetadata._imageDTO._imageTypeDTO._name"
                name="inpType"
                #inpType="ngModel"
                readonly>
@@ -278,7 +278,7 @@
         <input type="text" class="form-control"
                id="inpGenreCommentsI"
                placeholder="Comments..."
-               [(ngModel)]="imageMetadata.imageDTO.imageTypeDTO._comments"
+               [(ngModel)]="imageMetadata._imageDTO._imageTypeDTO._comments"
                name="inpGenreCommentsI"
                #inpGenreCommentsI="ngModel"
                readonly>
@@ -288,21 +288,21 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="imageMetadata.imageDTO.rate"
+      <rating [(ngModel)]="imageMetadata._imageDTO._rate"
               #inpRatingI="ngModel"
               id="inpRatingI"
               name="inpRatingI"
               [max]="10"
-              readonly>
+              [readonly]="true">
       </rating>
     </div>
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublicI"
-               [(ngModel)]="imageMetadata.imageDTO.imageFileDTO._isPublic"
+               [(ngModel)]="imageMetadata._imageDTO._imageFileDTO._isPublic"
                name="inpIsPublicI"
                #inpIsPublicI="ngModel"
-               readonly>
+               disabled="disabled">
         Set as public
       </label>
     </div>
@@ -321,12 +321,12 @@
       <div class="form-group">
         <label for="inpTitleE">Title: </label>
         <input type="text" class="form-control" id="inpTitleE" placeholder="Title..."
-               [(ngModel)]="ebookMetadata.ebookDTO.title" name="inpTitleE" #inpTitleE="ngModel" readonly>
+               [(ngModel)]="ebookMetadata._ebookDTO._title" name="inpTitleE" #inpTitleE="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYearE">Year: </label>
         <input type="number" class="form-control" id="inpYearE" placeholder="Year..."
-               [(ngModel)]="ebookMetadata.ebookDTO.year" name="inpYearE" #inpYearE="ngModel" readonly>
+               [(ngModel)]="ebookMetadata._ebookDTO._year" name="inpYearE" #inpYearE="ngModel" readonly>
       </div>
     </div>
   </section>
@@ -344,7 +344,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let author of ebookMetadata.ebookDTO.writerDTOList; let i = index">
+        <tr *ngFor="let author of ebookMetadata._ebookDTO._writerDTOList; let i = index">
           <td>
             <input [(ngModel)]="author._name"
                    placeholder="Name.."
@@ -406,7 +406,7 @@
         <input type="text" class="form-control"
                id="inpGenreE"
                placeholder="Genre..."
-               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO._name"
+               [(ngModel)]="ebookMetadata._ebookDTO._literaryGenreDTO._name"
                name="inpGenreE"
                #inpGenreE="ngModel"
                readonly>
@@ -416,7 +416,7 @@
         <input type="text" class="form-control"
                id="inpGenreCommentsE"
                placeholder="Comments..."
-               [(ngModel)]="ebookMetadata.ebookDTO.literaryGenreDTO._comments"
+               [(ngModel)]="ebookMetadata._ebookDTO._literaryGenreDTO._comments"
                name="inpGenreCommentsE"
                #inpGenreCommentsE="ngModel"
                readonly>
@@ -426,21 +426,21 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="ebookMetadata.ebookDTO.rate"
+      <rating [(ngModel)]="ebookMetadata._ebookDTO._rate"
               #inpRatingE="ngModel"
               id="inpRatingE"
               name="inpRatingE"
               [max]="10"
-              readonly>
+              [readonly]="true">
       </rating>
     </div>
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublicE"
-               [(ngModel)]="ebookMetadata.ebookDTO.ebookFileMetadataDTO._isPublic"
+               [(ngModel)]="ebookMetadata._ebookDTO._ebookFileMetadataDTO._isPublic"
                name="inpIsPublicE"
                #inpIsPublicE="ngModel"
-               readonly>
+               disabled="disabled">
         Set as public
       </label>
     </div>
@@ -459,12 +459,12 @@
       <div class="form-group">
         <label for="inpTitleV">Title: </label>
         <input type="text" class="form-control" id="inpTitleV" placeholder="Title..."
-               [(ngModel)]="videoMetadata.video.title" name="inpTitleV" #inpTitleV="ngModel" readonly>
+               [(ngModel)]="videoMetadata._video._title" name="inpTitleV" #inpTitleV="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYearV">Year: </label>
         <input type="number" class="form-control" id="inpYearV" placeholder="Year..."
-               [(ngModel)]="videoMetadata.video.productionYear" name="inpYearV" #inpYearV="ngModel" readonly>
+               [(ngModel)]="videoMetadata._video._productionYear" name="inpYearV" #inpYearV="ngModel" readonly>
       </div>
     </div>
   </section>
@@ -482,7 +482,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let author of videoMetadata.video.directorList; let i = index">
+        <tr *ngFor="let author of videoMetadata._video._directorList; let i = index">
           <td>
             <input [(ngModel)]="author._name"
                    placeholder="Name.."
@@ -546,7 +546,7 @@
                placeholder="Serie title..."
                name="inpSerieTitleV"
                #inpSerieTitleV="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie._title"
+               [(ngModel)]="videoMetadata._video._videoSerie._title"
                readonly>
       </div>
       <div class="form-group">
@@ -556,7 +556,7 @@
                placeholder="Serie number..."
                name="inpSerieNumberV"
                #inpSerieNumberV="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie._number"
+               [(ngModel)]="videoMetadata._video._videoSerie._number"
                readonly>
       </div>
       <div class="form-group">
@@ -566,14 +566,14 @@
                placeholder="Serie year..."
                name="inpSerieYearV"
                #inpSerieYearV="ngModel"
-               [(ngModel)]="videoMetadata.video.videoSerie._year"
+               [(ngModel)]="videoMetadata._video._videoSerie._year"
                readonly>
       </div>
       <div class="form-group">
         <label for="taSerieCommentsV">Serie comments: </label>
         <textarea class="form-control" id="taSerieCommentsV"
                   placeholder="Comments..."
-                  [(ngModel)]="videoMetadata.video.videoSerie._comments"
+                  [(ngModel)]="videoMetadata._video._videoSerie._comments"
                   name="taSerieCommentsV"
                   #taSerieCommentsV="ngModel"
                   readonly>
@@ -590,7 +590,7 @@
         <input type="text" class="form-control"
                id="inpGenreV"
                placeholder="Genre..."
-               [(ngModel)]="videoMetadata.video.filmGenre._name"
+               [(ngModel)]="videoMetadata._video._filmGenre._name"
                name="inpGenreV"
                #inpGenreV="ngModel"
                readonly>
@@ -600,7 +600,7 @@
         <input type="text" class="form-control"
                id="inpGenreCommentsV"
                placeholder="Comments..."
-               [(ngModel)]="videoMetadata.video.filmGenre._comments"
+               [(ngModel)]="videoMetadata._video._filmGenre._comments"
                name="inpGenreCommentsV"
                #inpGenreCommentsV="ngModel"
                readonly>
@@ -610,7 +610,7 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="videoMetadata.video.rate"
+      <rating [(ngModel)]="videoMetadata._video._rate"
               #inpRatingV="ngModel"
               id="inpRatingV"
               name="inpRatingV"
@@ -621,10 +621,10 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublicV"
-               [(ngModel)]="videoMetadata.video.videoFileMetadata._isPublic"
+               [(ngModel)]="videoMetadata._video._videoFileMetadata._isPublic"
                name="inpIsPublicV"
                #inpIsPublicV="ngModel"
-               readonly>
+               disabled="disabled">
         Set as public
       </label>
     </div>

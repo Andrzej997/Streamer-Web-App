@@ -77,15 +77,15 @@ export class EditMusicMetadataComponent extends BaseComponent {
     if (isValid) {
       return;
     }
-    this.musicMetadata.song.fileMetadata.fileName = FileUtils.getFileName(this.item);
-    this.musicMetadata.song.fileMetadata.extension = FileUtils.getExtension(this.item);
-    this.musicMetadata.song.fileMetadata.fileSize = FileUtils.getFileSize(this.item);
-    this.musicMetadata.song.fileMetadata.creationDate = FileUtils.getFileCreationDate(this.item);
-    if (this.musicMetadata.song.fileMetadata.creationDate == null) {
-      this.musicMetadata.song.fileMetadata.creationDate = new Date();
+    this.musicMetadata._song._fileMetadata._fileName = FileUtils.getFileName(this.item);
+    this.musicMetadata._song._fileMetadata._extension = FileUtils.getExtension(this.item);
+    this.musicMetadata._song._fileMetadata._fileSize = FileUtils.getFileSize(this.item);
+    this.musicMetadata._song._fileMetadata._creationDate = FileUtils.getFileCreationDate(this.item);
+    if (this.musicMetadata._song._fileMetadata._creationDate == null) {
+      this.musicMetadata._song._fileMetadata._creationDate = new Date();
     }
-    this.musicMetadata.song.title = FileUtils.getFileName(this.item);
-    this.musicMetadata.song.productionYear = new Date().getFullYear();
+    this.musicMetadata._song._title = FileUtils.getFileName(this.item);
+    this.musicMetadata._song._productionYear = new Date().getFullYear();
   }
 
   public changeTypeaheadLoading(e: boolean): void {
@@ -94,71 +94,78 @@ export class EditMusicMetadataComponent extends BaseComponent {
 
   public onAddMusicAuthor(): void {
     let artist: MusicArtistsDTO = new MusicArtistsDTO();
-    this.musicMetadata.song.authors.push(artist);
+    this.musicMetadata._song._authors.push(artist);
   }
 
   public onRemoveMusicAuthor(): void {
-    this.musicMetadata.song.authors.pop();
-    if (this.musicMetadata.song.authors.length <= 0) {
+    this.musicMetadata._song._authors.pop();
+    if (this.musicMetadata._song._authors.length <= 0) {
       this.isAuthorsValid = true;
     }
   }
 
   public onMusicAuthorInput(index: number): void {
     this.artistsTypeaheadList = new Observable<MusicArtistsDTO[]>(observer => {
-      observer.next(this.musicMetadata.song.authors[index].name);
-      observer.next(this.musicMetadata.song.authors[index].name2);
-      observer.next(this.musicMetadata.song.authors[index].surname);
+      observer.next(this.musicMetadata._song._authors[index]._name);
+      observer.next(this.musicMetadata._song._authors[index]._name2);
+      observer.next(this.musicMetadata._song._authors[index]._surname);
     }).mergeMap(() => this.getAristsPredictionList(index));
   }
 
   private getAristsPredictionList(index: number): Observable<MusicArtistsDTO[]> {
-    let author = this.musicMetadata.song.authors[index];
-    return this.musicService.getAristsPredictionList(author.name, author.name2, author.surname);
+    let author = this.musicMetadata._song._authors[index];
+    return this.musicService.getAristsPredictionList(author._name, author._name2, author._surname);
   }
 
   public onMusicAlbumInput(): void {
     this.albumsTypeaheadList = new Observable<MusicAlbumDTO[]>(observer => {
-      observer.next(this.musicMetadata.song.album.albumTitle);
+      observer.next(this.musicMetadata._song._album._albumTitle);
     }).mergeMap(() => this.getAlbumsPredictionList());
   }
 
   private getAlbumsPredictionList(): Observable<MusicAlbumDTO[]> {
-    return this.musicService.getAlbumsPredictionList(this.musicMetadata.song.album.albumTitle,
-      this.musicMetadata.song.title);
+    return this.musicService.getAlbumsPredictionList(this.musicMetadata._song._album._albumTitle,
+      this.musicMetadata._song._title);
   }
 
   public onMusicGenreInput(): void {
     this.genresTypeaheadList = new Observable<MusicGenreDTO[]>(observer => {
-      observer.next(this.musicMetadata.song.genre.name);
+      observer.next(this.musicMetadata._song._genre._name);
     }).mergeMap(() => this.getGenresPredictionList());
   }
 
   private getGenresPredictionList(): Observable<MusicGenreDTO[]> {
-    return this.musicService.getGenresPredictionList(this.musicMetadata.song.genre.name);
+    return this.musicService.getGenresPredictionList(this.musicMetadata._song._genre._name);
   }
 
   public onSave() {
     if (!this.isEdit) {
-      this.musicMetadata.song.rating = this.percent;
-      this.musicMetadata.song.ratingTimes = 1;
-      this.musicMetadata.userName = localStorage.getItem('username');
+      this.musicMetadata._song._rating = this.percent;
+      this.musicMetadata._song._ratingTimes = 1;
+      this.musicMetadata._userName = localStorage.getItem('username');
       this.item.metadata = this.musicMetadata;
+    } else {
+      let rating: number = this.musicMetadata._song._rating;
+      let times: number = this.musicMetadata._song._ratingTimes;
+      let result: number = rating * times + this.percent;
+      result = result / (times + 1);
+      this.musicMetadata._song._rating = result;
+      this.musicMetadata._song._ratingTimes = times + 1;
     }
     this.hide.emit(true);
   }
 
   public checkAuthorsValidation(): void {
-    if (this.musicMetadata.song.authors == null) {
+    if (this.musicMetadata._song._authors == null) {
       this.isAuthorsValid = true;
       return;
     }
-    if (this.musicMetadata.song.authors.length <= 0) {
+    if (this.musicMetadata._song._authors.length <= 0) {
       this.isAuthorsValid = true;
       return;
     }
     let itemIsValid: boolean = true;
-    this.musicMetadata.song.authors.forEach((item: MusicArtistsDTO) => {
+    this.musicMetadata._song._authors.forEach((item: MusicArtistsDTO) => {
       if (item._name == null || item._name.length <= 0) {
         itemIsValid = false;
         return;
@@ -172,16 +179,16 @@ export class EditMusicMetadataComponent extends BaseComponent {
   }
 
   public onTypeaheadAuthorSelect(match: TypeaheadMatch, index: number): void {
-    this.musicMetadata.song.authors[index] = <MusicArtistsDTO>match.item;
+    this.musicMetadata._song._authors[index] = <MusicArtistsDTO>match.item;
     this.checkAuthorsValidation();
   }
 
   public onTypeaheadAlbumSelect(match: TypeaheadMatch): void {
-    this.musicMetadata.song._album = <MusicAlbumDTO>match.item;
+    this.musicMetadata._song._album = <MusicAlbumDTO>match.item;
   }
 
   public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
-    this.musicMetadata.song._genre = <MusicGenreDTO>match.item;
+    this.musicMetadata._song._genre = <MusicGenreDTO>match.item;
   }
 
   public hoveringOver(value: number): void {
@@ -195,10 +202,15 @@ export class EditMusicMetadataComponent extends BaseComponent {
 
   public setMetadata(item: UploadSongMetadataDTO): void {
     this.musicMetadata = item;
+    this.setRate();
   }
 
   public getMetadata(): SongDTO {
     return this.musicMetadata._song;
+  }
+
+  public setRate(): void {
+    this.rate = this.musicMetadata._song._rating / 10;
   }
 
 }

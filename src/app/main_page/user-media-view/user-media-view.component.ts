@@ -64,16 +64,20 @@ export class UserMediaViewComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    this.musicService.getAllUserSongs().subscribe(value => {
+    this.musicService.getAllUserSongs().subscribe((value: SongDTO[]) => {
+      value.forEach((item: SongDTO) => item._rate = item._rating / 10);
       this.userSongs = value;
     });
-    this.videoService.getAllUserVideos().subscribe(value => {
+    this.videoService.getAllUserVideos().subscribe((value: VideoDTO[]) => {
+      value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
       this.userVideos = value;
     });
-    this.imageService.getAllUserImages().subscribe(value => {
+    this.imageService.getAllUserImages().subscribe((value: ImageDTO[])=> {
+      value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
       this.userImages = value;
     });
-    this.ebookService.getAllUserEbooks().subscribe(value => {
+    this.ebookService.getAllUserEbooks().subscribe((value: EbookDTO[]) => {
+      value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
       this.userEbooks = value;
     });
   }

@@ -22,6 +22,8 @@ export class ImageDTO extends MediaItem {
   public _imageFileDTO: ImageFileDTO;
   public _imageTypeDTO: ImageTypeDTO;
 
+  public _rate: number;
+
   constructor() {
     super();
     this._artistDTOList = [];

@@ -1,10 +1,13 @@
 import {Component, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {BaseComponent} from "../../base-component/base-component";
 import {ImageDTO} from "../../model/image/image.dto";
 import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
 import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
 import {ModalDirective} from 'ng2-bootstrap';
 import {ImageService} from "../../service/image-service/image.service";
+import {SearchCriteria} from "../../view-objects/search.criteria";
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-image-view',
@@ -22,15 +25,36 @@ export class ImageViewComponent extends BaseComponent {
 
   public selectedItem: UploadImageMetadataDTO;
 
-  constructor(private imageService: ImageService) {
+  public criteria: SearchCriteria;
+
+  constructor(private imageService: ImageService,
+              private route: ActivatedRoute) {
     super();
     this.imageList = [];
     this.selectedItem = new UploadImageMetadataDTO();
   }
 
   ngOnInit() {
-    this.imageService.getImagesTop50().subscribe((value: ImageDTO[]) => {
-      this.imageList = value;
+    let criteriaParam: Observable<string> = this.route.queryParams.map(params => params['criteria'] || '');
+    if (criteriaParam == null) {
+      return;
+    }
+    criteriaParam.subscribe((value: string) => {
+      if (value == null || value.length <= 0) {
+        this.imageService.getImagesTop50().subscribe((value: ImageDTO[]) => {
+          value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
+          this.imageList = value;
+        });
+        return;
+      }
+      let criteria: SearchCriteria = SearchCriteria.fromJSON(value);
+      if (criteria == null) {
+        return;
+      }
+      this.imageService.searchImagesByCriteria(criteria).subscribe((value: ImageDTO[]) => {
+        value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
+        this.imageList = value;
+      })
     });
   }
 

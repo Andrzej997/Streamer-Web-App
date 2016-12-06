@@ -23,4 +23,12 @@ export class SearchCriteriaDTO {
     this._criteria = value;
   }
 
+  public static fromJSON(json: string): SearchCriteriaDTO {
+    let result: SearchCriteriaDTO = new SearchCriteriaDTO();
+    let object = JSON.parse(json);
+    result._criteria = object._criteria;
+    result._textSearched = object._textSearched;
+    return result;
+  }
+
 }

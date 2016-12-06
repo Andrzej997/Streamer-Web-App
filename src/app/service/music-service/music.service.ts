@@ -92,8 +92,8 @@ export class MusicService extends AbstractService {
 
   public searchSongsByCriteria(searchSongCriteriaDTO: SearchCriteria): Observable<SongDTO[]> {
     let params = JSON.stringify(searchSongCriteriaDTO);
-    let url = `${musicEndpoint}/noauth/public/songs?criteria=${params}`;
-    return this.performGet(url);
+    let url = `${musicEndpoint}/noauth/public/songs`;
+    return this.performPost(url, params);
   }
 
   public deleteFileAndMetadata(id: number): Observable<boolean> {

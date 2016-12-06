@@ -74,23 +74,30 @@ export class EditEbookMetadataComponent extends BaseComponent {
     if (isValid) {
       return;
     }
-    this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.fileName = FileUtils.getFileName(this.item);
-    this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.extension = FileUtils.getExtension(this.item);
-    this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.fileSize = FileUtils.getFileSize(this.item);
-    this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.creationDate = FileUtils.getFileCreationDate(this.item);
-    if (this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.creationDate == null) {
-      this.ebookMetadata.ebookDTO.ebookFileMetadataDTO.creationDate = new Date();
+    this.ebookMetadata._ebookDTO._ebookFileMetadataDTO._fileName = FileUtils.getFileName(this.item);
+    this.ebookMetadata._ebookDTO._ebookFileMetadataDTO._extension = FileUtils.getExtension(this.item);
+    this.ebookMetadata._ebookDTO._ebookFileMetadataDTO._fileSize = FileUtils.getFileSize(this.item);
+    this.ebookMetadata._ebookDTO._ebookFileMetadataDTO._creationDate = FileUtils.getFileCreationDate(this.item);
+    if (this.ebookMetadata._ebookDTO._ebookFileMetadataDTO._creationDate == null) {
+      this.ebookMetadata._ebookDTO._ebookFileMetadataDTO._creationDate = new Date();
     }
-    this.ebookMetadata.ebookDTO.title = FileUtils.getFileName(this.item);
-    this.ebookMetadata.ebookDTO.year = new Date().getFullYear();
+    this.ebookMetadata._ebookDTO._title = FileUtils.getFileName(this.item);
+    this.ebookMetadata._ebookDTO._year = new Date().getFullYear();
   }
 
   public onSave() {
     if (!this.isEdit) {
-      this.ebookMetadata.ebookDTO.rating = this.percent;
-      this.ebookMetadata.ebookDTO.ratingTimes = 1;
-      this.ebookMetadata.username = localStorage.getItem('username');
+      this.ebookMetadata._ebookDTO._rating = this.percent;
+      this.ebookMetadata._ebookDTO._ratingTimes = 1;
+      this.ebookMetadata._username = localStorage.getItem('username');
       this.item.metadata = this.ebookMetadata;
+    } else {
+      let rating: number = this.ebookMetadata._ebookDTO._rating;
+      let times: number = this.ebookMetadata._ebookDTO._ratingTimes;
+      let result: number = rating * times + this.percent;
+      result = result / (times + 1);
+      this.ebookMetadata._ebookDTO._rating = result;
+      this.ebookMetadata._ebookDTO._ratingTimes = times + 1;
     }
     this.hide.emit(true);
   }
@@ -101,50 +108,50 @@ export class EditEbookMetadataComponent extends BaseComponent {
 
   public onAddWriter(): void {
     let writer: WriterDTO = new WriterDTO();
-    this.ebookMetadata.ebookDTO.writerDTOList.push(writer);
+    this.ebookMetadata._ebookDTO._writerDTOList.push(writer);
   }
 
   public onRemoveWriter(): void {
-    this.ebookMetadata.ebookDTO.writerDTOList.pop();
-    if (this.ebookMetadata.ebookDTO.writerDTOList.length <= 0) {
+    this.ebookMetadata._ebookDTO._writerDTOList.pop();
+    if (this.ebookMetadata._ebookDTO._writerDTOList.length <= 0) {
       this.isWritersValid = true;
     }
   }
 
   public onWritersInput(index: number): void {
     this.writersTypeaheadList = new Observable<WriterDTO[]>(observer => {
-      observer.next(this.ebookMetadata.ebookDTO.writerDTOList[index].name);
-      observer.next(this.ebookMetadata.ebookDTO.writerDTOList[index].name2);
-      observer.next(this.ebookMetadata.ebookDTO.writerDTOList[index].surname);
+      observer.next(this.ebookMetadata._ebookDTO._writerDTOList[index]._name);
+      observer.next(this.ebookMetadata._ebookDTO._writerDTOList[index]._name2);
+      observer.next(this.ebookMetadata._ebookDTO._writerDTOList[index]._surname);
     }).mergeMap(() => this.getWritersPredictionList(index));
   }
 
   private getWritersPredictionList(index: number): Observable<WriterDTO[]> {
-    let author = this.ebookMetadata.ebookDTO.writerDTOList[index];
-    return this.ebookService.getWritersPredictionList(author.name, author.name2, author.surname);
+    let author = this.ebookMetadata._ebookDTO._writerDTOList[index];
+    return this.ebookService.getWritersPredictionList(author._name, author._name2, author._surname);
   }
 
   public onLiteraryTypeInput(): void {
     this.literaryGenresTypeaheadList = new Observable<LiteraryGenreDTO[]>(observer => {
-      observer.next(this.ebookMetadata.ebookDTO.literaryGenreDTO.name);
+      observer.next(this.ebookMetadata._ebookDTO._literaryGenreDTO._name);
     }).mergeMap(() => this.getLiteraryTypesByPrediction());
   }
 
   private getLiteraryTypesByPrediction(): Observable<LiteraryGenreDTO[]> {
-    return this.ebookService.getLiteraryGenresPredictionList(this.ebookMetadata.ebookDTO.literaryGenreDTO.name);
+    return this.ebookService.getLiteraryGenresPredictionList(this.ebookMetadata._ebookDTO._literaryGenreDTO._name);
   }
 
   public checkWritersValidation(): void {
-    if (this.ebookMetadata.ebookDTO.writerDTOList == null) {
+    if (this.ebookMetadata._ebookDTO._writerDTOList == null) {
       this.isWritersValid = true;
       return;
     }
-    if (this.ebookMetadata.ebookDTO.writerDTOList.length <= 0) {
+    if (this.ebookMetadata._ebookDTO._writerDTOList.length <= 0) {
       this.isWritersValid = true;
       return;
     }
     let isItemValid: boolean = true;
-    this.ebookMetadata.ebookDTO.writerDTOList.forEach((item: WriterDTO) => {
+    this.ebookMetadata._ebookDTO._writerDTOList.forEach((item: WriterDTO) => {
       if (item._name == null || item._name.length <= 0) {
         isItemValid = false;
         return;
@@ -158,12 +165,12 @@ export class EditEbookMetadataComponent extends BaseComponent {
   }
 
   public onTypeaheadWriterSelect(match: TypeaheadMatch, index: number): void {
-    this.ebookMetadata.ebookDTO.writerDTOList[index] = <WriterDTO> match.item;
+    this.ebookMetadata._ebookDTO._writerDTOList[index] = <WriterDTO> match.item;
     this.checkWritersValidation();
   }
 
   public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
-    this.ebookMetadata.ebookDTO.literaryGenreDTO = <LiteraryGenreDTO> match.item;
+    this.ebookMetadata._ebookDTO._literaryGenreDTO = <LiteraryGenreDTO> match.item;
   }
 
   public hoveringOver(value: number): void {

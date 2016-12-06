@@ -74,8 +74,8 @@ export class ImageService extends AbstractService {
 
   public searchImagesByCriteria(searchImageCriteriaDTO: SearchCriteria): Observable<ImageDTO[]> {
     let params = JSON.stringify(searchImageCriteriaDTO);
-    let url = `${imageEndpoint}/noauth/public/images?criteria=${params}`;
-    return this.performGet(url);
+    let url = `${imageEndpoint}/noauth/public/images`;
+    return this.performPost(url, params);
   }
 
   public deleteFileAndMetadata(id: number): Observable<boolean> {

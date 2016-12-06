@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
+import {Router, ActivatedRoute, NavigationExtras} from '@angular/router';
 import {title} from './constants';
 import {BaseComponent} from './base-component/base-component';
 import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
@@ -38,7 +38,7 @@ export class AppComponent extends BaseComponent {
     sMessage.subscribe((value) => this.snackMessage = value != null ? value : '');
     let showSnackBar: Observable<string> = this.route.queryParams.map(params => params['showSnackBar'] || 'false');
     showSnackBar.subscribe((value) => {
-      if (value) {
+      if (value != null && value === 'true') {
         this.snack.showSnackMessage();
       }
     });
@@ -69,7 +69,10 @@ export class AppComponent extends BaseComponent {
     let token = localStorage.getItem('id_token');
     if (token != null && token.length > 0) {
       localStorage.removeItem('id_token');
+      localStorage.removeItem('username');
       this._loggedIn = false;
+      this.snackMessage = 'Logged out';
+      this.snack.showSnackMessage();
     }
   }
 
@@ -88,7 +91,26 @@ export class AppComponent extends BaseComponent {
   }
 
   public onSearchData(value: SearchCriteria): void {
-
+    if (value == null) {
+      return;
+    }
+    let params: NavigationExtras = {
+      queryParams: {'criteria': JSON.stringify(value)}
+    };
+    switch (value.endpoint) {
+      case 'M':
+        this.router.navigate(['/music'], params);
+        break;
+      case 'V':
+        this.router.navigate(['/video'], params);
+        break;
+      case 'I':
+        this.router.navigate(['/image'], params);
+        break;
+      case 'E':
+        this.router.navigate(['/ebook'], params);
+        break;
+    }
   }
 
   get loggedIn(): boolean {

@@ -20,20 +20,14 @@ export class VideoDTO extends MediaItem {
   public _filmGenre: FilmGenreDTO;
   public _videoSerie: VideoSerieDTO;
 
+  public _rate: number;
+
   constructor() {
     super();
     this._directorList = [];
     this._videoFileMetadata = new VideoFileMetadataDTO();
     this._filmGenre = new FilmGenreDTO();
     this._videoSerie = new VideoSerieDTO();
-  }
-
-  get rate(): number {
-    return this._rating / 10;
-  }
-
-  set rate(value: number) {
-    this._rating = value * 10;
   }
 
   get videoId(): number {

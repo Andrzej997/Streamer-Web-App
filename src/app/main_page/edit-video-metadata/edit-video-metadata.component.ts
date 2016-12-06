@@ -76,15 +76,15 @@ export class EditVideoMetadataComponent extends BaseComponent {
     if (isValid) {
       return;
     }
-    this.videoMetadata.video.videoFileMetadata.fileName = FileUtils.getFileName(this.item);
-    this.videoMetadata.video.videoFileMetadata.extension = FileUtils.getExtension(this.item);
-    this.videoMetadata.video.videoFileMetadata.fileSize = FileUtils.getFileSize(this.item);
-    this.videoMetadata.video.videoFileMetadata.creationDate = FileUtils.getFileCreationDate(this.item);
-    if (this.videoMetadata.video.videoFileMetadata.creationDate == null) {
-      this.videoMetadata.video.videoFileMetadata.creationDate = new Date();
+    this.videoMetadata._video._videoFileMetadata._fileName = FileUtils.getFileName(this.item);
+    this.videoMetadata._video._videoFileMetadata._extension = FileUtils.getExtension(this.item);
+    this.videoMetadata._video._videoFileMetadata._fileSize = FileUtils.getFileSize(this.item);
+    this.videoMetadata._video._videoFileMetadata._creationDate = FileUtils.getFileCreationDate(this.item);
+    if (this.videoMetadata._video._videoFileMetadata._creationDate == null) {
+      this.videoMetadata._video._videoFileMetadata._creationDate = new Date();
     }
-    this.videoMetadata.video.title = FileUtils.getFileName(this.item);
-    this.videoMetadata.video.productionYear = new Date().getFullYear();
+    this.videoMetadata._video._title = FileUtils.getFileName(this.item);
+    this.videoMetadata._video._productionYear = new Date().getFullYear();
   }
 
   public changeTypeaheadLoading(e: boolean): void {
@@ -93,25 +93,32 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   public onSave() {
     if (!this.isEdit) {
-      this.videoMetadata.video.rating = this.percent;
-      this.videoMetadata.video.ratingTimes = 1;
-      this.videoMetadata.username = localStorage.getItem('username');
+      this.videoMetadata._video._rating = this.percent;
+      this.videoMetadata._video._ratingTimes = 1;
+      this.videoMetadata._username = localStorage.getItem('username');
       this.item.metadata = this.videoMetadata;
+    } else {
+      let rating: number = this.videoMetadata._video._rating;
+      let times: number = this.videoMetadata._video._ratingTimes;
+      let result: number = rating * times + this.percent;
+      result = result / (times + 1);
+      this.videoMetadata._video._rating = result;
+      this.videoMetadata._video._ratingTimes = times + 1;
     }
     this.hide.emit(true);
   }
 
   public checkAuthorsValidation(): void {
-    if (this.videoMetadata.video.directorList == null) {
+    if (this.videoMetadata._video._directorList == null) {
       this.isDirectorsValid = true;
       return;
     }
-    if (this.videoMetadata.video.directorList.length <= 0) {
+    if (this.videoMetadata._video._directorList.length <= 0) {
       this.isDirectorsValid = true;
       return;
     }
     let isItemValid: boolean = true;
-    this.videoMetadata.video.directorList.forEach((item: DirectorDTO) => {
+    this.videoMetadata._video._directorList.forEach((item: DirectorDTO) => {
       if (item._name == null || item._name.length <= 0) {
         isItemValid = false;
         return;
@@ -126,61 +133,61 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   public onAddDirector(): void {
     let director: DirectorDTO = new DirectorDTO();
-    this.videoMetadata.video.directorList.push(director);
+    this.videoMetadata._video._directorList.push(director);
   }
 
   public onRemoveDirector(): void {
-    this.videoMetadata.video.directorList.pop();
-    if (this.videoMetadata.video.directorList.length <= 0) {
+    this.videoMetadata._video._directorList.pop();
+    if (this.videoMetadata._video._directorList.length <= 0) {
       this.isDirectorsValid = true;
     }
   }
 
   public onDirectorsInput(index: number): void {
     this.directorsTypeaheadList = new Observable<DirectorDTO[]>(observer => {
-      observer.next(this.videoMetadata.video.directorList[index].name);
-      observer.next(this.videoMetadata.video.directorList[index].name2);
-      observer.next(this.videoMetadata.video.directorList[index].surname);
+      observer.next(this.videoMetadata._video._directorList[index]._name);
+      observer.next(this.videoMetadata._video._directorList[index]._name2);
+      observer.next(this.videoMetadata._video._directorList[index]._surname);
     }).mergeMap(() => this.getDirectorsPredictionList(index));
   }
 
   private getDirectorsPredictionList(index: number): Observable<DirectorDTO[]> {
-    let director = this.videoMetadata.video.directorList[index];
-    return this.videoService.getDirectorsPredictionList(director.name, director.name2, director.surname);
+    let director = this.videoMetadata._video._directorList[index];
+    return this.videoService.getDirectorsPredictionList(director._name, director._name2, director._surname);
   }
 
   public onVideoSeriesInput(): void {
     this.videoSeriesTypeahedList = new Observable<VideoSerieDTO[]>(observer => {
-      observer.next(this.videoMetadata.video.videoSerie.title);
+      observer.next(this.videoMetadata._video._videoSerie._title);
     }).mergeMap(() => this.getVideoSeriesPredictionList());
   }
 
   private getVideoSeriesPredictionList(): Observable<VideoSerieDTO[]> {
-    return this.videoService.getVideoSeriesPredictionList(this.videoMetadata.video.videoSerie.title,
-      this.videoMetadata.video.title);
+    return this.videoService.getVideoSeriesPredictionList(this.videoMetadata._video._videoSerie._title,
+      this.videoMetadata._video._title);
   }
 
   public onFilmGenreInput(): void {
     this.filmGenresTypeaheadList = new Observable<FilmGenreDTO[]>(observer => {
-      observer.next(this.videoMetadata.video.filmGenre.name);
+      observer.next(this.videoMetadata._video._filmGenre._name);
     }).mergeMap(() => this.getGenresPredictionList());
   }
 
   private getGenresPredictionList(): Observable<FilmGenreDTO[]> {
-    return this.videoService.getGenresPredictionList(this.videoMetadata.video.filmGenre.name);
+    return this.videoService.getGenresPredictionList(this.videoMetadata._video._filmGenre._name);
   }
 
   public onTypeaheadDirectorSelect(match: TypeaheadMatch, index: number): void {
-    this.videoMetadata.video.directorList[index] = <DirectorDTO>match.item;
+    this.videoMetadata._video._directorList[index] = <DirectorDTO>match.item;
     this.checkAuthorsValidation();
   }
 
   public onTypeaheadSerieSelect(match: TypeaheadMatch): void {
-    this.videoMetadata.video.videoSerie = <VideoSerieDTO>match.item;
+    this.videoMetadata._video._videoSerie = <VideoSerieDTO>match.item;
   }
 
   public onTypeaheadGenreSelect(match: TypeaheadMatch): void {
-    this.videoMetadata.video.filmGenre = <FilmGenreDTO>match.item;
+    this.videoMetadata._video._filmGenre = <FilmGenreDTO>match.item;
   }
 
   public hoveringOver(value: number): void {

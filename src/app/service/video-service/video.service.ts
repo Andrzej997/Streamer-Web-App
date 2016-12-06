@@ -86,8 +86,8 @@ export class VideoService extends AbstractService {
 
   public searchVideosByCriteria(searchVideoCriteriaDTO: SearchCriteria): Observable<VideoDTO[]> {
     let params = JSON.stringify(searchVideoCriteriaDTO);
-    let url = `${videoEndpoint}/noauth/public/videos?criteria=${params}`;
-    return this.performGet(url);
+    let url = `${videoEndpoint}/noauth/public/videos`;
+    return this.performPost(url, params);
   }
 
   public deleteFileAndMetadata(id: number): Observable<boolean> {

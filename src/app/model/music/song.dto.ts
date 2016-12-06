@@ -20,20 +20,14 @@ export class SongDTO extends MediaItem {
   public _genre: MusicGenreDTO;
   public _album: MusicAlbumDTO;
 
+  public _rate: number;
+
   constructor() {
     super();
     this._authors = [];
     this._fileMetadata = new MusicFileMetadataDTO();
     this._genre = new MusicGenreDTO();
     this._album = new MusicAlbumDTO();
-  }
-
-  get rate(): number {
-    return this._rating / 10;
-  }
-
-  set rate(value: number) {
-    this._rating = value * 10;
   }
 
   get songId(): number {
@@ -139,4 +133,5 @@ export class SongDTO extends MediaItem {
   set album(value: MusicAlbumDTO) {
     this._album = value;
   }
+
 }

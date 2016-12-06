@@ -19,6 +19,8 @@ export class EbookDTO extends MediaItem {
   public _ebookFileMetadataDTO: EbookFileMetadataDTO;
   public _writerDTOList: WriterDTO[];
 
+  public _rate: number;
+
   constructor() {
     super();
     this._writerDTOList = [];

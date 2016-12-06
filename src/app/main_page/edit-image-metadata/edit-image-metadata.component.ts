@@ -74,23 +74,30 @@ export class EditImageMetadataComponent extends BaseComponent {
     if (isValid) {
       return;
     }
-    this.imageMetadata.imageDTO.imageFileDTO.fileName = FileUtils.getFileName(this.item);
-    this.imageMetadata.imageDTO.imageFileDTO.fileExtension = FileUtils.getExtension(this.item);
-    this.imageMetadata.imageDTO.imageFileDTO.fileSize = FileUtils.getFileSize(this.item);
-    this.imageMetadata.imageDTO.imageFileDTO.creationDate = FileUtils.getFileCreationDate(this.item);
-    if (this.imageMetadata.imageDTO.imageFileDTO.creationDate == null) {
-      this.imageMetadata.imageDTO.imageFileDTO.creationDate = new Date();
+    this.imageMetadata._imageDTO._imageFileDTO._fileName = FileUtils.getFileName(this.item);
+    this.imageMetadata._imageDTO._imageFileDTO._fileExtension = FileUtils.getExtension(this.item);
+    this.imageMetadata._imageDTO._imageFileDTO._fileSize = FileUtils.getFileSize(this.item);
+    this.imageMetadata._imageDTO._imageFileDTO._creationDate = FileUtils.getFileCreationDate(this.item);
+    if (this.imageMetadata._imageDTO._imageFileDTO._creationDate == null) {
+      this.imageMetadata._imageDTO._imageFileDTO._creationDate = new Date();
     }
-    this.imageMetadata.imageDTO.title = FileUtils.getFileName(this.item);
-    this.imageMetadata.imageDTO.year = new Date().getFullYear();
+    this.imageMetadata._imageDTO._title = FileUtils.getFileName(this.item);
+    this.imageMetadata._imageDTO._year = new Date().getFullYear();
   }
 
   public onSave() {
     if (!this.isEdit) {
-      this.imageMetadata.imageDTO.rating = this.percent;
-      this.imageMetadata.imageDTO.ratingTimes = 1;
-      this.imageMetadata.username = localStorage.getItem('username');
+      this.imageMetadata._imageDTO._rating = this.percent;
+      this.imageMetadata._imageDTO._ratingTimes = 1;
+      this.imageMetadata._username = localStorage.getItem('username');
       this.item.metadata = this.imageMetadata;
+    } else {
+      let rating: number = this.imageMetadata._imageDTO._rating;
+      let times: number = this.imageMetadata._imageDTO._ratingTimes;
+      let result: number = rating * times + this.percent;
+      result = result / (times + 1);
+      this.imageMetadata._imageDTO._rating = result;
+      this.imageMetadata._imageDTO._ratingTimes = times + 1;
     }
     this.hide.emit(true);
   }
@@ -101,50 +108,50 @@ export class EditImageMetadataComponent extends BaseComponent {
 
   public onAddArtist(): void {
     let artist: ArtistDTO = new ArtistDTO();
-    this.imageMetadata.imageDTO.artistDTOList.push(artist);
+    this.imageMetadata._imageDTO._artistDTOList.push(artist);
   }
 
   public onRemoveArtist(): void {
-    this.imageMetadata.imageDTO.artistDTOList.pop();
-    if (this.imageMetadata.imageDTO.artistDTOList.length <= 0) {
+    this.imageMetadata._imageDTO._artistDTOList.pop();
+    if (this.imageMetadata._imageDTO._artistDTOList.length <= 0) {
       this.isArtistsValid = true;
     }
   }
 
   public onArtistInput(index: number): void {
     this.artistsTypeaheadList = new Observable<ArtistDTO[]>(observer => {
-      observer.next(this.imageMetadata.imageDTO.artistDTOList[index].name);
-      observer.next(this.imageMetadata.imageDTO.artistDTOList[index].name2);
-      observer.next(this.imageMetadata.imageDTO.artistDTOList[index].surname);
+      observer.next(this.imageMetadata._imageDTO._artistDTOList[index]._name);
+      observer.next(this.imageMetadata._imageDTO._artistDTOList[index]._name2);
+      observer.next(this.imageMetadata._imageDTO._artistDTOList[index]._surname);
     }).mergeMap(() => this.getAristsPredictionList(index));
   }
 
   private getAristsPredictionList(index: number): Observable<ArtistDTO[]> {
-    let author = this.imageMetadata.imageDTO.artistDTOList[index];
-    return this.imageService.getArtistPredictionList(author.name, author.name2, author.surname);
+    let author = this.imageMetadata._imageDTO._artistDTOList[index];
+    return this.imageService.getArtistPredictionList(author._name, author._name2, author._surname);
   }
 
   public onImageTypeInput(): void {
     this.imageTypesTypeaheadList = new Observable<ImageTypeDTO[]>(observer => {
-      observer.next(this.imageMetadata.imageDTO.imageTypeDTO.name);
+      observer.next(this.imageMetadata._imageDTO._imageTypeDTO._name);
     }).mergeMap(() => this.getImageTypesByPrediction());
   }
 
   private getImageTypesByPrediction(): Observable<ImageTypeDTO[]> {
-    return this.imageService.getImageTypesByPrediction(this.imageMetadata.imageDTO.imageTypeDTO.name);
+    return this.imageService.getImageTypesByPrediction(this.imageMetadata._imageDTO._imageTypeDTO._name);
   }
 
   public checkArtistsValidation(): void {
-    if (this.imageMetadata.imageDTO.artistDTOList == null) {
+    if (this.imageMetadata._imageDTO._artistDTOList == null) {
       this.isArtistsValid = true;
       return;
     }
-    if (this.imageMetadata.imageDTO.artistDTOList.length <= 0) {
+    if (this.imageMetadata._imageDTO._artistDTOList.length <= 0) {
       this.isArtistsValid = true;
       return;
     }
     let isItemValid: boolean = true;
-    this.imageMetadata.imageDTO.artistDTOList.forEach((item: ArtistDTO) => {
+    this.imageMetadata._imageDTO._artistDTOList.forEach((item: ArtistDTO) => {
       if (item._name == null || item._name.length <= 0) {
         isItemValid = false;
         return;
@@ -158,12 +165,12 @@ export class EditImageMetadataComponent extends BaseComponent {
   }
 
   public onTypeaheadArtistSelect(match: TypeaheadMatch, index: number): void {
-    this.imageMetadata.imageDTO.artistDTOList[index] = <ArtistDTO> match.item;
+    this.imageMetadata._imageDTO._artistDTOList[index] = <ArtistDTO> match.item;
     this.checkArtistsValidation();
   }
 
   public onTypeaheadTypeSelect(match: TypeaheadMatch): void {
-    this.imageMetadata.imageDTO.imageTypeDTO = <ImageTypeDTO> match.item;
+    this.imageMetadata._imageDTO._imageTypeDTO = <ImageTypeDTO> match.item;
   }
 
   public hoveringOver(value: number): void {

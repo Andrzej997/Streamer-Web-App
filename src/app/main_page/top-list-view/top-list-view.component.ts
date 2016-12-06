@@ -50,16 +50,20 @@ export class TopListViewComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    this.musicService.getTop10Songs(null).subscribe(value => {
+    this.musicService.getTop10Songs(null).subscribe((value: SongDTO[]) => {
+      value.forEach((item: SongDTO) => item._rate = item._rating / 10);
       this.top10Songs = value;
     });
-    this.videoService.getTop10Videos(null).subscribe(value => {
+    this.videoService.getTop10Videos(null).subscribe((value: VideoDTO[]) => {
+      value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
       this.top10Videos = value;
     });
-    this.imageService.getTop10Images(null).subscribe(value => {
+    this.imageService.getTop10Images(null).subscribe((value: ImageDTO[]) => {
+      value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
       this.top10Images = value;
     });
-    this.ebookService.getTop10Ebooks(null).subscribe(value => {
+    this.ebookService.getTop10Ebooks(null).subscribe((value: EbookDTO[]) => {
+      value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
       this.top10Ebooks = value;
     });
   }
@@ -70,6 +74,7 @@ export class TopListViewComponent extends BaseComponent {
 
   public onInfoItemClick(selectedItem: MediaItem, category: string): void {
     this.category = category;
+    this.metadataInfoView.setCategory(this.category);
     this.createMetadataFileItem(selectedItem, category);
     this.showMetadataModal();
   }
