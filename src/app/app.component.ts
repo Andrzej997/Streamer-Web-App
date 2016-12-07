@@ -1,10 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute, NavigationExtras} from '@angular/router';
-import {title} from './constants';
-import {BaseComponent} from './base-component/base-component';
-import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
-import {Observable}         from 'rxjs/Observable';
+import {Component, ViewChild} from "@angular/core";
+import {Router, ActivatedRoute, NavigationExtras} from "@angular/router";
+import {title} from "./constants";
+import {BaseComponent} from "./base-component/base-component";
+import {Observable} from "rxjs/Observable";
 import {SearchCriteria} from "./view-objects/search.criteria";
+import {SnackBarComponent} from "./components/snack-bar/snack-bar.component";
 
 @Component({
   selector: 'app-root',
@@ -18,9 +18,11 @@ export class AppComponent extends BaseComponent {
   menuVisible: boolean;
   mainContentStyle: string;
   menuStyle: string;
-  snackMessage: string;
-  @ViewChild(SnackBarComponent)
+
+  @ViewChild('snackMain')
   private snack: SnackBarComponent;
+
+  private showSnack: boolean = false;
 
   constructor(private router: Router,
               private route: ActivatedRoute) {
@@ -35,13 +37,22 @@ export class AppComponent extends BaseComponent {
     this.menuStyle = 'width: 0%; float: left; margin-left: 0px';
     this.mainContentStyle = 'width: 100%; float: left margin-left: 0px';
     let sMessage: Observable<string> = this.route.queryParams.map(params => params['snackBarMessage'] || '');
-    sMessage.subscribe((value) => this.snackMessage = value != null ? value : '');
+    sMessage.subscribe((value) => this.snack._message = value != null ? value : '');
     let showSnackBar: Observable<string> = this.route.queryParams.map(params => params['showSnackBar'] || 'false');
     showSnackBar.subscribe((value) => {
       if (value != null && value === 'true') {
+        this.snack._visible = true;
+        this.snack._timeout = 3000;
         this.snack.showSnackMessage();
       }
     });
+  }
+
+  public ngAfterViewChecked(): void {
+    if (this.showSnack) {
+      this.snack.showSnackMessage();
+      this.showSnack = false;
+    }
   }
 
   public onMenuShowHideClick() {
@@ -71,22 +82,25 @@ export class AppComponent extends BaseComponent {
       localStorage.removeItem('id_token');
       localStorage.removeItem('username');
       this._loggedIn = false;
-      this.snackMessage = 'Logged out';
+      this.snack._timeout = 3000;
+      this.snack._message = 'Logged out';
       this.snack.showSnackMessage();
     }
   }
 
   public onLoginChange(value: boolean) {
     console.log('parent' + value);
-    this.snackMessage = 'Login successful';
+    this.snack._message = 'Login successful';
+    this.snack._timeout = 3000;
     this.snack.showSnackMessage();
     this._loggedIn = localStorage.getItem('id_token') != null;
   }
 
   public onLoginError(value: string) {
     if (value != null && value.indexOf('Unauthorized') > 0) {
-      this.snackMessage = 'Login failed';
-      this.snack.showSnackMessage();
+      this.snack._message = 'Login failed';
+      this.snack._timeout = 3000;
+      this.snack.showSnackMessageError();
     }
   }
 

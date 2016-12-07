@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {AbstractService} from '../abstract-service/abstract.service';
-import {Observable} from 'rxjs';
+import {Injectable} from "@angular/core";
+import {AuthHttp} from "angular2-jwt";
+import {AbstractService} from "../abstract-service/abstract.service";
+import {Observable} from "rxjs";
 import {DirectorDTO} from "../../model/video/director.dto";
 import {videoEndpoint} from "../../constants";
 import {VideoSerieDTO} from "../../model/video/video.serie.dto";
@@ -56,7 +56,7 @@ export class VideoService extends AbstractService {
   }
 
   public getTop10Videos(title?: string): Observable<VideoDTO[]> {
-    let url = `${videoEndpoint}/noauth/top10/videos`;
+    let url = `${videoEndpoint}/noauth/videos/top10`;
     if (title != null && title.length > 0) {
       url += `?title=${title}`;
     }

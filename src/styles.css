@@ -345,7 +345,7 @@ h3, h4 {
   width: 100%;
 }
 
-#snackbar {
+#snackbarSuccess {
   visibility: hidden;
   min-width: 250px;
   margin-left: -125px;
@@ -360,7 +360,28 @@ h3, h4 {
   bottom: 30px;
 }
 
-#snackbar.show {
+#snackbarError {
+  visibility: hidden;
+  min-width: 250px;
+  margin-left: -125px;
+  background-color: #ff0e00;
+  color: #fff;
+  text-align: center;
+  border-radius: 2px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  bottom: 30px;
+}
+
+#snackbarSuccess.show {
+  visibility: visible;
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+#snackbarError.show {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;

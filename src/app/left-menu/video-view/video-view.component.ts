@@ -1,13 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, ViewChild} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {BaseComponent} from "../../base-component/base-component";
 import {VideoDTO} from "../../model/video/video.dto";
 import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
 import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {ModalDirective} from 'ng2-bootstrap';
+import {ModalDirective} from "ng2-bootstrap";
 import {VideoService} from "../../service/video-service/video.service";
-import {Observable} from 'rxjs';
+import {Observable} from "rxjs";
 import {SearchCriteria} from "../../view-objects/search.criteria";
+import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
 
 @Component({
   selector: 'app-video-view',
@@ -24,6 +25,9 @@ export class VideoViewComponent extends BaseComponent {
   private metadataInfoView: MetadataInfoViewComponent;
 
   public selectedItem: UploadVideoMetadataDTO;
+
+  @ViewChild('snackVideoView')
+  private snackbar: SnackBarComponent;
 
   constructor(private videoService: VideoService,
               private route: ActivatedRoute) {
@@ -42,6 +46,11 @@ export class VideoViewComponent extends BaseComponent {
         this.videoService.getVideosTop50().subscribe((value: VideoDTO[]) => {
           value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
           this.videoList = value;
+          if (value == null || value.length <= 0) {
+            this.showSnackBarNotFoundError();
+          }
+        }, (error) => {
+          this.showSnackBarNotFoundError();
         });
         return;
       }
@@ -52,8 +61,19 @@ export class VideoViewComponent extends BaseComponent {
       this.videoService.searchVideosByCriteria(criteria).subscribe((value: VideoDTO[]) => {
         value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
         this.videoList = value;
+        if (value == null || value.length <= 0) {
+          this.showSnackBarNotFoundError();
+        }
+      }, (error) => {
+        this.showSnackBarNotFoundError();
       })
     });
+  }
+
+  public showSnackBarNotFoundError(): void {
+    this.snackbar._timeout = 3000;
+    this.snackbar._message = 'Nothing found';
+    this.snackbar.showSnackMessageError();
   }
 
   public onPlayClick(video: VideoDTO): void {

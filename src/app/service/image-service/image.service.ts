@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {AbstractService} from '../abstract-service/abstract.service';
-import {Observable} from 'rxjs';
+import {Injectable} from "@angular/core";
+import {AuthHttp} from "angular2-jwt";
+import {AbstractService} from "../abstract-service/abstract.service";
+import {Observable} from "rxjs";
 import {ArtistDTO} from "../../model/image/artist.dto";
 import {imageEndpoint} from "../../constants";
 import {ImageTypeDTO} from "../../model/image/image.type.dto";
@@ -44,7 +44,7 @@ export class ImageService extends AbstractService {
   }
 
   public getTop10Images(title?: string): Observable<ImageDTO[]> {
-    let url = `${imageEndpoint}/noauth/top10/images`;
+    let url = `${imageEndpoint}/noauth/images/top10`;
     if (title != null && title.length > 0) {
       url += `?title=${title}`;
     }

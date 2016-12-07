@@ -1,13 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, ViewChild} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {SongDTO} from "../../model/music/song.dto";
 import {BaseComponent} from "../../base-component/base-component";
 import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
 import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
-import {ModalDirective} from 'ng2-bootstrap';
+import {ModalDirective} from "ng2-bootstrap";
 import {MusicService} from "../../service/music-service/music.service";
 import {SearchCriteria} from "../../view-objects/search.criteria";
-import {Observable} from 'rxjs';
+import {Observable} from "rxjs";
+import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
 
 @Component({
   selector: 'app-music-view',
@@ -27,6 +28,9 @@ export class MusicViewComponent extends BaseComponent {
 
   public criteria: SearchCriteria;
 
+  @ViewChild('snackMusicView')
+  private snackbar: SnackBarComponent;
+
   constructor(private musicService: MusicService,
               private route: ActivatedRoute) {
     super();
@@ -44,6 +48,11 @@ export class MusicViewComponent extends BaseComponent {
         this.musicService.getSongsTop50().subscribe((value: SongDTO[]) => {
           value.forEach((item: SongDTO) => item._rate = item._rating / 10);
           this.songsList = value;
+          if (value == null || value.length <= 0) {
+            this.showSnackBarNotFoundError();
+          }
+        }, (error) => {
+          this.showSnackBarNotFoundError();
         });
         return;
       }
@@ -54,8 +63,19 @@ export class MusicViewComponent extends BaseComponent {
       this.musicService.searchSongsByCriteria(criteria).subscribe((value: SongDTO[]) => {
         value.forEach((item: SongDTO) => item._rate = item._rating / 10);
         this.songsList = value;
+        if (value == null || value.length <= 0) {
+          this.showSnackBarNotFoundError();
+        }
+      }, (error) => {
+        this.showSnackBarNotFoundError();
       })
     });
+  }
+
+  public showSnackBarNotFoundError(): void {
+    this.snackbar._timeout = 3000;
+    this.snackbar._message = 'Nothing found';
+    this.snackbar.showSnackMessageError();
   }
 
   public onPlayClick(song: SongDTO): void {

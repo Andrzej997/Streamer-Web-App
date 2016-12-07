@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {AbstractService} from '../abstract-service/abstract.service';
-import {Observable} from 'rxjs';
+import {Injectable} from "@angular/core";
+import {AuthHttp} from "angular2-jwt";
+import {AbstractService} from "../abstract-service/abstract.service";
+import {Observable} from "rxjs";
 import {MusicArtistsDTO} from "../../model/music/music.artist.dto";
-import {musicEndpoint} from '../../constants';
+import {musicEndpoint} from "../../constants";
 import {MusicAlbumDTO} from "../../model/music/music.album.dto";
 import {MusicGenreDTO} from "../../model/music/music.genre.dto";
 import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
@@ -62,7 +62,7 @@ export class MusicService extends AbstractService {
   }
 
   public getTop10Songs(title?: string): Observable<SongDTO[]> {
-    let url = `${musicEndpoint}/noauth/top10/songs`;
+    let url = `${musicEndpoint}/noauth/songs/top10`;
     if (title != null && title.length > 0) {
       url += `?title=${title}`;
     }

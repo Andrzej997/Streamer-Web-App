@@ -1,10 +1,11 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {authEndpoint} from '../../constants';
-import {Observable} from 'rxjs';
-import {AbstractService} from '../abstract-service/abstract.service';
-import {UsersDTO} from '../../model/users.dto';
-import {RegistrationDTO} from '../../model/registration.dto';
+import {Injectable} from "@angular/core";
+import {AuthHttp} from "angular2-jwt";
+import {authEndpoint} from "../../constants";
+import {Observable} from "rxjs";
+import {AbstractService} from "../abstract-service/abstract.service";
+import {UsersDTO} from "../../model/users.dto";
+import {RegistrationDTO} from "../../model/registration.dto";
+import {ChangePasswordDTO} from "../../model/change.password.dto";
 
 
 @Injectable()
@@ -55,10 +56,9 @@ export class AuthService extends AbstractService {
     return this.performGet(url);
   }
 
-  public changePassword(username: string, password: string): Observable<boolean> {
+  public changePassword(changePasswordDTO: ChangePasswordDTO): Observable<boolean> {
     const url = `${authEndpoint}/auth/password/change`;
-    let params: any = {username: username, password: password};
-    return this.performPost(url, JSON.stringify(params));
+    return this.performPost(url, JSON.stringify(changePasswordDTO));
   }
 
 }

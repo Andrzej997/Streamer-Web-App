@@ -1,5 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {BaseComponent} from '../../base-component/base-component';
+import {Component, ViewChild, ElementRef} from "@angular/core";
+import {BaseComponent} from "../../base-component/base-component";
 
 @Component({
   selector: 'app-snack-bar',
@@ -8,55 +8,40 @@ import {BaseComponent} from '../../base-component/base-component';
 })
 export class SnackBarComponent extends BaseComponent {
 
-  private _message: string;
-  private _visible: boolean;
-  private _timeout: number;
+  public _message: string;
+  public _visible: boolean;
+  public _timeout: number;
+
+  @ViewChild('snackBar')
+  public el: ElementRef;
 
   constructor() {
     super();
   }
 
   ngOnInit() {
-    this.message = '';
-    this.visible = true;
+    this._visible = true;
   }
 
   public showSnackMessage() {
-    if (!this.visible) {
+    if (!this._visible) {
       return;
     }
-    let snack = document.getElementById('snackbar');
-    snack.className = 'show';
-    setTimeout(function () {
-      snack.className = snack.className.replace('show', '');
-    }, this.timeout);
+    this.el.nativeElement.className = 'show';
+    this.el.nativeElement.id = 'snackbarSuccess';
+    setTimeout(() => {
+      this.el.nativeElement.className = this.el.nativeElement.className.replace('show', '');
+    }, this._timeout);
   }
 
-  get message(): string {
-    return this._message;
-  }
-
-  @Input()
-  set message(value: string) {
-    this._message = value;
-  }
-
-
-  get visible(): boolean {
-    return this._visible;
-  }
-
-  @Input()
-  set visible(value: boolean) {
-    this._visible = value;
-  }
-
-  get timeout(): number {
-    return this._timeout;
-  }
-
-  @Input()
-  set timeout(value: number) {
-    this._timeout = value;
+  public showSnackMessageError() {
+    if (!this._visible) {
+      return;
+    }
+    this.el.nativeElement.className = 'show';
+    this.el.nativeElement.id = 'snackbarError';
+    setTimeout(() => {
+      this.el.nativeElement.className = this.el.nativeElement.className.replace('show', '');
+    }, this._timeout);
   }
 }

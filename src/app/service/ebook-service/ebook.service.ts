@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {AuthHttp} from 'angular2-jwt';
-import {AbstractService} from '../abstract-service/abstract.service';
-import {Observable} from 'rxjs';
+import {Injectable} from "@angular/core";
+import {AuthHttp} from "angular2-jwt";
+import {AbstractService} from "../abstract-service/abstract.service";
+import {Observable} from "rxjs";
 import {WriterDTO} from "../../model/ebook/writer.dto";
 import {ebookEndpoint} from "../../constants";
 import {LiteraryGenreDTO} from "../../model/ebook/literary.genre.dto";
@@ -44,7 +44,7 @@ export class EbookService extends AbstractService {
   }
 
   public getTop10Ebooks(title?: string): Observable<EbookDTO[]> {
-    let url = `${ebookEndpoint}/noauth/top10/ebooks`;
+    let url = `${ebookEndpoint}/noauth/ebooks/top10`;
     if (title != null && title.length > 0) {
       url += `?title=${title}`;
     }

@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from "@angular/core";
 import {BaseComponent} from "../../base-component/base-component";
 import {SongDTO} from "../../model/music/song.dto";
 import {VideoDTO} from "../../model/video/video.dto";
@@ -9,7 +9,7 @@ import {VideoService} from "../../service/video-service/video.service";
 import {ImageService} from "../../service/image-service/image.service";
 import {EbookService} from "../../service/ebook-service/ebook.service";
 import {MediaItem} from "../../model/abstract/media.item";
-import {ModalDirective} from 'ng2-bootstrap';
+import {ModalDirective} from "ng2-bootstrap";
 import {EditMusicMetadataComponent} from "../edit-music-metadata/edit-music-metadata.component";
 import {EditVideoMetadataComponent} from "../edit-video-metadata/edit-video-metadata.component";
 import {EditImageMetadataComponent} from "../edit-image-metadata/edit-image-metadata.component";
@@ -50,7 +50,6 @@ export class UserMediaViewComponent extends BaseComponent {
   public editEbookMetadata: EditEbookMetadataComponent;
 
   private itemToDelete: MediaItem;
-  private editedIndex: number;
 
   constructor(private musicService: MusicService,
               private videoService: VideoService,

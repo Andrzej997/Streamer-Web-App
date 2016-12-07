@@ -1,13 +1,14 @@
-import {Component, ViewChild} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {Component, ViewChild} from "@angular/core";
+import {ActivatedRoute} from "@angular/router";
 import {BaseComponent} from "../../base-component/base-component";
 import {EbookDTO} from "../../model/ebook/ebook.dto";
 import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
 import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
-import {ModalDirective} from 'ng2-bootstrap';
+import {ModalDirective} from "ng2-bootstrap";
 import {EbookService} from "../../service/ebook-service/ebook.service";
 import {SearchCriteria} from "../../view-objects/search.criteria";
-import {Observable} from 'rxjs';
+import {Observable} from "rxjs";
+import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
 
 @Component({
   selector: 'app-ebook-view',
@@ -27,6 +28,9 @@ export class EbookViewComponent extends BaseComponent {
 
   public criteria: SearchCriteria;
 
+  @ViewChild('snackEbookView')
+  private snackbar: SnackBarComponent;
+
   constructor(private ebookService: EbookService,
               private route: ActivatedRoute) {
     super();
@@ -44,6 +48,11 @@ export class EbookViewComponent extends BaseComponent {
         this.ebookService.getEbooksTop50().subscribe((value: EbookDTO[]) => {
           value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
           this.ebookList = value;
+          if (value == null || value.length <= 0) {
+            this.showSnackBarNotFoundError();
+          }
+        }, (error) => {
+          this.showSnackBarNotFoundError();
         });
         return;
       }
@@ -54,8 +63,19 @@ export class EbookViewComponent extends BaseComponent {
       this.ebookService.searchEbooksByCriteria(criteria).subscribe((value: EbookDTO[]) => {
         value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
         this.ebookList = value;
+        if (value == null || value.length <= 0) {
+          this.showSnackBarNotFoundError();
+        }
+      }, (error) => {
+        this.showSnackBarNotFoundError();
       })
     });
+  }
+
+  public showSnackBarNotFoundError(): void {
+    this.snackbar._timeout = 3000;
+    this.snackbar._message = 'Nothing found';
+    this.snackbar.showSnackMessageError();
   }
 
   public onPlayClick(ebook: EbookDTO): void {

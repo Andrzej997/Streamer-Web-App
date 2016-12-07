@@ -1,7 +1,7 @@
-import {Component, Output, EventEmitter, Inject} from '@angular/core';
-import {AuthService} from '../../service/auth-service/auth.service';
-import {Router, NavigationExtras} from '@angular/router';
-import {BaseComponent} from '../../base-component/base-component';
+import {Component, Output, EventEmitter, Inject} from "@angular/core";
+import {AuthService} from "../../service/auth-service/auth.service";
+import {Router, NavigationExtras} from "@angular/router";
+import {BaseComponent} from "../../base-component/base-component";
 
 @Component({
   selector: 'app-register-form',
@@ -44,9 +44,9 @@ export class RegisterFormComponent extends BaseComponent {
       localStorage.setItem('id_token', result);
       localStorage.setItem('username', this.username);
       let params: NavigationExtras = {
-        queryParams: {'showSnackBar': 'true', 'snackBarMessage': 'Registration successful'}
+        queryParams: {'showSnackBarTop': 'true', 'snackBarMessageTop': 'Registration successful'}
       };
-      this.router.navigate(['/main', params]);
+      this.router.navigate(['/top'], params);
     }
   }
 
