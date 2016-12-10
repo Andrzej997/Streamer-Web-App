@@ -9,6 +9,7 @@ import {VideoService} from "../../service/video-service/video.service";
 import {Observable} from "rxjs";
 import {SearchCriteria} from "../../view-objects/search.criteria";
 import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
+import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
 
 @Component({
   selector: 'app-video-view',
@@ -28,6 +29,9 @@ export class VideoViewComponent extends BaseComponent {
 
   @ViewChild('snackVideoView')
   private snackbar: SnackBarComponent;
+
+  @ViewChild('videoVideoView')
+  private videoPlayer: VideoPlayerComponent;
 
   constructor(private videoService: VideoService,
               private route: ActivatedRoute) {
@@ -77,7 +81,7 @@ export class VideoViewComponent extends BaseComponent {
   }
 
   public onPlayClick(video: VideoDTO): void {
-
+    this.videoPlayer.show(video);
   }
 
   public onInfoItemClick(video: VideoDTO): void {

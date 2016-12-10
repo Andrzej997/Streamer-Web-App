@@ -9,6 +9,7 @@ import {MusicService} from "../../service/music-service/music.service";
 import {SearchCriteria} from "../../view-objects/search.criteria";
 import {Observable} from "rxjs";
 import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
+import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
 
 @Component({
   selector: 'app-music-view',
@@ -27,6 +28,9 @@ export class MusicViewComponent extends BaseComponent {
   public selectedItem: UploadSongMetadataDTO;
 
   public criteria: SearchCriteria;
+
+  @ViewChild('audioMusicView')
+  private audioPlayer: AudioPlayerComponent;
 
   @ViewChild('snackMusicView')
   private snackbar: SnackBarComponent;
@@ -79,7 +83,7 @@ export class MusicViewComponent extends BaseComponent {
   }
 
   public onPlayClick(song: SongDTO): void {
-
+    this.audioPlayer.show(song);
   }
 
   public onInfoItemClick(song: SongDTO): void {

@@ -19,6 +19,8 @@ import {FileMetadata} from "../../model/abstract/file.metadata";
 import {MetadataInfoViewComponent} from "../metadata-info-view/metadata-info-view.component";
 import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
 import {Observable} from "rxjs";
+import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
+import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
 
 @Component({
   selector: 'app-top-list-view',
@@ -41,6 +43,12 @@ export class TopListViewComponent extends BaseComponent {
 
   @ViewChild('snackTop')
   private snackbar: SnackBarComponent;
+
+  @ViewChild('audioTop')
+  private audioPlayer: AudioPlayerComponent;
+
+  @ViewChild('videoTop')
+  private videoPlayer: VideoPlayerComponent;
 
   public message: string;
 
@@ -98,7 +106,17 @@ export class TopListViewComponent extends BaseComponent {
   }
 
   public onPlayClick(selectedItem: MediaItem, category: string): void {
-
+    switch (category) {
+      case 'M':
+        this.audioPlayer.show((<SongDTO>selectedItem));
+        break;
+      case 'V':
+        this.videoPlayer.show((<VideoDTO>selectedItem));
+        break;
+      case 'I':
+      case 'E':
+        break;
+    }
   }
 
   public onInfoItemClick(selectedItem: MediaItem, category: string): void {

@@ -9,6 +9,7 @@ import {MusicGenreDTO} from "../../model/music/music.genre.dto";
 import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
 import {SongDTO} from "../../model/music/song.dto";
 import {SearchCriteria} from "../../view-objects/search.criteria";
+import {RateSongDTO} from "../../model/music/rate.song.dto";
 
 @Injectable()
 export class MusicService extends AbstractService {
@@ -113,6 +114,11 @@ export class MusicService extends AbstractService {
   public getSongsTop50(): Observable<SongDTO[]> {
     let url = `${musicEndpoint}/noauth/song/top50`;
     return this.performGet(url);
+  }
+
+  public rateSong(rateSongDTO: RateSongDTO): Observable<any> {
+    let url = `${musicEndpoint}/noauth/rate`;
+    return this.performPut(url, JSON.stringify(rateSongDTO));
   }
 
 }

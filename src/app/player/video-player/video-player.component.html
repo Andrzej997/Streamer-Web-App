@@ -1,0 +1,41 @@
+<div id="videoPlayerPage" [hidden]="!visible">
+  <video #videoTag crossOrigin="anonymous" (timeupdate)="updateDisplayTime()">
+    <source #videoSrc>
+  </video>
+  <div id="videoplayer" #videoPlayer class="player gradient">
+    <button id="playButton" class="button gradient"
+            [ngClass]="{'pause': isPlaying, 'play': !isPlaying}"
+            (click)="play()">
+    </button>
+    <button id="stopButton" class="button gradient stop" (click)="stop()">
+    </button>
+    <button id="muteButton" class="button gradient"
+            [ngClass]="{'mute': !isMuted, 'muted': isMuted}" (click)="mute()"></button>
+    <input #volumeBar
+           name="volumeBar"
+           type="range"
+           id="volumeBar"
+           min="0"
+           max="1"
+           step="0.02"
+           [value]="volume"
+           (change)="onVolumeChange($event)"
+    >
+    <button id="volumeFullButton" class="volumefull gradient" (click)="fullVolume()"></button>
+    <div class="marquee-outer">
+      <div class="marquee-inner">{{displayedText}}</div>
+    </div>
+    <div class="time-display">
+      {{displayedTime}}
+    </div>
+    <div class="rating-display">
+      <rating [(ngModel)]="rate"
+              #inpRating="ngModel"
+              id="inpRating"
+              name="inpRating"
+              [max]="10">
+      </rating>
+    </div>
+    <button id="closeButton" class="gradient close-button" (click)="onExit()"></button>
+  </div>
+</div>

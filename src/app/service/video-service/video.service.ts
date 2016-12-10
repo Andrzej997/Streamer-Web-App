@@ -9,6 +9,7 @@ import {FilmGenreDTO} from "../../model/video/film.genre.dto";
 import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
 import {VideoDTO} from "../../model/video/video.dto";
 import {SearchCriteria} from "../../view-objects/search.criteria";
+import {RateVideoDTO} from "../../model/video/rate.video.dto";
 
 @Injectable()
 export class VideoService extends AbstractService {
@@ -107,6 +108,11 @@ export class VideoService extends AbstractService {
   public getVideosTop50(): Observable<VideoDTO[]> {
     let url = `${videoEndpoint}/noauth/video/top50`;
     return this.performGet(url);
+  }
+
+  public rateVideo(rateVideoDTO: RateVideoDTO): Observable<any> {
+    let url = `${videoEndpoint}/noauth/rate`;
+    return this.performPut(url, JSON.stringify(rateVideoDTO));
   }
 
 }

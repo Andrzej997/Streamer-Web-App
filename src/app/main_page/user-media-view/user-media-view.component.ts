@@ -19,6 +19,8 @@ import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dt
 import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
 import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
 import {FileMetadata} from "../../model/abstract/file.metadata";
+import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
+import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
 
 @Component({
   selector: 'app-user-media-view',
@@ -48,6 +50,12 @@ export class UserMediaViewComponent extends BaseComponent {
 
   @ViewChild(EditEbookMetadataComponent)
   public editEbookMetadata: EditEbookMetadataComponent;
+
+  @ViewChild('audioUser')
+  private audioPlayer: AudioPlayerComponent;
+
+  @ViewChild('videoUser')
+  private videoPlayer: VideoPlayerComponent;
 
   private itemToDelete: MediaItem;
 
@@ -82,7 +90,19 @@ export class UserMediaViewComponent extends BaseComponent {
   }
 
   public onPlayClick(selectedItem: MediaItem, category: string): void {
-
+    switch (category) {
+      case 'M':
+        this.audioPlayer.setAuthContext(true);
+        this.audioPlayer.show((<SongDTO>selectedItem));
+        break;
+      case 'V':
+        this.videoPlayer.setAuthContext(true);
+        this.videoPlayer.show((<VideoDTO>selectedItem));
+        break;
+      case 'I':
+      case 'E':
+        break;
+    }
   }
 
   public onEditClick(selectedItem: MediaItem, category: string): void {
