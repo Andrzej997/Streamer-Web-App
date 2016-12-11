@@ -1,13 +1,12 @@
-import {OnInit} from '@angular/core';
-import {FileUploader, FileUploaderOptions, FilterFunction, ParsedResponseHeaders} from 'ng2-file-upload';
-import {FileItem} from 'ng2-file-upload/file-upload/file-item.class';
-import * as constants from '../constants';
+import {OnInit, Injectable} from "@angular/core";
+import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
+import {FileItem} from "ng2-file-upload/file-upload/file-item.class";
+import * as constants from "../constants";
 import {MusicService} from "../service/music-service/music.service";
 import {MetadataFileItem} from "./metadata.file.item";
 import {FileMetadata} from "../model/abstract/file.metadata";
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {UploadSongMetadataDTO} from '../model/music/upload.song.metadata.dto';
+import {Observable} from "rxjs";
+import {UploadSongMetadataDTO} from "../model/music/upload.song.metadata.dto";
 import {UploadVideoMetadataDTO} from "../model/video/upload.video.metadata.dto";
 import {VideoService} from "../service/video-service/video.service";
 import {ImageService} from "../service/image-service/image.service";
@@ -77,22 +76,22 @@ export class MediaFileUploader extends FileUploader implements OnInit {
       case 'M':
         this.endpoint = constants.musicUploadEndpoint;
         this.queue = this.musicQueue;
-        this.typeFilter = 'audio/*';
+        this._typeFilter = 'audio/*';
         break;
       case 'V':
         this.endpoint = constants.videoUploadEndpoint;
         this.queue = this.videoQueue;
-        this.typeFilter = 'video/*';
+        this._typeFilter = 'video/*';
         break;
       case 'E':
         this.endpoint = constants.ebookUploadEndpoint;
         this.queue = this.ebookQueue;
-        this.typeFilter = '.pdf';
+        this._typeFilter = '.pdf';
         break;
       case 'I':
         this.endpoint = constants.imageUploadEndpoint;
         this.queue = this.imageQueue;
-        this.typeFilter = 'image/*';
+        this._typeFilter = 'image/*';
         break;
       default:
         this.endpoint = constants.serverEndpoint;
@@ -226,14 +225,6 @@ export class MediaFileUploader extends FileUploader implements OnInit {
 
   set uploadOptions(value: FileUploaderOptions) {
     this._uploadOptions = value;
-  }
-
-  get typeFilter(): string {
-    return this._typeFilter;
-  }
-
-  set typeFilter(value: string) {
-    this._typeFilter = value;
   }
 
   get endpoint(): string {

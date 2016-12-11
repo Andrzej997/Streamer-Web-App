@@ -1,6 +1,6 @@
 <div class="center" style="width: 100%; height: 100%;">
   <h1 [hidden]="ebookList == null || ebookList.length <=0">Ebooks: </h1>
-  <ul>
+  <ul style="display:block; float:left;">
     <li class="navbar-nav" *ngFor="let ebook of ebookList; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">

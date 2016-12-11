@@ -1,6 +1,6 @@
 <div class="center" style="width: 100%; height: 100%;">
   <h1 [hidden]="top10Songs == null || top10Songs.length <= 0">Songs: </h1>
-  <ul>
+  <ul style="display:block; float:left;">
     <li class="navbar-nav" *ngFor="let song of top10Songs; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
@@ -21,8 +21,9 @@
       </div>
     </li>
   </ul>
+  <br/>
   <h1 [hidden]="top10Videos == null || top10Videos.length <=0">Videos: </h1>
-  <ul>
+  <ul style="display:block; float:left;">
     <li class="navbar-nav" *ngFor="let video of top10Videos; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
@@ -43,8 +44,9 @@
       </div>
     </li>
   </ul>
+  <br/>
   <h1 [hidden]="top10Images == null || top10Images.length <=0">Images: </h1>
-  <ul>
+  <ul style="display:block; float:left;">
     <li class="navbar-nav" *ngFor="let image of top10Images; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
@@ -65,8 +67,9 @@
       </div>
     </li>
   </ul>
+  <br/>
   <h1 [hidden]="top10Ebooks == null || top10Ebooks.length <=0">Ebooks: </h1>
-  <ul>
+  <ul style="display:block; float:left;">
     <li class="navbar-nav" *ngFor="let ebook of top10Ebooks; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
@@ -87,6 +90,7 @@
       </div>
     </li>
   </ul>
+  <br/>
   <div class="modal fade" bsModal #metadataModal="bs-modal" [config]="{backdrop: 'static'}"
        tabindex="-1" role="dialog" aria-labelledby="Metadata label" aria-hidden="true">
     <div class="modal-dialog modal-lg">

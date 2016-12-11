@@ -147,7 +147,7 @@ export class VideoPlayerComponent extends BaseComponent {
 
   public updateDisplayTime(): void {
     let time: number = this.videoPlayer.currentTime;
-    this.displayedTime = this.createTimeString(time);
+    this.displayedTime = this.createTimeString(time) + "/LIVE";
   }
 
   public createTimeString(time: number): string {

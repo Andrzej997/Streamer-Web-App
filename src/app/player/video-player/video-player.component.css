@@ -18,10 +18,9 @@
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
-  position: absolute;
-  width: 350px;
-  bottom: 10px;
-  width: 95%;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
   z-index: 2147483647;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -66,7 +65,7 @@
   background-image: url(../../../assets/volume2.png);
   background-repeat: no-repeat;
   position: absolute;
-  left: 340px;
+  left: 350px;
   margin-right: 5px;
   background-position: 4px 4px;
 }
@@ -112,7 +111,7 @@ input::-webkit-slider-thumb {
   height: 34px;
   overflow: hidden;
   position: absolute;
-  left: 380px;
+  left: 390px;
   width: 40%;
 }
 
@@ -177,7 +176,7 @@ video::-webkit-media-controls-enclosure {
   overflow: hidden;
   position: absolute;
   left: 70%;
-  width: 60px;
+  width: 100px;
   margin-top: 5px;
   line-height: 20px;
   text-align: center;
@@ -189,7 +188,7 @@ video::-webkit-media-controls-enclosure {
   height: 34px;
   overflow: hidden;
   position: absolute;
-  left: 75%;
+  left: 80%;
   width: 200px;
   margin-top: 5px;
   line-height: 20px;

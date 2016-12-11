@@ -100,10 +100,16 @@ export class UserMediaViewComponent extends BaseComponent {
   public onPlayClick(selectedItem: MediaItem, category: string): void {
     switch (category) {
       case 'M':
+        if (this.videoPlayer.visible) {
+          this.videoPlayer.onExit();
+        }
         this.audioPlayer.setAuthContext(true);
         this.audioPlayer.show((<SongDTO>selectedItem));
         break;
       case 'V':
+        if (this.audioPlayer.visible) {
+          this.audioPlayer.onExit();
+        }
         this.videoPlayer.setAuthContext(true);
         this.videoPlayer.show((<VideoDTO>selectedItem));
         break;

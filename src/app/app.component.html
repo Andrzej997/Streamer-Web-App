@@ -48,7 +48,7 @@
 <div class="main" style="overflow-y: auto">
   <div id="divMenu">
     <a [hidden]="menuVisible" (click)="onMenuShowHideClick()">
-      <span style="font-size: 25px" class="glyphicon glyphicon-list"></span>
+      <span style="font-size: 25px; position: fixed; top: 75px" class="glyphicon glyphicon-list"></span>
     </a>
     <div id="sideNavbar" class="sidenav" [hidden]="!menuVisible">
       <a class="closebtn" (click)="onMenuShowHideClick()">&times;</a>

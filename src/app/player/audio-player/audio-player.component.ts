@@ -141,7 +141,7 @@ export class AudioPlayerComponent extends BaseComponent {
 
   public updateDisplayTime(): void {
     let time: number = this.musicPlayer.currentTime;
-    this.displayedTime = this.createTimeString(time);
+    this.displayedTime = this.createTimeString(time) + "/LIVE";
   }
 
   public createTimeString(time: number): string {

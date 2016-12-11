@@ -1,4 +1,4 @@
-<div id="videoPlayerPage" [hidden]="!visible">
+<div id="videoPlayerPage" [hidden]="!visible" style="position: fixed; bottom: 0; width: 100%">
   <video #videoTag crossOrigin="anonymous" (timeupdate)="updateDisplayTime()">
     <source #videoSrc>
   </video>
