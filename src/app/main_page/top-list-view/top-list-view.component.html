@@ -4,13 +4,17 @@
     <li class="navbar-nav" *ngFor="let song of top10Songs; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(song, 'M')">
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="onPlayClick(song, 'M')">
           <span class="glyphicon glyphicon-play"></span>
         </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(song, 'M')">
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="onInfoItemClick(song, 'M')">
           <span class="glyphicon glyphicon-info-sign"></span>
         </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{song?._title}}</label>
+        <label style="font-size: 12px; font-family: 'Times New Roman';">
+          {{song?._title}}
+        </label>
         <rating [(ngModel)]="song._rate"
                 #inpRating="ngModel"
                 id="inpRating"
@@ -27,13 +31,17 @@
     <li class="navbar-nav" *ngFor="let video of top10Videos; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video, 'V')">
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="onPlayClick(video, 'V')">
           <span class="glyphicon glyphicon-play"></span>
         </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(video, 'V')">
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="onInfoItemClick(video, 'V')">
           <span class="glyphicon glyphicon-info-sign"></span>
         </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
+        <label style="font-size: 12px; font-family: 'Times New Roman';">
+          {{video?._title}}
+        </label>
         <rating [(ngModel)]="video._rate"
                 #inpRating="ngModel"
                 id="inpRating"
@@ -56,7 +64,9 @@
         <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(image, 'I')">
           <span class="glyphicon glyphicon-info-sign"></span>
         </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{image?._title}}</label>
+        <label style="font-size: 12px; font-family: 'Times New Roman';">
+          {{image?._title}}
+        </label>
         <rating [(ngModel)]="image._rate"
                 #inpRating="ngModel"
                 id="inpRating"
@@ -73,13 +83,17 @@
     <li class="navbar-nav" *ngFor="let ebook of top10Ebooks; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook, 'E')">
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="onPlayClick(ebook, 'E')">
           <span class="glyphicon glyphicon-play"></span>
         </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(ebook, 'E')">
+        <button type="button" class="btn btn-success btn-xs"
+                (click)="onInfoItemClick(ebook, 'E')">
           <span class="glyphicon glyphicon-info-sign"></span>
         </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
+        <label style="font-size: 12px; font-family: 'Times New Roman';">
+          {{ebook?._title}}
+        </label>
         <rating [(ngModel)]="ebook._rate"
                 #inpRating="ngModel"
                 id="inpRating"

@@ -3,7 +3,7 @@
  * 157.158.170.90
  */
 
-export var serverEndpoint = 'http://192.168.1.9:8080';
+export var serverEndpoint = 'http://157.158.170.40:8080';
 export var authEndpoint = `${serverEndpoint}/auth`;
 export var ebookEndpoint = `${serverEndpoint}/ebook`;
 export var imageEndpoint = `${serverEndpoint}/image`;
