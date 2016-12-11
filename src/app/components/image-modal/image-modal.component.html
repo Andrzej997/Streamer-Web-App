@@ -1,0 +1,38 @@
+<div class="modal fade" bsModal #imageModal="bs-modal" [config]="{backdrop: 'static'}"
+     tabindex="-1" role="dialog" aria-labelledby="Image" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="onExit()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h1 class="modal-title">Title: {{imageDTO?._title}}</h1>
+      </div>
+      <div class="modal-body modal-fit">
+        <div class="form-group">
+          <img class="modal-content modal-fit"
+               style="display:inline-block;" id="imageContent" #imageContent>
+        </div>
+        <div class="form-group" style="overflow-y: auto">
+          <div style="float: left; margin-left: 20px">
+            <h2>Artists: </h2>
+            <ul>
+              <li *ngFor="let artist of imageDTO._artistDTOList">
+                <h2>{{artist._name}} {{artist._surname}}</h2>
+              </li>
+            </ul>
+          </div>
+          <div style="float: right; margin-right: 25px">
+            <h2>Rating: </h2>
+            <rating [(ngModel)]="rate"
+                    #inpRating="ngModel"
+                    id="inpRating"
+                    name="inpRating"
+                    [max]="10">
+            </rating>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

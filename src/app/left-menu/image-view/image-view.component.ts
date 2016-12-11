@@ -9,6 +9,7 @@ import {ImageService} from "../../service/image-service/image.service";
 import {SearchCriteria} from "../../view-objects/search.criteria";
 import {Observable} from "rxjs";
 import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
+import {ImageModalComponent} from "../../components/image-modal/image-modal.component";
 
 @Component({
   selector: 'app-image-view',
@@ -23,6 +24,9 @@ export class ImageViewComponent extends BaseComponent {
 
   @ViewChild(MetadataInfoViewComponent)
   private metadataInfoView: MetadataInfoViewComponent;
+
+  @ViewChild('imageImageView')
+  private imageModal: ImageModalComponent;
 
   public selectedItem: UploadImageMetadataDTO;
 
@@ -79,7 +83,7 @@ export class ImageViewComponent extends BaseComponent {
   }
 
   public onPlayClick(image: ImageDTO): void {
-
+    this.imageModal.show(image);
   }
 
   public onInfoItemClick(image: ImageDTO): void {

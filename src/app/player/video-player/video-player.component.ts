@@ -54,8 +54,9 @@ export class VideoPlayerComponent extends BaseComponent {
   private initPlayer(): void {
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
+      let authToken: string = localStorage.getItem('id_token');
       this.source = videoStreamAuthEndpoint
-        + "?username=" + username + "&id=" + this.playedVideo._videoFileId;
+        + "?username=" + username + "&id=" + this.playedVideo._videoFileId + "&authToken=" + authToken;
     } else {
       this.source = videoStreamEndpoint + "?id=" + this.playedVideo._videoFileId;
     }

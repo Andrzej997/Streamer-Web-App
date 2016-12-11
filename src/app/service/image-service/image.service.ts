@@ -8,6 +8,7 @@ import {ImageTypeDTO} from "../../model/image/image.type.dto";
 import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
 import {ImageDTO} from "../../model/image/image.dto";
 import {SearchCriteria} from "../../view-objects/search.criteria";
+import {RateImageDTO} from "../../model/image/rate.image.dto";
 
 @Injectable()
 export class ImageService extends AbstractService {
@@ -95,6 +96,11 @@ export class ImageService extends AbstractService {
   public getImagesTop50(): Observable<ImageDTO[]> {
     let url = `${imageEndpoint}/noauth/image/top50`;
     return this.performGet(url);
+  }
+
+  public rateImage(rateImageDTO: RateImageDTO): Observable<any> {
+    let url = `${imageEndpoint}/noauth/rate`;
+    return this.performPut(url, JSON.stringify(rateImageDTO));
   }
 
 }

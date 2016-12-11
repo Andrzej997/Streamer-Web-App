@@ -23,4 +23,7 @@ export var musicStreamAuthEndpoint = `${musicEndpoint}/auth/download`;
 export var videoStreamEndpoint = `${videoEndpoint}/noauth/download`;
 export var videoStreamAuthEndpoint = `${videoEndpoint}/auth/download`;
 
+export var imageStreamEndpoint = `${imageEndpoint}/noauth/download`;
+export var imageStreamAuthEndpoint = `${imageEndpoint}/auth/download`;
+
 export var title = 'Streamer';

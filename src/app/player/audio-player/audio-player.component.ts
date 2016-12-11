@@ -54,8 +54,9 @@ export class AudioPlayerComponent extends BaseComponent {
   private initPlayer(): void {
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
+      let authToken: string = localStorage.getItem('id_token');
       this.source = musicStreamAuthEndpoint
-        + "?username=" + username + "&id=" + this.playedSong._fileId;
+        + "?username=" + username + "&id=" + this.playedSong._fileId + "&authToken=" + authToken;
     } else {
       this.source = musicStreamEndpoint + "?id=" + this.playedSong._fileId;
     }
