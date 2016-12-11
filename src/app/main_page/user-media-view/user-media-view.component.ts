@@ -22,6 +22,7 @@ import {FileMetadata} from "../../model/abstract/file.metadata";
 import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
 import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
 import {ImageModalComponent} from "../../components/image-modal/image-modal.component";
+import {EbookModalComponent} from "../../components/ebook-modal/ebook-modal.component";
 
 @Component({
   selector: 'app-user-media-view',
@@ -60,6 +61,9 @@ export class UserMediaViewComponent extends BaseComponent {
 
   @ViewChild('imageUser')
   private imageModal: ImageModalComponent;
+
+  @ViewChild('ebookUser')
+  private ebookModal: EbookModalComponent;
 
   private itemToDelete: MediaItem;
 
@@ -108,6 +112,8 @@ export class UserMediaViewComponent extends BaseComponent {
         this.imageModal.show((<ImageDTO>selectedItem));
         break;
       case 'E':
+        this.ebookModal.setAuthContext(true);
+        this.ebookModal.show((<EbookDTO>selectedItem));
         break;
     }
   }

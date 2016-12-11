@@ -9,6 +9,7 @@ import {EbookService} from "../../service/ebook-service/ebook.service";
 import {SearchCriteria} from "../../view-objects/search.criteria";
 import {Observable} from "rxjs";
 import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
+import {EbookModalComponent} from "../../components/ebook-modal/ebook-modal.component";
 
 @Component({
   selector: 'app-ebook-view',
@@ -30,6 +31,9 @@ export class EbookViewComponent extends BaseComponent {
 
   @ViewChild('snackEbookView')
   private snackbar: SnackBarComponent;
+
+  @ViewChild('ebookEbookView')
+  private ebookModal: EbookModalComponent;
 
   constructor(private ebookService: EbookService,
               private route: ActivatedRoute) {
@@ -79,7 +83,7 @@ export class EbookViewComponent extends BaseComponent {
   }
 
   public onPlayClick(ebook: EbookDTO): void {
-
+    this.ebookModal.show(ebook);
   }
 
   public onInfoItemClick(ebook: EbookDTO): void {

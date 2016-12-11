@@ -26,4 +26,7 @@ export var videoStreamAuthEndpoint = `${videoEndpoint}/auth/download`;
 export var imageStreamEndpoint = `${imageEndpoint}/noauth/download`;
 export var imageStreamAuthEndpoint = `${imageEndpoint}/auth/download`;
 
+export var ebookStreamEndpoint = `${ebookEndpoint}/noauth/download`;
+export var ebookStreamAuthEndpoint = `${ebookEndpoint}/auth/download`;
+
 export var title = 'Streamer';

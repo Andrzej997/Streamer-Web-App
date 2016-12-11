@@ -187,6 +187,7 @@ export class AudioPlayerComponent extends BaseComponent {
       rateSongDTO._rate = this.rate;
       rateSongDTO._songId = this.playedSong._songId;
       this.musicService.rateSong(rateSongDTO).subscribe();
+      this.rate = 0;
     }
   }
 

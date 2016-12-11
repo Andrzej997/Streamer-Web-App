@@ -79,6 +79,7 @@ export class ImageModalComponent extends BaseComponent {
       rateImageDTO._rate = this.rate;
       rateImageDTO._imageId = this.imageDTO._imageId;
       this.imageService.rateImage(rateImageDTO).subscribe();
+      this.rate = 0;
     }
   }
 

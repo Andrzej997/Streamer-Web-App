@@ -39,6 +39,7 @@ import {VideoViewComponent} from "./left-menu/video-view/video-view.component";
 import {AudioPlayerComponent} from "./player/audio-player/audio-player.component";
 import {VideoPlayerComponent} from "./player/video-player/video-player.component";
 import {ImageModalComponent} from "./components/image-modal/image-modal.component";
+import {EbookModalComponent} from "./components/ebook-modal/ebook-modal.component";
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import {ImageModalComponent} from "./components/image-modal/image-modal.componen
     AudioPlayerComponent,
     VideoPlayerComponent,
     ImageModalComponent,
+    EbookModalComponent,
   ],
   imports: [
     BrowserModule,

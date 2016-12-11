@@ -194,6 +194,7 @@ export class VideoPlayerComponent extends BaseComponent {
       rateVideoDTO._rate = this.rate;
       rateVideoDTO._filmId = this.playedVideo._videoId;
       this.videoService.rateVideo(rateVideoDTO).subscribe();
+      this.rate = 0;
     }
   }
 

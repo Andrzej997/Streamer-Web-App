@@ -22,6 +22,7 @@ import {Observable} from "rxjs";
 import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
 import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
 import {ImageModalComponent} from "../../components/image-modal/image-modal.component";
+import {EbookModalComponent} from "../../components/ebook-modal/ebook-modal.component";
 
 @Component({
   selector: 'app-top-list-view',
@@ -53,6 +54,9 @@ export class TopListViewComponent extends BaseComponent {
 
   @ViewChild('imageTop')
   private imageModal: ImageModalComponent;
+
+  @ViewChild('ebookTop')
+  private ebookModal: EbookModalComponent;
 
   public message: string;
 
@@ -121,6 +125,7 @@ export class TopListViewComponent extends BaseComponent {
         this.imageModal.show((<ImageDTO>selectedItem));
         break;
       case 'E':
+        this.ebookModal.show((<EbookDTO>selectedItem));
         break;
     }
   }

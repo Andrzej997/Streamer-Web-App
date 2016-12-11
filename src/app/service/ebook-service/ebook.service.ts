@@ -8,6 +8,7 @@ import {LiteraryGenreDTO} from "../../model/ebook/literary.genre.dto";
 import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
 import {EbookDTO} from "../../model/ebook/ebook.dto";
 import {SearchCriteria} from "../../view-objects/search.criteria";
+import {RateEbookDTO} from "../../model/ebook/rate.ebook.dto";
 
 @Injectable()
 export class EbookService extends AbstractService {
@@ -95,6 +96,11 @@ export class EbookService extends AbstractService {
   public getEbooksTop50(): Observable<EbookDTO[]> {
     let url = `${ebookEndpoint}/noauth/ebook/top50`;
     return this.performGet(url);
+  }
+
+  public rateEbook(rateEbookDTO: RateEbookDTO): Observable<any> {
+    let url = `${ebookEndpoint}/noauth/rate`;
+    return this.performPut(url, JSON.stringify(rateEbookDTO));
   }
 
 }
