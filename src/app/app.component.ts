@@ -6,6 +6,7 @@ import {Observable} from "rxjs/Observable";
 import {SearchCriteria} from "./view-objects/search.criteria";
 import {SnackBarComponent} from "./components/snack-bar/snack-bar.component";
 import {AuthService} from "./service/auth-service/auth.service";
+import {tokenNotExpired} from "angular2-jwt";
 
 @Component({
   selector: 'app-root',
@@ -35,7 +36,7 @@ export class AppComponent extends BaseComponent {
   public ngOnInit() {
     let showLogin: Observable<string> = this.route.queryParams.map(params => params['showLoginForm'] || 'false');
     showLogin.subscribe((value: string) => this.showLoginForm = value != null && value === 'true');
-    this._loggedIn = localStorage.getItem('id_token') != null;
+    this._loggedIn = localStorage.getItem('id_token') != null && tokenNotExpired();
     this.menuVisible = false;
     this.menuStyle = 'width: 0%; float: left; margin-left: 0px';
     this.mainContentStyle = 'width: 100%; float: left margin-left: 0px';
