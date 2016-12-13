@@ -5,6 +5,7 @@ import {BaseComponent} from "./base-component/base-component";
 import {Observable} from "rxjs/Observable";
 import {SearchCriteria} from "./view-objects/search.criteria";
 import {SnackBarComponent} from "./components/snack-bar/snack-bar.component";
+import {AuthService} from "./service/auth-service/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ export class AppComponent extends BaseComponent {
   title = `${title}`;
   showLoginForm: boolean = false;
   private _loggedIn: boolean;
+  private _isAdmin: boolean = false;
   menuVisible: boolean;
   mainContentStyle: string;
   menuStyle: string;
@@ -25,7 +27,8 @@ export class AppComponent extends BaseComponent {
   private showSnack: boolean = false;
 
   constructor(private router: Router,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private authService: AuthService) {
     super();
   }
 
@@ -45,6 +48,9 @@ export class AppComponent extends BaseComponent {
         this.snack._timeout = 3000;
         this.snack.showSnackMessage();
       }
+    });
+    this.authService.isAdmin().subscribe((value: boolean) => {
+      this._isAdmin = value;
     });
   }
 
@@ -94,6 +100,9 @@ export class AppComponent extends BaseComponent {
     this.snack._timeout = 3000;
     this.snack.showSnackMessage();
     this._loggedIn = localStorage.getItem('id_token') != null;
+    this.authService.isAdmin().subscribe((value: boolean) => {
+      this._isAdmin = value;
+    });
   }
 
   public onLoginError(value: string) {

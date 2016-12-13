@@ -103,4 +103,17 @@ export class EbookService extends AbstractService {
     return this.performPut(url, JSON.stringify(rateEbookDTO));
   }
 
+  public getEbooksAsAdmin(username?: string): Observable<EbookDTO[]> {
+    let url = `${ebookEndpoint}/admin/ebooks`;
+    if (username != null && username.length > 0) {
+      url += '?username=' + username;
+    }
+    return this.performGet(url);
+  }
+
+  public deleteFileAndMetadataAsAdmin(id: number, username: string): Observable<boolean> {
+    let url = `${ebookEndpoint}/admin/delete/ebook?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
 }

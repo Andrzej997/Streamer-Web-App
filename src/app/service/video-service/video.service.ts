@@ -115,4 +115,17 @@ export class VideoService extends AbstractService {
     return this.performPut(url, JSON.stringify(rateVideoDTO));
   }
 
+  public getVideosAsAdmin(username?: string): Observable<VideoDTO[]> {
+    let url = `${videoEndpoint}/admin/videos`;
+    if (username != null && username.length > 0) {
+      url += '?username=' + username;
+    }
+    return this.performGet(url);
+  }
+
+  public deleteFileAndMetadataAsAdmin(id: number, username: string): Observable<boolean> {
+    let url = `${videoEndpoint}/admin/delete/video?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
 }

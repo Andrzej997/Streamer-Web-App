@@ -1,10 +1,10 @@
-import {MusicArtistsDTO} from './music.artist.dto';
-import {MusicFileMetadataDTO} from './music.file.metadata.dto';
-import {MusicGenreDTO} from './music.genre.dto';
-import {MusicAlbumDTO} from './music.album.dto';
+import {MusicArtistsDTO} from "./music.artist.dto";
+import {MusicFileMetadataDTO} from "./music.file.metadata.dto";
+import {MusicGenreDTO} from "./music.genre.dto";
+import {MusicAlbumDTO} from "./music.album.dto";
 import {MediaItem} from "../abstract/media.item";
 
-export class SongDTO extends MediaItem {
+export class SongDTO implements MediaItem {
 
   public _songId: number;
   public _title: string;
@@ -23,11 +23,14 @@ export class SongDTO extends MediaItem {
   public _rate: number;
 
   constructor() {
-    super();
     this._authors = [];
     this._fileMetadata = new MusicFileMetadataDTO();
     this._genre = new MusicGenreDTO();
     this._album = new MusicAlbumDTO();
+  }
+
+  public getOwnerId(): number {
+    return this._ownerId;
   }
 
   get songId(): number {

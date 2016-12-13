@@ -3,7 +3,7 @@ import {ImageFileDTO} from "./image.file.dto";
 import {ImageTypeDTO} from "./image.type.dto";
 import {MediaItem} from "../abstract/media.item";
 
-export class ImageDTO extends MediaItem {
+export class ImageDTO implements MediaItem {
 
   public _imageId: number;
   public _title: string;
@@ -25,10 +25,13 @@ export class ImageDTO extends MediaItem {
   public _rate: number;
 
   constructor() {
-    super();
     this._artistDTOList = [];
     this._imageFileDTO = new ImageFileDTO();
     this._imageTypeDTO = new ImageTypeDTO();
+  }
+
+  public getOwnerId(): number {
+    return this._ownerId;
   }
 
   get rate(): number {

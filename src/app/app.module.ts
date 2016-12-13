@@ -2,7 +2,13 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-import {DropdownModule, ModalModule, TypeaheadModule, RatingModule} from "ng2-bootstrap/ng2-bootstrap";
+import {
+  DropdownModule,
+  ModalModule,
+  TypeaheadModule,
+  RatingModule,
+  ProgressbarModule
+} from "ng2-bootstrap/ng2-bootstrap";
 import {FileUploadModule} from "ng2-file-upload";
 import {AuthHttp} from "angular2-jwt";
 import {AppComponent} from "./app.component";
@@ -40,6 +46,11 @@ import {AudioPlayerComponent} from "./player/audio-player/audio-player.component
 import {VideoPlayerComponent} from "./player/video-player/video-player.component";
 import {ImageModalComponent} from "./components/image-modal/image-modal.component";
 import {EbookModalComponent} from "./components/ebook-modal/ebook-modal.component";
+import {ManageUsersViewComponent} from "./admin-panel/manage-users-view/manage-users-view.component";
+import {ManageContentViewComponent} from "./admin-panel/manage-content-view/manage-content-view.component";
+import {AssuranceModalComponent} from "./components/assurance-modal/assurance-modal.component";
+import {AdminGuard} from "./common/admin.guard";
+import {RadioViewComponent} from "./main_page/radio-view/radio-view.component";
 
 @NgModule({
   declarations: [
@@ -69,6 +80,10 @@ import {EbookModalComponent} from "./components/ebook-modal/ebook-modal.componen
     VideoPlayerComponent,
     ImageModalComponent,
     EbookModalComponent,
+    ManageUsersViewComponent,
+    ManageContentViewComponent,
+    AssuranceModalComponent,
+    RadioViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -80,11 +95,13 @@ import {EbookModalComponent} from "./components/ebook-modal/ebook-modal.componen
     FileUploadModule,
     ModalModule,
     TypeaheadModule,
-    RatingModule
+    RatingModule,
+    ProgressbarModule
   ],
   providers: [
     AuthService,
     AuthGuard,
+    AdminGuard,
     {provide: AuthHttp, useClass: AuthProvider},
     MediaFileUploader,
     MusicService,

@@ -1,7 +1,7 @@
 export class RegistrationDTO {
-  private _username: string;
-  private _password: string;
-  private _email: string;
+  public _username: string;
+  public _password: string;
+  public _email: string;
 
   constructor(username: string, password: string, email: string) {
     this._username = username;

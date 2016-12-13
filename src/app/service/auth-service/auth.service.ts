@@ -61,4 +61,19 @@ export class AuthService extends AbstractService {
     return this.performPost(url, JSON.stringify(changePasswordDTO));
   }
 
+  public isAdmin(): Observable<boolean> {
+    const url = `${authEndpoint}/auth/admin`;
+    return this.performGet(url);
+  }
+
+  public getAllUsers(): Observable<UsersDTO[]> {
+    const url = `${authEndpoint}/auth/admin/users`;
+    return this.performGet(url);
+  }
+
+  public deleteUser(userId: number): Observable<boolean> {
+    const url = `${authEndpoint}/auth/admin/delete/user?id=${userId}`;
+    return this.performDelete(url);
+  }
+
 }

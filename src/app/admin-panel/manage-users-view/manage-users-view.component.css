@@ -1,0 +1,64 @@
+.rectangle {
+  width: 120px;
+  height: 200px;
+  border: 0px;
+  alignment: center;
+  text-align: center;
+}
+
+li:nth-of-type(n+0) {
+  background-color: rgba(0, 249, 178, 0.65);
+}
+
+li:nth-child(n+1) {
+  background-color: rgba(63, 220, 0, 0.53);
+}
+
+li:nth-child(n+2) {
+  background-color: rgba(255, 69, 0, 0.6);
+}
+
+li:nth-child(n+3) {
+  background-color: rgba(0, 70, 255, 0.57);
+}
+
+li:nth-child(n+4) {
+  background-color: rgba(255, 251, 0, 0.58);
+}
+
+li:nth-child(n+5) {
+  background-color: rgba(255, 1, 196, 0.66);
+}
+
+li:nth-child(n+6) {
+  background-color: rgba(222, 255, 108, 0.66);
+}
+
+li:nth-child(n+7) {
+  background-color: rgba(11, 122, 255, 0.66);
+}
+
+li:nth-child(n+8) {
+  background-color: rgba(34, 255, 0, 0.66);
+}
+
+li:nth-child(n+9) {
+  background-color: rgba(239, 207, 255, 0.66);
+}
+
+label {
+  text-align: center;
+  max-width: 80%;
+  color: #00133f;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 2.5em;
+  max-height: 5.0em;
+}
+
+.vcontainer {
+  min-height: 10em;
+  display: table-row;
+  text-align: center;
+  vertical-align: middle;
+}

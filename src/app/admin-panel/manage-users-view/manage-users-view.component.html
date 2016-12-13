@@ -1,0 +1,27 @@
+<div class="center" style="width: 100%; height: 100%;">
+  <h1 [hidden]="usersDTO == null || usersDTO.length <= 0">Songs: </h1>
+  <ul style="display:block; float:left;">
+    <li class="navbar-nav" *ngFor="let user of usersDTO"
+        style="margin: 0 10px 10px 0; list-style-type: none">
+      <div class="rectangle">
+        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(user)">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <label class="vcontainer" style="font-size: 10px; font-family: 'Times New Roman';">
+          Username: {{user._userName}}
+        </label>
+        <label class="vcontainer" style="font-size: 10px; font-family: 'Times New Roman';">
+          Email: {{user._email}}
+        </label>
+        <label class="vcontainer" style="font-size: 10px; font-family: 'Times New Roman';">
+          Name: {{user._name}}
+        </label>
+        <label class="vcontainer" style="font-size: 10px; font-family: 'Times New Roman';">
+          Surname: {{user._surname}}
+        </label>
+      </div>
+    </li>
+  </ul>
+  <app-assurance-modal #assuranceModalUsers (close)="onUserDeleteConfirm($event)">
+  </app-assurance-modal>
+</div>

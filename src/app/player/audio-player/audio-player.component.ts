@@ -35,6 +35,8 @@ export class AudioPlayerComponent extends BaseComponent {
   private displayedTime: string = '';
   private rate: number = 0;
 
+  public isRadioSource: boolean = false;
+
   constructor(private musicService: MusicService) {
     super();
     this.playedSong = new SongDTO();
@@ -52,6 +54,7 @@ export class AudioPlayerComponent extends BaseComponent {
   }
 
   private initPlayer(): void {
+    this.isRadioSource = false;
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
       let authToken: string = localStorage.getItem('id_token');
@@ -67,6 +70,13 @@ export class AudioPlayerComponent extends BaseComponent {
     this.musicPlayer.load();
     this.createDisplayedText();
     this.rate = 0;
+  }
+
+  public initRadio(): void {
+    this.isRadioSource = true;
+    this.audioSource.src = this.source;
+    this.musicPlayer.src = this.source;
+    this.musicPlayer.load();
   }
 
   public play(): void {
@@ -118,12 +128,23 @@ export class AudioPlayerComponent extends BaseComponent {
     this.play();
   }
 
+  public playRadio(url: string): void {
+    this.isRadioSource = true;
+    this.source = url;
+    this.initRadio();
+    this.visible = true;
+    this.play();
+  }
+
   public hide(): void {
     this.stop();
     this.visible = false;
   }
 
   public createDisplayedText(): void {
+    if (this.isRadioSource) {
+      this.displayedText = "You are listening radio stream";
+    }
     let resultText: string = '';
     if (this.playedSong == null) {
       return;

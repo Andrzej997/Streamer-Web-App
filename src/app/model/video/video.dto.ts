@@ -4,7 +4,7 @@ import {FilmGenreDTO} from "./film.genre.dto";
 import {VideoSerieDTO} from "./video.serie.dto";
 import {MediaItem} from "../abstract/media.item";
 
-export class VideoDTO extends MediaItem {
+export class VideoDTO implements MediaItem {
 
   public _videoId: number;
   public _videoFileId: number;
@@ -23,11 +23,14 @@ export class VideoDTO extends MediaItem {
   public _rate: number;
 
   constructor() {
-    super();
     this._directorList = [];
     this._videoFileMetadata = new VideoFileMetadataDTO();
     this._filmGenre = new FilmGenreDTO();
     this._videoSerie = new VideoSerieDTO();
+  }
+
+  public getOwnerId(): number {
+    return this._ownerId;
   }
 
   get videoId(): number {

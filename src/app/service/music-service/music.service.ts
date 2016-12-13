@@ -121,4 +121,17 @@ export class MusicService extends AbstractService {
     return this.performPut(url, JSON.stringify(rateSongDTO));
   }
 
+  public getSongsAsAdmin(username?: string): Observable<SongDTO[]> {
+    let url = `${musicEndpoint}/admin/songs`;
+    if (username != null && username.length > 0) {
+      url += '?username=' + username;
+    }
+    return this.performGet(url);
+  }
+
+  public deleteFileAndMetadataAsAdmin(id: number, username: string): Observable<boolean> {
+    let url = `${musicEndpoint}/admin/delete/song?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
 }

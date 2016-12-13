@@ -103,4 +103,17 @@ export class ImageService extends AbstractService {
     return this.performPut(url, JSON.stringify(rateImageDTO));
   }
 
+  public getImagesAsAdmin(username?: string): Observable<ImageDTO[]> {
+    let url = `${imageEndpoint}/admin/images`;
+    if (username != null && username.length > 0) {
+      url += '?username=' + username;
+    }
+    return this.performGet(url);
+  }
+
+  public deleteFileAndMetadataAsAdmin(id: number, username: string): Observable<boolean> {
+    let url = `${imageEndpoint}/admin/delete/image?id=${id}&username=${username}`;
+    return this.performDelete(url);
+  }
+
 }

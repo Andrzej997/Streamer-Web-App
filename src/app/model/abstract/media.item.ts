@@ -1,3 +1,3 @@
-export abstract class MediaItem {
-
+export interface MediaItem {
+  getOwnerId(): number;
 }

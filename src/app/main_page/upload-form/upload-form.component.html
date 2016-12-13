@@ -66,7 +66,9 @@
     <div>
       Queue progress:
       <div class="progress" style="">
-        <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
+        <!--<div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div> -->
+        <progressbar [animate]="true" [value]="uploader?.progress" type="success">
+          <b>{{uploader.progress > 0 && uploader.progress < 100 ? uploader.progress : "100"}}%</b></progressbar>
       </div>
     </div>
     <button type="button" class="btn btn-success btn-s"

@@ -1,10 +1,10 @@
 export class UsersDTO {
-  private _userId: number;
-  private _userName: String;
-  private _email: String;
-  private _name: String;
-  private _surname: String;
-  private _nationality: String;
+  public _userId: number;
+  public _userName: string;
+  public _email: string;
+  public _name: string;
+  public _surname: string;
+  public _nationality: string;
 
 
   constructor() {
@@ -19,43 +19,43 @@ export class UsersDTO {
     this._userId = value;
   }
 
-  get userName(): String {
+  get userName(): string {
     return this._userName;
   }
 
-  set userName(value: String) {
+  set userName(value: string) {
     this._userName = value;
   }
 
-  get email(): String {
+  get email(): string {
     return this._email;
   }
 
-  set email(value: String) {
+  set email(value: string) {
     this._email = value;
   }
 
-  get name(): String {
+  get name(): string {
     return this._name;
   }
 
-  set name(value: String) {
+  set name(value: string) {
     this._name = value;
   }
 
-  get surname(): String {
+  get surname(): string {
     return this._surname;
   }
 
-  set surname(value: String) {
+  set surname(value: string) {
     this._surname = value;
   }
 
-  get nationality(): String {
+  get nationality(): string {
     return this._nationality;
   }
 
-  set nationality(value: String) {
+  set nationality(value: string) {
     this._nationality = value;
   }
 }

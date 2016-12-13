@@ -3,7 +3,7 @@ import {EbookFileMetadataDTO} from "./ebook.file.metadata.dto";
 import {WriterDTO} from "./writer.dto";
 import {MediaItem} from "../abstract/media.item";
 
-export class EbookDTO extends MediaItem {
+export class EbookDTO implements MediaItem {
 
   public _ebookId: number;
   public _title: string;
@@ -22,10 +22,13 @@ export class EbookDTO extends MediaItem {
   public _rate: number;
 
   constructor() {
-    super();
     this._writerDTOList = [];
     this._ebookFileMetadataDTO = new EbookFileMetadataDTO();
     this._literaryGenreDTO = new LiteraryGenreDTO();
+  }
+
+  public getOwnerId(): number {
+    return this._ownerId;
   }
 
   get rate(): number {

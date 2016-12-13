@@ -1,7 +1,18 @@
 <div class="center" style="width: 100%; height: 100%;">
-  <h1 [hidden]="userSongs == null || userSongs.length <= 0">Songs: </h1>
+  <div class="search row" style="width: 95%; alignment: center">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search by username"
+             [(ngModel)]="searchedUser" name="searchedUserInput" #searchedUserInput="ngModel">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button" (click)="onSearchClick()">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </span>
+    </div><!-- /input-group -->
+  </div>
+  <h1 [hidden]="songs == null || songs.length <= 0">Songs: </h1>
   <ul style="display:block; float:left;">
-    <li class="navbar-nav" *ngFor="let song of userSongs; let i = index"
+    <li class="navbar-nav" *ngFor="let song of songs; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
         <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(song, 'M')">
@@ -25,9 +36,9 @@
     </li>
   </ul>
   <br/>
-  <h1 [hidden]="userVideos == null || userVideos.length <= 0">Videos: </h1>
+  <h1 [hidden]="videos == null || videos.length <= 0">Videos: </h1>
   <ul style="display:block; float:left;">
-    <li class="navbar-nav" *ngFor="let video of userVideos; let i = index"
+    <li class="navbar-nav" *ngFor="let video of videos; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
         <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video, 'V')">
@@ -51,9 +62,9 @@
     </li>
   </ul>
   <br/>
-  <h1 [hidden]="userImages == null || userImages.length <= 0">Images: </h1>
+  <h1 [hidden]="images == null || images.length <= 0">Images: </h1>
   <ul style="display:block; float:left;">
-    <li class="navbar-nav" *ngFor="let image of userImages; let i = index"
+    <li class="navbar-nav" *ngFor="let image of images; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
         <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(image, 'I')">
@@ -77,9 +88,9 @@
     </li>
   </ul>
   <br/>
-  <h1 [hidden]="userEbooks == null || userEbooks.length <= 0">Ebooks: </h1>
+  <h1 [hidden]="ebooks == null || ebooks.length <= 0">Ebooks: </h1>
   <ul style="display:block; float:left;">
-    <li class="navbar-nav" *ngFor="let ebook of userEbooks; let i = index"
+    <li class="navbar-nav" *ngFor="let ebook of ebooks; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
         <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook, 'E')">
@@ -131,7 +142,7 @@
     </div>
   </div>
   <br/>
-  <app-assurance-modal #assuranceModalMedia (close)="onSongDeleteConfirm($event)">
+  <app-assurance-modal #assuranceModalMedia (close)="onMediaDeleteConfirm($event)">
   </app-assurance-modal>
 </div>
 <app-audio-player #audioUser></app-audio-player>

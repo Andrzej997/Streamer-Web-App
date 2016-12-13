@@ -28,7 +28,7 @@
     <div class="time-display">
       {{displayedTime}}
     </div>
-    <div class="rating-display">
+    <div class="rating-display" [hidden]="isRadioSource">
       <rating [(ngModel)]="rate"
               #inpRating="ngModel"
               id="inpRating"

@@ -27,6 +27,13 @@
           <ul dropdownMenu role="menu" aria-labelledby="more-href">
             <li [hidden]="!loggedIn" role="menuitem"><a class="dropdown-item" [routerLink]="['/myfiles']">MY FILES</a>
             </li>
+            <li role="menuitem"><a class="dropdown-item" [routerLink]="['/radio']">RADIO</a></li>
+            <li role="menuitem"><a class="dropdown-item"
+                                   [routerLink]="['/admin/manage-content']"
+                                   [hidden]="!_isAdmin">CHECK CONTENT</a></li>
+            <li role="menuitem"><a class="dropdown-item"
+                                   [routerLink]="['/admin/manage-users']"
+                                   [hidden]="!_isAdmin">DELETE USERS</a></li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/about']">ABOUT</a></li>
             <li class="divider dropdown-divider"></li>
             <li role="menuitem"><a class="dropdown-item" [routerLink]="['/help']">HELP</a></li>
