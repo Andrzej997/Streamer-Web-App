@@ -4,17 +4,20 @@
     <li class="navbar-nav" *ngFor="let ebook of ebookList; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook)">
-          <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(ebook)">
-          <span class="glyphicon glyphicon-info-sign"></span>
-        </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
+        <div class="vcontainer">
+          <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook)">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(ebook)">
+            <span class="glyphicon glyphicon-info-sign"></span>
+          </button>
+        </div>
+        <label class="rectangle" style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
         <rating [(ngModel)]="ebook._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
+                class="rectangle"
                 [max]="10"
                 [readonly]="true">
         </rating>

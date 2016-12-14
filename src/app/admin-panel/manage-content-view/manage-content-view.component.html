@@ -15,20 +15,23 @@
     <li class="navbar-nav" *ngFor="let song of songs; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(song, 'M')">
-          <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(song, 'M')">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(song, 'M')">
-          <span class="glyphicon glyphicon-trash"></span>
-        </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{song?._title}}</label>
+        <div class="vcontainer">
+          <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(song, 'M')">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(song, 'M')">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(song, 'M')">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
+        <label class="vcontainer" style="font-size: 12px; font-family: 'Times New Roman'">{{song?._title}}</label>
         <rating [(ngModel)]="song._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
+                class="vcontainer"
                 [max]="10"
                 [readonly]="true">
         </rating>
@@ -41,20 +44,23 @@
     <li class="navbar-nav" *ngFor="let video of videos; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video, 'V')">
-          <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(video, 'V')">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(video, 'V')">
-          <span class="glyphicon glyphicon-trash"></span>
-        </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
+        <div class="vcontainer">
+          <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video, 'V')">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(video, 'V')">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(video, 'V')">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
+        <label class="vcontainer" style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
         <rating [(ngModel)]="video._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
+                class="vcontainer"
                 [max]="10"
                 [readonly]="true">
         </rating>
@@ -67,20 +73,23 @@
     <li class="navbar-nav" *ngFor="let image of images; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(image, 'I')">
-          <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(image, 'I')">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(image, 'I')">
-          <span class="glyphicon glyphicon-trash"></span>
-        </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{image?._title}}</label>
+        <div class="vcontainer">
+          <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(image, 'I')">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(image, 'I')">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(image, 'I')">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
+        <label class="vcontainer" style="font-size: 12px; font-family: 'Times New Roman'">{{image?._title}}</label>
         <rating [(ngModel)]="image._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
+                class="vcontainer"
                 [max]="10"
                 [readonly]="true">
         </rating>
@@ -93,20 +102,23 @@
     <li class="navbar-nav" *ngFor="let ebook of ebooks; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook, 'E')">
-          <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(ebook, 'E')">
-          <span class="glyphicon glyphicon-edit"></span>
-        </button>
-        <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(ebook, 'E')">
-          <span class="glyphicon glyphicon-trash"></span>
-        </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
+        <div class="vcontainer">
+          <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(ebook, 'E')">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-xs" (click)="onEditClick(ebook, 'E')">
+            <span class="glyphicon glyphicon-edit"></span>
+          </button>
+          <button type="button" class="btn btn-danger btn-xs" (click)="onRemoveClick(ebook, 'E')">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </div>
+        <label class="vcontainer" style="font-size: 12px; font-family: 'Times New Roman'">{{ebook?._title}}</label>
         <rating [(ngModel)]="ebook._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
+                class="vcontainer"
                 [max]="10"
                 [readonly]="true">
         </rating>

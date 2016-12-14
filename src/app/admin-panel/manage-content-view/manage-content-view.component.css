@@ -59,3 +59,10 @@ label {
 .search {
   alignment: center;
 }
+
+.vcontainer {
+  min-height: 8em;
+  display: table-row;
+  text-align: center;
+  vertical-align: middle;
+}

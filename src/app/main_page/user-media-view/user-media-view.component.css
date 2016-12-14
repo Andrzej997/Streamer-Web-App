@@ -55,3 +55,10 @@ label {
   line-height: 1.6em;
   max-height: 3.2em;
 }
+
+.vcontainer {
+  min-height: 8em;
+  display: table-row;
+  text-align: center;
+  vertical-align: middle;
+}

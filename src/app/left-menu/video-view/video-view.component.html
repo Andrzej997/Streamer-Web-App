@@ -4,17 +4,20 @@
     <li class="navbar-nav" *ngFor="let video of videoList; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
       <div class="rectangle">
-        <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video)">
-          <span class="glyphicon glyphicon-play"></span>
-        </button>
-        <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(video)">
-          <span class="glyphicon glyphicon-info-sign"></span>
-        </button>
-        <label style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
+        <div class="vcontainer">
+          <button type="button" class="btn btn-success btn-xs" (click)="onPlayClick(video)">
+            <span class="glyphicon glyphicon-play"></span>
+          </button>
+          <button type="button" class="btn btn-success btn-xs" (click)="onInfoItemClick(video)">
+            <span class="glyphicon glyphicon-info-sign"></span>
+          </button>
+        </div>
+        <label class="vcontainer" style="font-size: 12px; font-family: 'Times New Roman'">{{video?._title}}</label>
         <rating [(ngModel)]="video._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
+                class="vcontainer"
                 [max]="10"
                 [readonly]="true">
         </rating>
