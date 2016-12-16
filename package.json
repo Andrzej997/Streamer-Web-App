@@ -1,10 +1,10 @@
 {
   "name": "streamer",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve --host 157.158.170.40",
+    "start": "ng serve --host 0.0.0.0",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test",
     "pree2e": "webdriver-manager update",

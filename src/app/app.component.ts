@@ -89,6 +89,7 @@ export class AppComponent extends BaseComponent {
       localStorage.removeItem('id_token');
       localStorage.removeItem('username');
       this._loggedIn = false;
+      this._isAdmin = false;
       this.snack._timeout = 3000;
       this.snack._message = 'Logged out';
       this.snack.showSnackMessage();
