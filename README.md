@@ -1,5 +1,19 @@
 # Streamer
+Angular 2 based web api for streaming audio, video, images and e-books.
+It is based on HTML5, CSS 3.0, Type Script and Angular 2 Framework.
+It allows you to register your account, login, search for media,
+search by category, upload your files, describe your files,
+manage your files and categorize your files. 
+It also allows you to play music, video and image streams, read
+e-books, rate the media, play radio shoutcast streams.
+Application is secured by JSON Web Token and Route Guards.
 
+## Backend
+Based on microservices with Spring Boot and Docker.
+[backend](https://github.com/Andrzej997/Streamer)
+and [backend-configuration](https://github.com/Andrzej997/Streamer-Spring-Cloud-Config-Server)
+
+## CLI
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
 
 ## Development server
