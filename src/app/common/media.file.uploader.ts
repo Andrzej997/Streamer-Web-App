@@ -17,7 +17,7 @@ import {EbookService} from "../service/ebook-service/ebook.service";
 @Injectable()
 export class MediaFileUploader extends FileUploader implements OnInit {
 
-  private _endpoint: string = constants.serverEndpoint;
+  private _endpoint: string = constants.mainEndpoint;
   private _category: string = 'M';
   private _oldCategory: string;
   private _musicQueue: Array<MetadataFileItem>;
@@ -94,7 +94,7 @@ export class MediaFileUploader extends FileUploader implements OnInit {
         this._typeFilter = 'image/*';
         break;
       default:
-        this.endpoint = constants.serverEndpoint;
+        this.endpoint = constants.mainEndpoint;
         break;
     }
     this.changeUrl();

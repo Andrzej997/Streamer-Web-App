@@ -2,13 +2,15 @@
  * Created by Mateusz on 06.11.2016.
  * 157.158.170.90
  */
+import {environment} from "../environments/environment";
 
-export var serverEndpoint = 'http://157.158.170.40:8080';
-export var authEndpoint = `${serverEndpoint}/auth`;
-export var ebookEndpoint = `${serverEndpoint}/ebook`;
-export var imageEndpoint = `${serverEndpoint}/image`;
-export var musicEndpoint = `${serverEndpoint}/music`;
-export var videoEndpoint = `${serverEndpoint}/video`;
+
+export var mainEndpoint = environment;
+export var authEndpoint = `${mainEndpoint}/auth`;
+export var ebookEndpoint = `${mainEndpoint}/ebook`;
+export var imageEndpoint = `${mainEndpoint}/image`;
+export var musicEndpoint = `${mainEndpoint}/music`;
+export var videoEndpoint = `${mainEndpoint}/video`;
 
 export var uploadEndpoint = `auth/upload`;
 

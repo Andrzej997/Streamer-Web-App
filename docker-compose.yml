@@ -3,10 +3,9 @@ streamer:
   container_name: streamer
   ports:
    - 4200:4200
-  command: ng serve --host 0.0.0.0
+  command: ng serve --host 0.0.0.0 --prod
   environment:
-    NODE_ENV: dev
-  command: ng serve
+    NODE_ENV: production
   volumes:
-    - .:/home/app
-    - /home/app/node_modules
+   - .:/home/app
+   - /home/app/node_modules
