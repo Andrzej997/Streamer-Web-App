@@ -5,7 +5,7 @@
 import {environment} from "../environments/environment";
 
 
-export var mainEndpoint = environment;
+export var mainEndpoint: string = environment.serverEndpoint;
 export var authEndpoint = `${mainEndpoint}/auth`;
 export var ebookEndpoint = `${mainEndpoint}/ebook`;
 export var imageEndpoint = `${mainEndpoint}/image`;
