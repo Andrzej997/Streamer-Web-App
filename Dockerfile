@@ -12,6 +12,14 @@ COPY package.json $HOME
 
 WORKDIR $HOME
 
+COPY /e2e $HOME/e2e
+
+COPY /src $HOME/src
+
+COPY /.config $HOME/.config
+
+COPY angular-cli.json karma.conf.js protractor.conf.js tslint.json $HOME
+
 RUN rm -rf node_modules && npm install && npm cache clean && rm -rf ~/.npm
 
 EXPOSE 4200

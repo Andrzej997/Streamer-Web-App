@@ -6,6 +6,3 @@ streamer:
   command: ng serve --host 0.0.0.0 --prod
   environment:
     NODE_ENV: production
-  volumes:
-   - .:/home/app
-   - /home/app/node_modules
