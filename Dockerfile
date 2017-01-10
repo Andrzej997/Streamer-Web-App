@@ -24,6 +24,6 @@ RUN rm -rf node_modules && npm install && npm cache clean && rm -rf ~/.npm
 
 EXPOSE 4200
 
-RUN npm install angular-cli
+RUN npm install angular-cli -g
 
 RUN npm update
