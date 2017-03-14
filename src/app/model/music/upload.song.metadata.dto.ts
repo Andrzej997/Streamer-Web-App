@@ -1,4 +1,4 @@
-import {SongDTO} from './song.dto';
+import {SongDTO} from "./song.dto";
 import {FileMetadata} from "../abstract/file.metadata";
 
 export class UploadSongMetadataDTO implements FileMetadata {
@@ -12,16 +12,21 @@ export class UploadSongMetadataDTO implements FileMetadata {
   }
 
   public isValid(): boolean {
-    if (this._userName == null || this._song._title == null)
+    if (this._userName == null || this._song._title == null) {
       return false;
-    if (!this.validateFileMetadata())
+    }
+    if (!this.validateFileMetadata()) {
       return false;
-    if (this._song._title.length <= 0)
+    }
+    if (this._song._title.length <= 0) {
       return false;
-    if (this._song._authors == null || this._song._authors.length <= 0)
+    }
+    if (this._song._authors == null || this._song._authors.length <= 0) {
       return false;
-    if (this._song._authors[0]._name == null || this._song._authors[0]._surname == null)
+    }
+    if (this._song._authors[0]._name == null || this._song._authors[0]._surname == null) {
       return false;
+    }
     return !(this._song._authors[0]._name.length <= 0 || this._song._authors[0]._surname.length <= 0);
   }
 
@@ -35,10 +40,8 @@ export class UploadSongMetadataDTO implements FileMetadata {
     if (this._song._fileMetadata._fileName == null) {
       return false;
     }
-    if (this._song._fileMetadata._fileSize == null) {
-      return false;
-    }
-    return true;
+    return this._song._fileMetadata._fileSize != null;
+
   }
 
 

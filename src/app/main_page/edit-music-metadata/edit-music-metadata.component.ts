@@ -1,14 +1,14 @@
-import {Component, Input, SimpleChanges, Output, EventEmitter} from '@angular/core';
-import {BaseComponent} from '../../base-component/base-component';
-import {FileUtils} from '../../common/file.utils';
-import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {Component, Input, SimpleChanges, Output, EventEmitter} from "@angular/core";
+import {BaseComponent} from "../../base-component/base-component";
+import {FileUtils} from "../../common/file.utils";
+import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
 import {MusicService} from "../../service/music-service/music.service";
 import {MusicArtistsDTO} from "../../model/music/music.artist.dto";
-import {Observable} from 'rxjs';
+import {Observable} from "rxjs";
 import {MusicAlbumDTO} from "../../model/music/music.album.dto";
 import {MusicGenreDTO} from "../../model/music/music.genre.dto";
 import {MetadataFileItem} from "../../common/metadata.file.item";
-import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
 import {SongDTO} from "../../model/music/song.dto";
 
 @Component({
@@ -105,7 +105,7 @@ export class EditMusicMetadataComponent extends BaseComponent {
   }
 
   public onMusicAuthorInput(index: number): void {
-    this.artistsTypeaheadList = new Observable<MusicArtistsDTO[]>(observer => {
+    this.artistsTypeaheadList = new Observable<MusicArtistsDTO[]>((observer: any) => {
       observer.next(this.musicMetadata._song._authors[index]._name);
       observer.next(this.musicMetadata._song._authors[index]._name2);
       observer.next(this.musicMetadata._song._authors[index]._surname);
@@ -118,7 +118,7 @@ export class EditMusicMetadataComponent extends BaseComponent {
   }
 
   public onMusicAlbumInput(): void {
-    this.albumsTypeaheadList = new Observable<MusicAlbumDTO[]>(observer => {
+    this.albumsTypeaheadList = new Observable<MusicAlbumDTO[]>((observer: any) => {
       observer.next(this.musicMetadata._song._album._albumTitle);
     }).mergeMap(() => this.getAlbumsPredictionList());
   }
@@ -129,7 +129,7 @@ export class EditMusicMetadataComponent extends BaseComponent {
   }
 
   public onMusicGenreInput(): void {
-    this.genresTypeaheadList = new Observable<MusicGenreDTO[]>(observer => {
+    this.genresTypeaheadList = new Observable<MusicGenreDTO[]>((observer: any) => {
       observer.next(this.musicMetadata._song._genre._name);
     }).mergeMap(() => this.getGenresPredictionList());
   }

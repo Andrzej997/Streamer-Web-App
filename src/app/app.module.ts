@@ -2,13 +2,7 @@ import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule} from "@angular/http";
-import {
-  DropdownModule,
-  ModalModule,
-  TypeaheadModule,
-  RatingModule,
-  ProgressbarModule
-} from "ng2-bootstrap/ng2-bootstrap";
+import {DropdownModule, ModalModule, TypeaheadModule, RatingModule, ProgressbarModule} from "ng2-bootstrap";
 import {FileUploadModule} from "ng2-file-upload";
 import {AuthHttp} from "angular2-jwt";
 import {AppComponent} from "./app.component";
@@ -52,6 +46,7 @@ import {AssuranceModalComponent} from "./components/assurance-modal/assurance-mo
 import {AdminGuard} from "./common/admin.guard";
 import {RadioViewComponent} from "./main_page/radio-view/radio-view.component";
 
+//noinspection TsLint
 @NgModule({
   declarations: [
     AppComponent,
@@ -83,7 +78,7 @@ import {RadioViewComponent} from "./main_page/radio-view/radio-view.component";
     ManageUsersViewComponent,
     ManageContentViewComponent,
     AssuranceModalComponent,
-    RadioViewComponent,
+    RadioViewComponent
   ],
   imports: [
     BrowserModule,
@@ -91,12 +86,12 @@ import {RadioViewComponent} from "./main_page/radio-view/radio-view.component";
     HttpModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    DropdownModule,
+    DropdownModule.forRoot(),
     FileUploadModule,
-    ModalModule,
-    TypeaheadModule,
-    RatingModule,
-    ProgressbarModule
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    RatingModule.forRoot(),
+    ProgressbarModule.forRoot()
   ],
   providers: [
     AuthService,

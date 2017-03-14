@@ -11,16 +11,21 @@ export class UploadImageMetadataDTO implements FileMetadata {
   }
 
   public isValid(): boolean {
-    if (this._username == null || this._imageDTO._title == null)
+    if (this._username == null || this._imageDTO._title == null) {
       return false;
-    if (!this.validateFileMetadata())
+    }
+    if (!this.validateFileMetadata()) {
       return false;
-    if (this._imageDTO._title.length <= 0)
+    }
+    if (this._imageDTO._title.length <= 0) {
       return false;
-    if (this._imageDTO._artistDTOList == null || this._imageDTO._artistDTOList.length <= 0)
+    }
+    if (this._imageDTO._artistDTOList == null || this._imageDTO._artistDTOList.length <= 0) {
       return false;
-    if (this._imageDTO._artistDTOList[0]._name == null || this._imageDTO._artistDTOList[0]._surname == null)
+    }
+    if (this._imageDTO._artistDTOList[0]._name == null || this._imageDTO._artistDTOList[0]._surname == null) {
       return false;
+    }
     return !(this._imageDTO._artistDTOList[0]._name.length <= 0 || this._imageDTO._artistDTOList[0]._surname.length <= 0);
   }
 
@@ -34,10 +39,8 @@ export class UploadImageMetadataDTO implements FileMetadata {
     if (this._imageDTO._imageFileDTO._fileName == null) {
       return false;
     }
-    if (this._imageDTO._imageFileDTO._fileSize == null) {
-      return false;
-    }
-    return true;
+    return this._imageDTO._imageFileDTO._fileSize != null;
+
   }
 
   get imageDTO(): ImageDTO {

@@ -275,7 +275,7 @@ export class ManageContentViewComponent extends BaseComponent {
   }
 
   private findUsernameConnected(item: MediaItem): string {
-    let _ownerId: number = null;
+    let _ownerId: number;
     _ownerId = item['_ownerId'];
     if (_ownerId == null) {
       return null;

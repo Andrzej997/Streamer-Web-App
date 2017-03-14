@@ -1,14 +1,14 @@
-import {Component, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Component, SimpleChanges, Input, Output, EventEmitter} from "@angular/core";
 import {MetadataFileItem} from "../../common/metadata.file.item";
 import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {Observable} from 'rxjs';
+import {Observable} from "rxjs";
 import {DirectorDTO} from "../../model/video/director.dto";
 import {VideoSerieDTO} from "../../model/video/video.serie.dto";
 import {FilmGenreDTO} from "../../model/video/film.genre.dto";
 import {BaseComponent} from "../../base-component/base-component";
 import {VideoService} from "../../service/video-service/video.service";
 import {FileUtils} from "../../common/file.utils";
-import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
 import {VideoDTO} from "../../model/video/video.dto";
 
 @Component({
@@ -144,7 +144,7 @@ export class EditVideoMetadataComponent extends BaseComponent {
   }
 
   public onDirectorsInput(index: number): void {
-    this.directorsTypeaheadList = new Observable<DirectorDTO[]>(observer => {
+    this.directorsTypeaheadList = new Observable<DirectorDTO[]>((observer: any) => {
       observer.next(this.videoMetadata._video._directorList[index]._name);
       observer.next(this.videoMetadata._video._directorList[index]._name2);
       observer.next(this.videoMetadata._video._directorList[index]._surname);
@@ -157,7 +157,7 @@ export class EditVideoMetadataComponent extends BaseComponent {
   }
 
   public onVideoSeriesInput(): void {
-    this.videoSeriesTypeahedList = new Observable<VideoSerieDTO[]>(observer => {
+    this.videoSeriesTypeahedList = new Observable<VideoSerieDTO[]>((observer: any) => {
       observer.next(this.videoMetadata._video._videoSerie._title);
     }).mergeMap(() => this.getVideoSeriesPredictionList());
   }
@@ -168,7 +168,7 @@ export class EditVideoMetadataComponent extends BaseComponent {
   }
 
   public onFilmGenreInput(): void {
-    this.filmGenresTypeaheadList = new Observable<FilmGenreDTO[]>(observer => {
+    this.filmGenresTypeaheadList = new Observable<FilmGenreDTO[]>((observer: any) => {
       observer.next(this.videoMetadata._video._filmGenre._name);
     }).mergeMap(() => this.getGenresPredictionList());
   }

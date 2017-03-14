@@ -1,4 +1,4 @@
-import {Component, Output, EventEmitter, Inject} from "@angular/core";
+import {Component, Output, EventEmitter} from "@angular/core";
 import {AuthService} from "../../service/auth-service/auth.service";
 import {Router, NavigationExtras} from "@angular/router";
 import {BaseComponent} from "../../base-component/base-component";
@@ -22,8 +22,7 @@ export class RegisterFormComponent extends BaseComponent {
   @Output() onRegisteredChange = new EventEmitter<boolean>();
 
   constructor(private authService: AuthService,
-              private router: Router,
-              @Inject('Window') window: Window) {
+              private router: Router) {
     super();
   }
 

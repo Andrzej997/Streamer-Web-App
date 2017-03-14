@@ -1,5 +1,5 @@
 import {Component, ViewChild} from "@angular/core";
-import {Router, ActivatedRoute, NavigationExtras} from "@angular/router";
+import {Router, ActivatedRoute, NavigationExtras, Params} from "@angular/router";
 import {title} from "./constants";
 import {BaseComponent} from "./base-component/base-component";
 import {Observable} from "rxjs/Observable";
@@ -16,7 +16,7 @@ import {tokenNotExpired} from "angular2-jwt";
 export class AppComponent extends BaseComponent {
   title = `${title}`;
   showLoginForm: boolean = false;
-  private _loggedIn: boolean;
+  private _loggedIn: boolean = false;
   private _isAdmin: boolean = false;
   menuVisible: boolean;
   mainContentStyle: string;
@@ -34,7 +34,7 @@ export class AppComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    let showLogin: Observable<string> = this.route.queryParams.map(params => params['showLoginForm'] || 'false');
+    let showLogin: Observable<string> = this.route.queryParams.map((params: Params) => params['showLoginForm'] || 'false');
     showLogin.subscribe((value: string) => this.showLoginForm = value != null && value === 'true');
     this._loggedIn = localStorage.getItem('id_token') != null && tokenNotExpired();
     this.menuVisible = false;

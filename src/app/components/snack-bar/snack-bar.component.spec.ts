@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {SnackBarComponent} from './snack-bar.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {SnackBarComponent} from "./snack-bar.component";
 
 describe('SnackBarComponent', () => {
   let component: SnackBarComponent;

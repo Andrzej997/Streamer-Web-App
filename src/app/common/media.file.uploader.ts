@@ -107,7 +107,7 @@ export class MediaFileUploader extends FileUploader implements OnInit {
 
   public onAfterAddingFile(fileItem: FileItem): any {
     let index: number = this.getIndexOfItem(fileItem);
-    var item: MetadataFileItem = <MetadataFileItem> fileItem;
+    let item: MetadataFileItem = <MetadataFileItem> fileItem;
     item.metadata = this.createMetadata();
     this.queue[index] = item;
     super.onAfterAddingFile(fileItem);
@@ -150,18 +150,18 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   }
 
   public onCompleteItemMusic(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    let id: number = parseInt(response);
+    let id: number = parseInt(response, 10);
     (<UploadSongMetadataDTO>item.metadata).song.fileId = id;
     (<UploadSongMetadataDTO>item.metadata).song.fileMetadata.musicFileId = id;
     this.saveMetadata(item).subscribe((value: UploadSongMetadataDTO) => {
       if (value == null) {
         console.log('Error !');
       }
-    })
+    });
   }
 
   public onCompleteItemVideo(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    let id: number = parseInt(response);
+    let id: number = parseInt(response, 10);
     (<UploadVideoMetadataDTO>item.metadata).video.videoFileId = id;
     (<UploadVideoMetadataDTO>item.metadata).video.videoFileMetadata.videoFileId = id;
     this.saveMetadata(item).subscribe((value: UploadVideoMetadataDTO) => {
@@ -172,7 +172,7 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   }
 
   public onCompleteItemImage(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    let id: number = parseInt(response);
+    let id: number = parseInt(response, 10);
     (<UploadImageMetadataDTO>item.metadata).imageDTO.imageFileId = id;
     (<UploadImageMetadataDTO>item.metadata).imageDTO.imageFileDTO.imageFileId = id;
     this.saveMetadata(item).subscribe((value: UploadImageMetadataDTO) => {
@@ -183,7 +183,7 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   }
 
   public onCompleteItemEbook(item: MetadataFileItem, response: string, status: number, headers: ParsedResponseHeaders): any {
-    let id: number = parseInt(response);
+    let id: number = parseInt(response, 10);
     (<UploadEbookMetadataDTO>item.metadata).ebookDTO.ebookFileId = id;
     (<UploadEbookMetadataDTO>item.metadata).ebookDTO.ebookFileMetadataDTO.ebookFileId = id;
     this.saveMetadata(item).subscribe((value: UploadEbookMetadataDTO) => {

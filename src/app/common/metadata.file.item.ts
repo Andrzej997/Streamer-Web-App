@@ -1,6 +1,5 @@
-import {Injectable} from '@angular/core';
-import {FileItem} from 'ng2-file-upload/file-upload/file-item.class';
-import {FileUploaderOptions} from 'ng2-file-upload';
+import {FileItem} from "ng2-file-upload/file-upload/file-item.class";
+import {FileUploaderOptions} from "ng2-file-upload";
 import {MediaFileUploader} from "./media.file.uploader";
 import {FileMetadata} from "../model/abstract/file.metadata";
 

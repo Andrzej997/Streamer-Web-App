@@ -11,10 +11,8 @@ export class AdminGuard implements CanActivate, CanActivateChild {
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this.authService.isAdmin().map(value => {
-      if (value && tokenNotExpired()) {
-        return true;
-      }
-      return false;
+      return !!(value && tokenNotExpired());
+
     });
   }
 

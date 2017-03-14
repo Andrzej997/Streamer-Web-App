@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {EbookViewComponent} from './ebook-view.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {EbookViewComponent} from "./ebook-view.component";
 
 describe('EbookViewComponent', () => {
   let component: EbookViewComponent;

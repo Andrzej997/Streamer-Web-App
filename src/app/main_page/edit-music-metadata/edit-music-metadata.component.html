@@ -26,14 +26,12 @@
   <section>
     <h2>Artists </h2>
     <button type="button" class="btn btn-success btn-xs"
-            (click)="onAddMusicAuthor()"
-            [hidden]="modeInfo">
+            (click)="onAddMusicAuthor()">
       <span class="glyphicon glyphicon-plus"></span>
     </button>
     <button type="button" class="btn btn-danger btn-xs"
             (click)="onRemoveMusicAuthor()"
-            [disabled]="musicMetadata._song._authors.length <= 0"
-            [hidden]="modeInfo">
+            [disabled]="musicMetadata._song._authors.length <= 0">
       <span class="glyphicon glyphicon-minus"></span>
     </button>
     <div class="form-group" style="margin-left: 20px;">

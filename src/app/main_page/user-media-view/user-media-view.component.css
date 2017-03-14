@@ -1,7 +1,7 @@
 .rectangle {
   width: 180px;
   height: 140px;
-  border: 0px;
+  border: 0;
   alignment: center;
   text-align: center;
 }

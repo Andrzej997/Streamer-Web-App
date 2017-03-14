@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {AccountViewComponent} from './account-view.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {AccountViewComponent} from "./account-view.component";
 
 describe('AccountViewComponent', () => {
   let component: AccountViewComponent;

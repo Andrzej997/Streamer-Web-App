@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 body {
   background: url(./assets/background.jpg);
   width: auto;
@@ -13,24 +14,6 @@ body {
   margin: auto;
   float: left;
   padding-left: 5%;
-}
-
-.logo-button, .logo-button:visited, .logo-button:link, .logo-button:active, .logo-button:hover, .logo-button:focus {
-  background: transparent;
-  height: 120px;
-  width: 500px;
-  text-decoration: none;
-  color: #d85a1d;
-  text-align: center;
-  vertical-align: middle;
-  text-shadow: #e8e8e8;
-  border: transparent;
-  font-size: 100px;
-  font-style: italic;
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
 }
 
 #title {
@@ -52,7 +35,7 @@ body {
     width: 300%
   }
   to {
-    margin-left: 0%;
+    margin-left: 0;
     width: 100%;
   }
 }
@@ -63,13 +46,13 @@ body {
     width: 300%
   }
   to {
-    margin-left: 0%;
+    margin-left: 0;
     width: 100%;
   }
 }
 
 article, aside, details, figcaption, figure,
-footer, header, menu, nav, section {
+footer, header, menu, section {
   display: block;
   zoom: 1;
 }
@@ -83,14 +66,12 @@ q:before, q:after {
   content: none;
 }
 
-/* change colours to suit your needs */
 ins {
   background-color: #ff9;
   color: #000;
   text-decoration: none;
 }
 
-/* change colours to suit your needs */
 mark {
   background-color: #ff9;
   color: #000;
@@ -112,7 +93,6 @@ table {
   border-spacing: 0;
 }
 
-/* change border colour to suit your needs */
 hr {
   display: block;
   height: 1px;
@@ -124,14 +104,6 @@ hr {
 
 input, select {
   vertical-align: middle;
-}
-
-.ng-valid[required], .ng-valid.required {
-  border-left: 5px solid #42A948;
-}
-
-.ng-invalid:not(form) {
-  border-left: 5px solid #a94442;
 }
 
 h3, h4 {
@@ -168,61 +140,12 @@ h3, h4 {
   color: #fff !important;
 }
 
-.navbar-nav li.active a {
-  color: #fff !important;
-  background-color: #29292c !important;
-}
-
 .navbar-default .navbar-toggle {
   border-color: transparent;
 }
 
-.dropdown-menu li a {
-  color: #000 !important;
-}
-
 .dropdown-menu li a:hover {
   background-color: red !important;
-}
-
-.logo-button, .logo-button:visited, .logo-button:link, .logo-button:active, .logo-button:hover, .logo-button:focus {
-  background: transparent;
-  height: 120px;
-  width: 500px;
-  text-decoration: none;
-  color: #d85a1d;
-  text-align: center;
-  vertical-align: middle;
-  text-shadow: #ededed;
-  border: transparent;
-  font-size: 100px;
-  font-style: italic;
-  -moz-animation-duration: 3s;
-  -webkit-animation-duration: 3s;
-  -moz-animation-name: slidein;
-  -webkit-animation-name: slidein;
-}
-
-#login-dp {
-  min-width: 250px;
-  padding: 14px 14px 0;
-  overflow: hidden;
-  background-color: rgba(255, 255, 255, .8);
-}
-
-#login-dp .help-block {
-  font-size: 12px
-}
-
-#login-dp .bottom {
-  background-color: rgba(255, 255, 255, .8);
-  border-top: 1px solid #f4f4f4;
-  clear: both;
-  padding: 14px;
-}
-
-#login-dp .social-buttons {
-  margin: 12px 0
 }
 
 #login-dp .social-buttons a {
@@ -233,36 +156,8 @@ h3, h4 {
   margin-bottom: 10px;
 }
 
-.btn-fb {
-  color: #fff;
-  background-color: #3b5998;
-}
-
-.btn-fb:hover {
-  color: #fff;
-  background-color: #496ebc
-}
-
-.btn-tw {
-  color: #fff;
-  background-color: #55acee;
-}
-
-.btn-tw:hover {
-  color: #fff;
-  background-color: #59b5fa;
-}
-
 @media (max-width: 768px) {
-  #login-dp {
-    background-color: inherit;
-    color: #fff;
-  }
 
-  #login-dp .bottom {
-    background-color: inherit;
-    border-top: 0 none;
-  }
 }
 
 .h1 {
@@ -360,28 +255,7 @@ h3, h4 {
   bottom: 30px;
 }
 
-#snackbarError {
-  visibility: hidden;
-  min-width: 250px;
-  margin-left: -125px;
-  background-color: #ff0e00;
-  color: #fff;
-  text-align: center;
-  border-radius: 2px;
-  padding: 16px;
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  bottom: 30px;
-}
-
 #snackbarSuccess.show {
-  visibility: visible;
-  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
-}
-
-#snackbarError.show {
   visibility: visible;
   -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
   animation: fadein 0.5s, fadeout 0.5s 2.5s;
@@ -449,8 +323,8 @@ h3, h4 {
   transform: translateY(-50%);
   margin-right: auto;
   margin-left: auto;
-  border: 16px solid #f3f3f3; /* Light grey */
-  border-top: 16px solid #3498db; /* Blue */
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #0052db;
   border-radius: 50%;
   width: 120px;
   height: 120px;
@@ -472,3 +346,7 @@ h3, h4 {
   transform-style: preserve-3d;
 }
 
+/*
+.modal-dialog {
+  margin: 40vh auto 0px auto
+}*/

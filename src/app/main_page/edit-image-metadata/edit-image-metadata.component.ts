@@ -1,13 +1,13 @@
-import {Component, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Component, SimpleChanges, Input, Output, EventEmitter} from "@angular/core";
 import {BaseComponent} from "../../base-component/base-component";
 import {MetadataFileItem} from "../../common/metadata.file.item";
 import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
 import {ArtistDTO} from "../../model/image/artist.dto";
-import {Observable} from 'rxjs';
+import {Observable} from "rxjs";
 import {ImageTypeDTO} from "../../model/image/image.type.dto";
 import {ImageService} from "../../service/image-service/image.service";
 import {FileUtils} from "../../common/file.utils";
-import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
 import {ImageDTO} from "../../model/image/image.dto";
 
 @Component({
@@ -119,7 +119,7 @@ export class EditImageMetadataComponent extends BaseComponent {
   }
 
   public onArtistInput(index: number): void {
-    this.artistsTypeaheadList = new Observable<ArtistDTO[]>(observer => {
+    this.artistsTypeaheadList = new Observable<ArtistDTO[]>((observer: any) => {
       observer.next(this.imageMetadata._imageDTO._artistDTOList[index]._name);
       observer.next(this.imageMetadata._imageDTO._artistDTOList[index]._name2);
       observer.next(this.imageMetadata._imageDTO._artistDTOList[index]._surname);
@@ -132,7 +132,7 @@ export class EditImageMetadataComponent extends BaseComponent {
   }
 
   public onImageTypeInput(): void {
-    this.imageTypesTypeaheadList = new Observable<ImageTypeDTO[]>(observer => {
+    this.imageTypesTypeaheadList = new Observable<ImageTypeDTO[]>((observer: any) => {
       observer.next(this.imageMetadata._imageDTO._imageTypeDTO._name);
     }).mergeMap(() => this.getImageTypesByPrediction());
   }

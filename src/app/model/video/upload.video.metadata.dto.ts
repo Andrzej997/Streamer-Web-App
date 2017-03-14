@@ -11,16 +11,21 @@ export class UploadVideoMetadataDTO implements FileMetadata {
   }
 
   public isValid(): boolean {
-    if (this._username == null || this._video._title == null)
+    if (this._username == null || this._video._title == null) {
       return false;
-    if (!this.validateFileMetadata())
+    }
+    if (!this.validateFileMetadata()) {
       return false;
-    if (this._video._title.length <= 0)
+    }
+    if (this._video._title.length <= 0) {
       return false;
-    if (this._video._directorList == null || this._video._directorList.length <= 0)
+    }
+    if (this._video._directorList == null || this._video._directorList.length <= 0) {
       return false;
-    if (this._video._directorList[0]._name == null || this._video._directorList[0]._surname == null)
+    }
+    if (this._video._directorList[0]._name == null || this._video._directorList[0]._surname == null) {
       return false;
+    }
     return !(this._video._directorList[0]._name.length <= 0 || this._video._directorList[0]._surname.length <= 0);
   }
 
@@ -34,10 +39,8 @@ export class UploadVideoMetadataDTO implements FileMetadata {
     if (this._video._videoFileMetadata._fileName == null) {
       return false;
     }
-    if (this._video._videoFileMetadata._fileSize == null) {
-      return false;
-    }
-    return true;
+    return this._video._videoFileMetadata._fileSize != null;
+
   }
 
   get video(): VideoDTO {

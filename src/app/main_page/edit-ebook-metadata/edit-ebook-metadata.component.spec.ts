@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {EditEbookMetadataComponent} from './edit-ebook-metadata.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {EditEbookMetadataComponent} from "./edit-ebook-metadata.component";
 
 describe('EditEbookMetadataComponent', () => {
   let component: EditEbookMetadataComponent;

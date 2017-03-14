@@ -98,11 +98,7 @@ export class AudioPlayerComponent extends BaseComponent {
   public onVolumeChange(event: Event): void {
     this.musicPlayer.volume = (<HTMLInputElement>event.target).valueAsNumber;
     this.volume = this.musicPlayer.volume;
-    if (this.volume > 0) {
-      this.isMuted = false;
-    } else {
-      this.isMuted = true;
-    }
+    this.isMuted = this.volume <= 0;
   }
 
   public mute(): void {
@@ -145,7 +141,7 @@ export class AudioPlayerComponent extends BaseComponent {
     if (this.isRadioSource) {
       this.displayedText = "You are listening radio stream";
     }
-    let resultText: string = '';
+    let resultText: string;
     if (this.playedSong == null) {
       return;
     }

@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {ChangePasswordFormComponent} from './change-password-form.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {ChangePasswordFormComponent} from "./change-password-form.component";
 
 describe('ChangePasswordFormComponent', () => {
   let component: ChangePasswordFormComponent;

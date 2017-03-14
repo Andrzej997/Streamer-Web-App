@@ -11,16 +11,21 @@ export class UploadEbookMetadataDTO implements FileMetadata {
   }
 
   public isValid(): boolean {
-    if (this._username == null || this._ebookDTO._title == null)
+    if (this._username == null || this._ebookDTO._title == null) {
       return false;
-    if (!this.validateFileMetadata())
+    }
+    if (!this.validateFileMetadata()) {
       return false;
-    if (this._ebookDTO._title.length <= 0)
+    }
+    if (this._ebookDTO._title.length <= 0) {
       return false;
-    if (this._ebookDTO._writerDTOList == null || this._ebookDTO._writerDTOList.length <= 0)
+    }
+    if (this._ebookDTO._writerDTOList == null || this._ebookDTO._writerDTOList.length <= 0) {
       return false;
-    if (this._ebookDTO._writerDTOList[0]._name == null || this._ebookDTO._writerDTOList[0]._surname == null)
+    }
+    if (this._ebookDTO._writerDTOList[0]._name == null || this._ebookDTO._writerDTOList[0]._surname == null) {
       return false;
+    }
     return !(this._ebookDTO._writerDTOList[0]._name.length <= 0 || this._ebookDTO._writerDTOList[0]._surname.length <= 0);
   }
 

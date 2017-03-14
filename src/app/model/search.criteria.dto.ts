@@ -3,6 +3,14 @@ export class SearchCriteriaDTO {
   public _textSearched: string;
   public _criteria: string;
 
+  public static  fromJSON(json: string): SearchCriteriaDTO {
+    let result: SearchCriteriaDTO = new SearchCriteriaDTO();
+    let object = JSON.parse(json);
+    result._criteria = object._criteria;
+    result._textSearched = object._textSearched;
+    return result;
+  }
+
   constructor() {
 
   }
@@ -21,14 +29,6 @@ export class SearchCriteriaDTO {
 
   public set criteria(value: string) {
     this._criteria = value;
-  }
-
-  public static fromJSON(json: string): SearchCriteriaDTO {
-    let result: SearchCriteriaDTO = new SearchCriteriaDTO();
-    let object = JSON.parse(json);
-    result._criteria = object._criteria;
-    result._textSearched = object._textSearched;
-    return result;
   }
 
 }

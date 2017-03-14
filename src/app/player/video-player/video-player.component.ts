@@ -94,11 +94,7 @@ export class VideoPlayerComponent extends BaseComponent {
   public onVolumeChange(event: Event): void {
     this.videoPlayer.volume = (<HTMLInputElement>event.target).valueAsNumber;
     this.volume = this.videoPlayer.volume;
-    if (this.volume > 0) {
-      this.isMuted = false;
-    } else {
-      this.isMuted = true;
-    }
+    this.isMuted = this.volume <= 0;
   }
 
   public mute(): void {
@@ -130,7 +126,7 @@ export class VideoPlayerComponent extends BaseComponent {
   }
 
   public createDisplayedText(): void {
-    let resultText: string = '';
+    let resultText: string;
     if (this.playedVideo == null) {
       return;
     }

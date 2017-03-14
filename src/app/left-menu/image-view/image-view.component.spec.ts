@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {ImageViewComponent} from './image-view.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {ImageViewComponent} from "./image-view.component";
 
 describe('ImageViewComponent', () => {
   let component: ImageViewComponent;

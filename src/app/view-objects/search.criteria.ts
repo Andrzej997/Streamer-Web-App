@@ -4,6 +4,15 @@ export class SearchCriteria extends SearchCriteriaDTO {
 
   private _endpoint: String;
 
+  public static fromJSON(json: string): SearchCriteria {
+    let result: SearchCriteria = new SearchCriteria();
+    let object = JSON.parse(json);
+    result._criteria = object._criteria;
+    result._textSearched = object._textSearched;
+    result._endpoint = object._endpoint;
+    return result;
+  }
+
   constructor() {
     super();
   }
@@ -14,15 +23,6 @@ export class SearchCriteria extends SearchCriteriaDTO {
 
   set endpoint(value: String) {
     this._endpoint = value;
-  }
-
-  public static fromJSON(json: string): SearchCriteria {
-    let result: SearchCriteria = new SearchCriteria();
-    let object = JSON.parse(json);
-    result._criteria = object._criteria;
-    result._textSearched = object._textSearched;
-    result._endpoint = object._endpoint;
-    return result;
   }
 
 }

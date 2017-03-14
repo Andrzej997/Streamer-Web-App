@@ -1,7 +1,7 @@
 <li role="menuitem" style="width: 350px">
-  <div class="row">
+  <div>
     <div class="col-md-12">
-      <form class="form dropdown-item" role="form" (submit)="login()" #loginForm="ngForm" accept-charset="UTF-8"
+      <form class="form" role="form" (submit)="login()" #loginForm="ngForm" accept-charset="UTF-8"
             id="login-nav">
         <div class="form-group">
           <label class="sr-only" for="inpUsername">Username</label>
@@ -27,7 +27,7 @@
       </form>
     </div>
     <div class="bottom text-center col-md-12">
-      New here ? <a [routerLink]="['/register']" class="dropdown-item"><b>Join Us</b></a>
+      New here ? <a [routerLink]="['/register']" class="dropdown-item" style="color: #000000 !important;"><b>Join Us</b></a>
     </div>
   </div>
 </li>

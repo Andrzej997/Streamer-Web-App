@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {EditVideoMetadataComponent} from './edit-video-metadata.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {EditVideoMetadataComponent} from "./edit-video-metadata.component";
 
 describe('EditVideoMetadataComponent', () => {
   let component: EditVideoMetadataComponent;

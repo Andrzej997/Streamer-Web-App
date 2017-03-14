@@ -1,4 +1,4 @@
-import {Component, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
+import {Component, SimpleChanges, Input, Output, EventEmitter} from "@angular/core";
 import {BaseComponent} from "../../base-component/base-component";
 import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
 import {MetadataFileItem} from "../../common/metadata.file.item";
@@ -6,8 +6,8 @@ import {WriterDTO} from "../../model/ebook/writer.dto";
 import {LiteraryGenreDTO} from "../../model/ebook/literary.genre.dto";
 import {EbookService} from "../../service/ebook-service/ebook.service";
 import {FileUtils} from "../../common/file.utils";
-import {Observable} from 'rxjs';
-import {TypeaheadMatch} from 'ng2-bootstrap/components/typeahead/typeahead-match.class';
+import {Observable} from "rxjs";
+import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
 import {EbookDTO} from "../../model/ebook/ebook.dto";
 
 @Component({
@@ -119,7 +119,7 @@ export class EditEbookMetadataComponent extends BaseComponent {
   }
 
   public onWritersInput(index: number): void {
-    this.writersTypeaheadList = new Observable<WriterDTO[]>(observer => {
+    this.writersTypeaheadList = new Observable<WriterDTO[]>((observer: any) => {
       observer.next(this.ebookMetadata._ebookDTO._writerDTOList[index]._name);
       observer.next(this.ebookMetadata._ebookDTO._writerDTOList[index]._name2);
       observer.next(this.ebookMetadata._ebookDTO._writerDTOList[index]._surname);
@@ -132,7 +132,7 @@ export class EditEbookMetadataComponent extends BaseComponent {
   }
 
   public onLiteraryTypeInput(): void {
-    this.literaryGenresTypeaheadList = new Observable<LiteraryGenreDTO[]>(observer => {
+    this.literaryGenresTypeaheadList = new Observable<LiteraryGenreDTO[]>((observer: any) => {
       observer.next(this.ebookMetadata._ebookDTO._literaryGenreDTO._name);
     }).mergeMap(() => this.getLiteraryTypesByPrediction());
   }

@@ -1,9 +1,6 @@
 /* tslint:disable:no-unused-variable */
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-
-import {TopListViewComponent} from './top-list-view.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {TopListViewComponent} from "./top-list-view.component";
 
 describe('TopListViewComponent', () => {
   let component: TopListViewComponent;
