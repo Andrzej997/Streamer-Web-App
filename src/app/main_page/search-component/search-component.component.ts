@@ -1,7 +1,7 @@
 import {Component, Input, EventEmitter, Output} from '@angular/core';
 import {BaseComponent} from '../../base-component/base-component';
 import {Router} from '@angular/router';
-import {SearchCriteria} from "../../view-objects/search.criteria";
+import {SearchCriteria} from '../../view-objects/search.criteria';
 
 @Component({
   selector: 'app-search-component',

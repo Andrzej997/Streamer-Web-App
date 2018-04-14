@@ -1,9 +1,10 @@
-import {Component, ViewChild, ElementRef, SimpleChanges} from "@angular/core";
-import {VideoDTO} from "../../model/video/video.dto";
-import {BaseComponent} from "../../base-component/base-component";
-import {VideoService} from "../../service/video-service/video.service";
-import {videoStreamEndpoint, videoStreamAuthEndpoint} from "../../constants";
-import {RateVideoDTO} from "../../model/video/rate.video.dto";
+import {Component, ViewChild, ElementRef, SimpleChanges} from '@angular/core';
+import {VideoDTO} from '../../model/video/video.dto';
+import {BaseComponent} from '../../base-component/base-component';
+import {VideoService} from '../../service/video-service/video.service';
+import {videoStreamEndpoint, videoStreamAuthEndpoint} from '../../constants';
+import {RateVideoDTO} from '../../model/video/rate.video.dto';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-video-player',
@@ -54,24 +55,25 @@ export class VideoPlayerComponent extends BaseComponent {
   private initPlayer(): void {
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
-      let authToken: string = localStorage.getItem('id_token');
+      let authToken: string = localStorage.getItem(environment.tokenName);
       this.source = videoStreamAuthEndpoint
-        + "?username=" + username + "&id=" + this.playedVideo._videoFileId + "&authToken=" + authToken;
+        + '?username=' + username + '&id=' + this.playedVideo._videoFileId + '&authToken=' + authToken;
     } else {
-      this.source = videoStreamEndpoint + "?id=" + this.playedVideo._videoFileId;
+      this.source = videoStreamEndpoint + '?id=' + this.playedVideo._videoFileId;
     }
-    document.addEventListener("keyup", (event: KeyboardEvent) => {
-      if (event.keyCode == 27) {
+    document.addEventListener('keyup', (event: KeyboardEvent) => {
+      if (event.keyCode === 27) {
         this.hide();
       }
     });
     this.videoSource.src = this.source;
     this.videoSource.type = this.type;
-    this.type = "video/" + this.playedVideo._videoFileMetadata._extension;
+    this.type = 'video/' + this.playedVideo._videoFileMetadata._extension;
     this.videoPlayer.src = this.source;
     this.videoPlayer.webkitEnterFullScreen();
     this.videoPlayer.load();
     this.createDisplayedText();
+    this.videoPlayer.parentElement.setAttribute('data-fullscreen', 'true');
     this.rate = 0;
   }
 
@@ -131,37 +133,37 @@ export class VideoPlayerComponent extends BaseComponent {
       return;
     }
     for (let director of this.playedVideo._directorList) {
-      resultText = director._name + " " + director._surname;
-      resultText += ", ";
+      resultText = director._name + ' ' + director._surname;
+      resultText += ', ';
     }
     if (resultText.length > 2) {
       resultText = resultText.substring(0, resultText.length - 2);
     }
-    resultText += " " + this.playedVideo._title;
+    resultText += ' ' + this.playedVideo._title;
     this.displayedText = resultText;
   }
 
   public updateDisplayTime(): void {
     let time: number = this.videoPlayer.currentTime;
-    this.displayedTime = this.createTimeString(time) + "/LIVE";
+    this.displayedTime = this.createTimeString(time) + '/LIVE';
   }
 
   public createTimeString(time: number): string {
     let result: string;
     if (isNaN(time)) {
-      return "00:00";
+      return '00:00';
     }
-    let hour = parseInt((time / 3600).toString());
+    let hour = parseInt((time / 3600).toString(), 10);
     time = time % 3600;
-    let min = parseInt((time / 60).toString());
+    let min = parseInt((time / 60).toString(), 10);
     time = time % 60;
-    let sec = parseInt(time.toString());
+    let sec = parseInt(time.toString(), 10);
     if (hour > 0) {
-      result = this.createTimeNumberString(hour) + ":";
-      result += this.createTimeNumberString(min) + ":";
+      result = this.createTimeNumberString(hour) + ':';
+      result += this.createTimeNumberString(min) + ':';
       result += this.createTimeNumberString(sec);
     } else {
-      result = this.createTimeNumberString(min) + ":";
+      result = this.createTimeNumberString(min) + ':';
       result += this.createTimeNumberString(sec);
     }
     return result;
@@ -169,10 +171,10 @@ export class VideoPlayerComponent extends BaseComponent {
 
   public createTimeNumberString(num: number): string {
     if (isNaN(num)) {
-      return "00";
+      return '00';
     }
     if (num < 10) {
-      return "0" + num.toString();
+      return '0' + num.toString();
     } else {
       return num.toString();
     }

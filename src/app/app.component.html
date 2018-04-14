@@ -1,14 +1,15 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+<nav class="navbar navbar-expand-lg navbar-light bg-faded fixed-top">
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand area" [routerLink]="['/top']">Streamer</a>
   <div class="collapse navbar-collapse" id="mainNavbar">
     <ul class="navbar-nav ml-auto">
-      <li id="dpLogin" [hidden]="loggedIn" class="nav-item dropdown" dropdown [isOpen]="showLoginForm">
+      <li id="dpLogin" [hidden]="loggedIn" class="nav-item dropdown active" dropdown
+          [isOpen]="showLoginForm" [autoClose]="false">
         <a id="login-href" class="nav-link dropdown-toggle" dropdownToggle>LOGIN</a>
-        <ul dropdownMenu role="menu" class="dropdown-menu pull-right" aria-labelledby="login-href">
+        <ul *dropdownMenu role="menu" class="dropdown-menu float-lg-right" aria-labelledby="login-href">
           <app-login-form (loginEvent)="onLoginChange($event)"
                           (loginErrorEvent)="onLoginError($event)"></app-login-form>
         </ul>
@@ -28,9 +29,9 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/top']">TOP</a>
       </li>
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item dropdown" dropdown [autoClose]="true">
         <a id="more-href" class="nav-link dropdown-toggle" dropdownToggle>MORE</a>
-        <ul dropdownMenu role="menu" aria-labelledby="more-href" class="dropdown-menu pull-right">
+        <ul *dropdownMenu role="menu" aria-labelledby="more-href" class="dropright dropdown-menu">
           <li [hidden]="!loggedIn" role="menuitem">
             <a class="dropdown-link" style="color: #000000 !important;" [routerLink]="['/myfiles']">MY FILES</a>
           </li>
@@ -56,11 +57,11 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item dropdown" dropdown autoClose="disabled">
+      <li class="nav-item dropdown active" dropdown [autoClose]="disabled">
         <a id="search-href" class="nav-link dropdown-toggle" dropdownToggle>
           <span class="glyphicon glyphicon-search"></span>
         </a>
-        <ul dropdownMenu role="menu" aria-labelledby="search-href" class="dropdown-menu pull-right">
+        <ul *dropdownMenu role="menu" aria-labelledby="search-href" class="dropdown-menu dropdown-menu-right">
           <app-search-component [filterType]="'ALL'" [type]="'M'"
                                 (search)="onSearchData($event)"></app-search-component>
         </ul>

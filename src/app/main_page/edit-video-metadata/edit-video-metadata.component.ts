@@ -1,15 +1,15 @@
-import {Component, SimpleChanges, Input, Output, EventEmitter} from "@angular/core";
-import {MetadataFileItem} from "../../common/metadata.file.item";
-import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {Observable} from "rxjs";
-import {DirectorDTO} from "../../model/video/director.dto";
-import {VideoSerieDTO} from "../../model/video/video.serie.dto";
-import {FilmGenreDTO} from "../../model/video/film.genre.dto";
-import {BaseComponent} from "../../base-component/base-component";
-import {VideoService} from "../../service/video-service/video.service";
-import {FileUtils} from "../../common/file.utils";
-import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
-import {VideoDTO} from "../../model/video/video.dto";
+import {Component, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
+import {MetadataFileItem} from '../../common/metadata.file.item';
+import {UploadVideoMetadataDTO} from '../../model/video/upload.video.metadata.dto';
+import {Observable} from 'rxjs';
+import {DirectorDTO} from '../../model/video/director.dto';
+import {VideoSerieDTO} from '../../model/video/video.serie.dto';
+import {FilmGenreDTO} from '../../model/video/film.genre.dto';
+import {BaseComponent} from '../../base-component/base-component';
+import {VideoService} from '../../service/video-service/video.service';
+import {FileUtils} from '../../common/file.utils';
+import {TypeaheadMatch} from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import {VideoDTO} from '../../model/video/video.dto';
 
 @Component({
   selector: 'app-edit-video-metadata',

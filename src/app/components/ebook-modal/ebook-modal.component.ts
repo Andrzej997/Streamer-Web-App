@@ -1,10 +1,11 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {ModalDirective} from "ng2-bootstrap";
-import {EbookService} from "../../service/ebook-service/ebook.service";
-import {EbookDTO} from "../../model/ebook/ebook.dto";
-import {ebookStreamAuthEndpoint, ebookStreamEndpoint} from "../../constants";
-import {RateEbookDTO} from "../../model/ebook/rate.ebook.dto";
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {ModalDirective} from 'ngx-bootstrap';
+import {EbookService} from '../../service/ebook-service/ebook.service';
+import {EbookDTO} from '../../model/ebook/ebook.dto';
+import {ebookStreamAuthEndpoint, ebookStreamEndpoint} from '../../constants';
+import {RateEbookDTO} from '../../model/ebook/rate.ebook.dto';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-ebook-modal',
@@ -43,11 +44,11 @@ export class EbookModalComponent extends BaseComponent {
   private initModal(): void {
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
-      let authToken: string = localStorage.getItem('id_token');
+      let authToken: string = localStorage.getItem(environment.tokenName);
       this.source = ebookStreamAuthEndpoint
-        + "?username=" + username + "&id=" + this.ebookDTO._ebookFileId + "&authToken=" + authToken;
+        + '?username=' + username + '&id=' + this.ebookDTO._ebookFileId + '&authToken=' + authToken;
     } else {
-      this.source = ebookStreamEndpoint + "?id=" + this.ebookDTO._ebookFileId;
+      this.source = ebookStreamEndpoint + '?id=' + this.ebookDTO._ebookFileId;
     }
     this.ebookComponent.src = this.source;
   }

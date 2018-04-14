@@ -2,7 +2,7 @@
  * Created by Mateusz on 06.11.2016.
  * 157.158.170.90
  */
-import {environment} from "../environments/environment";
+import {environment} from '../environments/environment';
 
 
 export let mainEndpoint: string = environment.serverEndpoint;

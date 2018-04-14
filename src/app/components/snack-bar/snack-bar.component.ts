@@ -1,5 +1,5 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
 
 @Component({
   selector: 'app-snack-bar',

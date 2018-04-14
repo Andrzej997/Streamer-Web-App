@@ -1,15 +1,15 @@
-import {Component, Input, SimpleChanges, Output, EventEmitter} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {FileUtils} from "../../common/file.utils";
-import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
-import {MusicService} from "../../service/music-service/music.service";
-import {MusicArtistsDTO} from "../../model/music/music.artist.dto";
-import {Observable} from "rxjs";
-import {MusicAlbumDTO} from "../../model/music/music.album.dto";
-import {MusicGenreDTO} from "../../model/music/music.genre.dto";
-import {MetadataFileItem} from "../../common/metadata.file.item";
-import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
-import {SongDTO} from "../../model/music/song.dto";
+import {Component, Input, SimpleChanges, Output, EventEmitter} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {FileUtils} from '../../common/file.utils';
+import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {MusicService} from '../../service/music-service/music.service';
+import {MusicArtistsDTO} from '../../model/music/music.artist.dto';
+import {Observable} from 'rxjs';
+import {MusicAlbumDTO} from '../../model/music/music.album.dto';
+import {MusicGenreDTO} from '../../model/music/music.genre.dto';
+import {MetadataFileItem} from '../../common/metadata.file.item';
+import {TypeaheadMatch} from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import {SongDTO} from '../../model/music/song.dto';
 
 @Component({
   selector: 'app-edit-music-metadata',

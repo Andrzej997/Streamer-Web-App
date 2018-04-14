@@ -18,14 +18,15 @@
   -moz-box-sizing: border-box;
   -ms-box-sizing: border-box;
   box-sizing: border-box;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   width: 100%;
-  z-index: 2147483647;
+  z-index: 2147483647 !important;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   padding: 5px;
+  -webkit-backface-visibility: hidden;
 }
 
 .button {
@@ -38,11 +39,23 @@
 }
 
 .play {
-  background-position: 6px 5px;
+  background-position: 5px 5px;
+}
+
+.pause {
+  background-position: -32px 5px;
 }
 
 .stop {
   background-position: -146px 5px;
+}
+
+.mute {
+  background-position: -64px 5px;
+}
+
+.muted {
+  background-position: -106px 5px;
 }
 
 .volumefull {
@@ -150,8 +163,9 @@ input::-webkit-slider-thumb {
   }
 }
 
-video::-webkit-media-controls-enclosure {
+video::-webkit-media-controls {
   display: none !important;
+  z-index: 0 !important;
 }
 
 .time-display {
@@ -188,4 +202,50 @@ video::-webkit-media-controls-enclosure {
   left: 97%;
   margin-right: 5px;
   background: url(../../../assets/close.png) no-repeat 4px 4px;
+}
+
+figure {
+  max-width:1024px;
+  max-width:64rem;
+  width:100%;
+  height:auto;
+  margin:20px 0 0;
+  margin:1.25rem 0 0;
+}
+figcaption {
+  display:block;
+  font-size:16px;
+  font-size:1rem;
+}
+video {
+  width:100%;
+  height:auto;
+}
+html:-ms-fullscreen {
+  width:100%;
+}
+:-webkit-full-screen {
+  background-color:transparent;
+}
+/* hide controls on fullscreen with WebKit */
+figure[data-fullscreen=true] video::-webkit-media-controls {
+  display:none !important;
+}
+figure[data-fullscreen=true] {
+  max-width:100%;
+  width:100%;
+  margin:0;
+  padding:0;
+}
+figure[data-fullscreen=true] video {
+  height:auto;
+}
+figure[data-fullscreen=true] figcaption {
+  display:none;
+}
+figure[data-fullscreen=true] .controls {
+  position:absolute;
+  bottom:2%;
+  width:100%;
+  z-index:2147483647;
 }

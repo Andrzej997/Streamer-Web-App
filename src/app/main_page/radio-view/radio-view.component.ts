@@ -1,6 +1,6 @@
-import {Component, ViewChild} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
+import {Component, ViewChild} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {AudioPlayerComponent} from '../../player/audio-player/audio-player.component';
 
 @Component({
   selector: 'app-radio-view',

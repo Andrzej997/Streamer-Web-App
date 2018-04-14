@@ -1,10 +1,11 @@
-import {Component, ViewChild, ElementRef} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {ImageService} from "../../service/image-service/image.service";
-import {ModalDirective} from "ng2-bootstrap";
-import {ImageDTO} from "../../model/image/image.dto";
-import {imageStreamAuthEndpoint, imageStreamEndpoint} from "../../constants";
-import {RateImageDTO} from "../../model/image/rate.image.dto";
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {ImageService} from '../../service/image-service/image.service';
+import {ModalDirective} from 'ngx-bootstrap';
+import {ImageDTO} from '../../model/image/image.dto';
+import {imageStreamAuthEndpoint, imageStreamEndpoint} from '../../constants';
+import {RateImageDTO} from '../../model/image/rate.image.dto';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-image-modal',
@@ -44,13 +45,13 @@ export class ImageModalComponent extends BaseComponent {
   private initModal(): void {
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
-      let authToken: string = localStorage.getItem('id_token');
+      let authToken: string = localStorage.getItem(environment.tokenName);
       this.source = imageStreamAuthEndpoint
-        + "?username=" + username + "&id=" + this.imageDTO._imageFileId + "&authToken=" + authToken;
+        + '?username=' + username + '&id=' + this.imageDTO._imageFileId + '&authToken=' + authToken;
     } else {
-      this.source = imageStreamEndpoint + "?id=" + this.imageDTO._imageFileId;
+      this.source = imageStreamEndpoint + '?id=' + this.imageDTO._imageFileId;
     }
-    this.type = "image/" + this.imageDTO._imageFileDTO._fileExtension;
+    this.type = 'image/' + this.imageDTO._imageFileDTO._fileExtension;
     this.imageComponent.src = this.source;
   }
 

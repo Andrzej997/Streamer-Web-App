@@ -1,8 +1,8 @@
 import {Component, ViewChild} from '@angular/core';
 import {BaseComponent} from '../../base-component/base-component';
 import {MediaFileUploader} from '../../common/media.file.uploader';
-import {ModalDirective} from 'ng2-bootstrap';
-import {MetadataFileItem} from "../../common/metadata.file.item";
+import {ModalDirective} from 'ngx-bootstrap';
+import {MetadataFileItem} from '../../common/metadata.file.item';
 
 @Component({
   selector: 'app-upload-form',

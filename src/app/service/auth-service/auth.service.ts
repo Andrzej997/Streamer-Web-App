@@ -1,11 +1,11 @@
-import {Injectable} from "@angular/core";
-import {AuthHttp} from "angular2-jwt";
-import {authEndpoint} from "../../constants";
-import {Observable} from "rxjs";
-import {AbstractService} from "../abstract-service/abstract.service";
-import {UsersDTO} from "../../model/users.dto";
-import {RegistrationDTO} from "../../model/registration.dto";
-import {ChangePasswordDTO} from "../../model/change.password.dto";
+import {Injectable} from '@angular/core';
+import {AuthHttp} from 'angular2-jwt';
+import {authEndpoint} from '../../constants';
+import {Observable} from 'rxjs';
+import {AbstractService} from '../abstract-service/abstract.service';
+import {UsersDTO} from '../../model/users.dto';
+import {RegistrationDTO} from '../../model/registration.dto';
+import {ChangePasswordDTO} from '../../model/change.password.dto';
 
 
 @Injectable()

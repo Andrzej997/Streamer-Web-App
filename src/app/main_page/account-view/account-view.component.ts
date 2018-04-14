@@ -1,9 +1,9 @@
-import {Component, ViewChild} from "@angular/core";
-import {Router, NavigationExtras} from "@angular/router";
-import {BaseComponent} from "../../base-component/base-component";
-import {UsersDTO} from "../../model/users.dto";
-import {AuthService} from "../../service/auth-service/auth.service";
-import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
+import {Component, ViewChild} from '@angular/core';
+import {Router, NavigationExtras} from '@angular/router';
+import {BaseComponent} from '../../base-component/base-component';
+import {UsersDTO} from '../../model/users.dto';
+import {AuthService} from '../../service/auth-service/auth.service';
+import {SnackBarComponent} from '../../components/snack-bar/snack-bar.component';
 
 @Component({
   selector: 'app-account-view',

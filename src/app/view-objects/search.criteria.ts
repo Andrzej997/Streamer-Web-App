@@ -1,4 +1,4 @@
-import {SearchCriteriaDTO} from "../model/search.criteria.dto";
+import {SearchCriteriaDTO} from '../model/search.criteria.dto';
 
 export class SearchCriteria extends SearchCriteriaDTO {
 

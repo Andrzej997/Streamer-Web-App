@@ -1,8 +1,9 @@
-<div id="videoPlayerPage" [hidden]="!visible" style="position: fixed; bottom: 0; width: 100%">
-  <video #videoTag crossOrigin="anonymous" (timeupdate)="updateDisplayTime()">
-    <source #videoSrc>
+<div id="videoPlayerPage" [hidden]="!visible">
+  <figure id="videoContainer" data-fullscreen="false">
+  <video #videoTag crossOrigin="anonymous" (timeupdate)="updateDisplayTime()" style="z-index: -1 !important;" controls>
+    <source #videoSrc style="z-index: -2 !important;">
   </video>
-  <div id="videoplayer" #videoPlayer class="player gradient">
+  <div id="videoplayer" #videoPlayer class="player gradient controls">
     <button id="playButton" class="button gradient"
             [ngClass]="{'pause': isPlaying, 'play': !isPlaying}"
             (click)="play()">
@@ -38,4 +39,5 @@
     </div>
     <button id="closeButton" class="gradient close-button" (click)="onExit()"></button>
   </div>
+  </figure>
 </div>

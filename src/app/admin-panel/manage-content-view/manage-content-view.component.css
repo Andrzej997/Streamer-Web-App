@@ -61,8 +61,7 @@ label {
 }
 
 .vcontainer {
-  min-height: 8em;
-  display: table-row;
+  display: inherit;
   text-align: center;
   vertical-align: middle;
 }

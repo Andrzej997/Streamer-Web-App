@@ -8,6 +8,7 @@ import {
   NavigationExtras
 } from '@angular/router';
 import {tokenNotExpired} from 'angular2-jwt';
+import {environment} from '../../environments/environment';
 
 
 @Injectable()
@@ -16,7 +17,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (tokenNotExpired()) {
+    if (tokenNotExpired(environment.tokenName)) {
       return true;
     }
     let params: NavigationExtras = {
