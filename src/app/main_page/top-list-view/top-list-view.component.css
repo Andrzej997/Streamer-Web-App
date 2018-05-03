@@ -60,4 +60,10 @@ label {
   display: inherit;
   text-align: center;
   vertical-align: middle;
+  padding-bottom: 1rem;
+}
+
+h1 {
+  padding-bottom: 1%;
+  padding-left: 1%;
 }

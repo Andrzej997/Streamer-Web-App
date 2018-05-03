@@ -12,7 +12,7 @@
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
                [(ngModel)]="videoMetadata._video._title" name="inpTitle" #inpTitle="ngModel" required>
       </div>
-      <div [hidden]="inpTitle.valid || inpTitle.prisitne"
+      <div [hidden]="!(inpTitle.errors && inpTitle.touched)"
            class="alert alert-danger">
         Title can't be empty
       </div>

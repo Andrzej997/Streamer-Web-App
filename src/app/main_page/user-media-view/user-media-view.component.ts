@@ -86,15 +86,15 @@ export class UserMediaViewComponent extends BaseComponent {
       value.forEach((item: SongDTO) => item._rate = item._rating / 10);
       this.userSongs = value;
     });
-    this.videoService.getVideosAsAdmin().subscribe((value: VideoDTO[]) => {
+    this.videoService.getAllUserVideos().subscribe((value: VideoDTO[]) => {
       value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
       this.userVideos = value;
     });
-    this.imageService.getImagesAsAdmin().subscribe((value: ImageDTO[]) => {
+    this.imageService.getAllUserImages().subscribe((value: ImageDTO[]) => {
       value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
       this.userImages = value;
     });
-    this.ebookService.getEbooksAsAdmin().subscribe((value: EbookDTO[]) => {
+    this.ebookService.getAllUserEbooks().subscribe((value: EbookDTO[]) => {
       value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
       this.userEbooks = value;
     });

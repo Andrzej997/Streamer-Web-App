@@ -120,10 +120,10 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
+          <h1 class="modal-title">Add description</h1>
           <button type="button" class="close" aria-label="Close" (click)="onHideClick()">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h1 class="modal-title">Add description</h1>
         </div>
         <div class="modal-body">
           <app-edit-music-metadata [isVisible]="category == 'M'" (hide)="onEditHide($event)" [isEdit]="true">

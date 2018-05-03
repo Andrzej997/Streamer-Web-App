@@ -10,6 +10,7 @@ import {VideoService} from '../../service/video-service/video.service';
 import {FileUtils} from '../../common/file.utils';
 import {TypeaheadMatch} from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import {VideoDTO} from '../../model/video/video.dto';
+import {VideoFileMetadataDTO} from '../../model/video/video.file.metadata.dto';
 
 @Component({
   selector: 'app-edit-video-metadata',
@@ -45,6 +46,7 @@ export class EditVideoMetadataComponent extends BaseComponent {
   }
 
   public ngOnInit() {
+    this.videoMetadata = new UploadVideoMetadataDTO();
   }
 
   public ngOnChanges(changes: SimpleChanges) {
@@ -201,6 +203,25 @@ export class EditVideoMetadataComponent extends BaseComponent {
 
   public setMetadata(item: UploadVideoMetadataDTO): void {
     this.videoMetadata = item;
+    if (item != null && item._video != null) {
+      this.fillEmptyItems();
+      this.prepareVideoMetadata();
+    }
+  }
+
+  public fillEmptyItems(): void {
+    if (this.videoMetadata._video._directorList == null) {
+      this.videoMetadata._video._directorList = [];
+    }
+    if (this.videoMetadata._video._videoFileMetadata == null) {
+      this.videoMetadata._video._videoFileMetadata = new VideoFileMetadataDTO();
+    }
+    if (this.videoMetadata._video._filmGenre == null) {
+      this.videoMetadata._video._filmGenre = new FilmGenreDTO();
+    }
+    if (this.videoMetadata._video._videoSerie == null) {
+      this.videoMetadata._video._videoSerie = new VideoSerieDTO();
+    }
   }
 
   public getMetadata(): VideoDTO {

@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="mainNavbar">
     <ul class="navbar-nav ml-auto">
       <li id="dpLogin" [hidden]="loggedIn" class="nav-item dropdown active" dropdown
-          [isOpen]="showLoginForm" [autoClose]="false">
+          [isOpen]="showLoginForm" [autoClose]="false" #dpLogin>
         <a id="login-href" class="nav-link dropdown-toggle" dropdownToggle>LOGIN</a>
         <ul *dropdownMenu role="menu" class="dropdown-menu float-lg-right" aria-labelledby="login-href">
           <app-login-form (loginEvent)="onLoginChange($event)"
@@ -29,9 +29,9 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/top']">TOP</a>
       </li>
-      <li class="nav-item dropdown" dropdown [autoClose]="true">
+      <li class="nav-item dropdown" dropdown [autoClose]="true" #dpMore>
         <a id="more-href" class="nav-link dropdown-toggle" dropdownToggle>MORE</a>
-        <ul *dropdownMenu role="menu" aria-labelledby="more-href" class="dropright dropdown-menu">
+        <ul *dropdownMenu role="menu" aria-labelledby="more-href" class="dropdown-menu dropdown-menu-right">
           <li [hidden]="!loggedIn" role="menuitem">
             <a class="dropdown-link" style="color: #000000 !important;" [routerLink]="['/myfiles']">MY FILES</a>
           </li>
@@ -57,7 +57,7 @@
           </li>
         </ul>
       </li>
-      <li class="nav-item dropdown active" dropdown [autoClose]="disabled">
+      <li class="nav-item dropdown active" dropdown [autoClose]="false" #dpSearch>
         <a id="search-href" class="nav-link dropdown-toggle" dropdownToggle>
           <span class="glyphicon glyphicon-search"></span>
         </a>

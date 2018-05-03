@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {Router, ActivatedRoute, NavigationExtras, Params} from '@angular/router';
 import {title} from './constants';
 import {BaseComponent} from './base-component/base-component';
@@ -8,6 +8,7 @@ import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
 import {AuthService} from './service/auth-service/auth.service';
 import {tokenNotExpired} from 'angular2-jwt';
 import {environment} from '../environments/environment';
+import {BsDropdownContainerComponent, BsDropdownDirective} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,9 @@ export class AppComponent extends BaseComponent {
 
   @ViewChild('snackMain')
   private snack: SnackBarComponent;
+
+  @ViewChildren(BsDropdownDirective)
+  private wth;
 
   private showSnack: boolean = false;
 

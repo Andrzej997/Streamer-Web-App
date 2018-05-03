@@ -1,8 +1,8 @@
-import {DirectorDTO} from "./director.dto";
-import {VideoFileMetadataDTO} from "./video.file.metadata.dto";
-import {FilmGenreDTO} from "./film.genre.dto";
-import {VideoSerieDTO} from "./video.serie.dto";
-import {MediaItem} from "../abstract/media.item";
+import {DirectorDTO} from './director.dto';
+import {VideoFileMetadataDTO} from './video.file.metadata.dto';
+import {FilmGenreDTO} from './film.genre.dto';
+import {VideoSerieDTO} from './video.serie.dto';
+import {MediaItem} from '../abstract/media.item';
 
 export class VideoDTO implements MediaItem {
 
@@ -27,6 +27,21 @@ export class VideoDTO implements MediaItem {
     this._videoFileMetadata = new VideoFileMetadataDTO();
     this._filmGenre = new FilmGenreDTO();
     this._videoSerie = new VideoSerieDTO();
+  }
+
+  public fillEmptyItems(): void {
+    if (this._directorList == null) {
+      this._directorList = [];
+    }
+    if (this._videoFileMetadata == null) {
+      this._videoFileMetadata = new VideoFileMetadataDTO();
+    }
+    if (this._filmGenre == null) {
+      this._filmGenre = new FilmGenreDTO();
+    }
+    if (this._videoSerie == null) {
+      this._videoSerie = new VideoSerieDTO();
+    }
   }
 
   public getOwnerId(): number {

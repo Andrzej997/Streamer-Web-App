@@ -261,18 +261,22 @@ export class ManageContentViewComponent extends BaseComponent {
 
   public onSearchClick(): void {
     this.musicService.getSongsAsAdmin(this.searchedUser).subscribe((value: SongDTO[]) => {
+      if (value == null) { this.songs = value; return; }
       value.forEach((item: SongDTO) => item._rate = item._rating / 10);
       this.songs = value;
     });
     this.videoService.getVideosAsAdmin(this.searchedUser).subscribe((value: VideoDTO[]) => {
+      if (value == null) { this.videos = value; return; }
       value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
       this.videos = value;
     });
     this.imageService.getImagesAsAdmin(this.searchedUser).subscribe((value: ImageDTO[]) => {
+      if (value == null) { this.images = value; return; }
       value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
       this.images = value;
     });
     this.ebookService.getEbooksAsAdmin(this.searchedUser).subscribe((value: EbookDTO[]) => {
+      if (value == null) { this.ebooks = value; return; }
       value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
       this.ebooks = value;
     });
@@ -290,6 +294,12 @@ export class ManageContentViewComponent extends BaseComponent {
       }
     }
     return null;
+  }
+
+  onSearchKeyUp(event: KeyboardEvent): void {
+    if (event != null && event.key === 'Enter' ) {
+      this.onSearchClick();
+    }
   }
 
 }
