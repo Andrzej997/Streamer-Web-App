@@ -29,6 +29,9 @@ export class VideoPlayerComponent extends BaseComponent {
   private videoPlayer: HTMLVideoElement;
   private videoSource: HTMLSourceElement;
 
+  private max: number;
+  private value: number;
+
   public authContext: boolean = false;
 
   private type: string;
@@ -42,11 +45,24 @@ export class VideoPlayerComponent extends BaseComponent {
   }
 
   public ngOnInit() {
+    document.addEventListener('fullscreenchange', () => {
+      this.setFullScreenData(!!(document['fullScreen '] || document.fullscreenElement));
+    });
+    document.addEventListener('webkitfullscreenchange', () => {
+      this.setFullScreenData(document.webkitIsFullScreen);
+    });
+    document.addEventListener('mozfullscreenchange', () => {
+      this.setFullScreenData(!!document['mozFullScreen']);
+    });
+    document.addEventListener('msfullscreenchange', () => {
+      this.setFullScreenData(!!document['msFullscreenElement']);
+    });
   }
 
   public ngAfterViewInit(): void {
     this.videoPlayer = this.videoPlayerElement.nativeElement;
     this.videoSource = this.videoSourceElement.nativeElement;
+    this.videoPlayer.controls = false;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -70,11 +86,44 @@ export class VideoPlayerComponent extends BaseComponent {
     this.videoSource.type = this.type;
     this.type = 'video/' + this.playedVideo._videoFileMetadata._extension;
     this.videoPlayer.src = this.source;
-    this.videoPlayer.webkitEnterFullScreen();
+    this.enterFullScreen();
     this.videoPlayer.load();
     this.createDisplayedText();
-    this.videoPlayer.parentElement.setAttribute('data-fullscreen', 'true');
     this.rate = 0;
+  }
+
+  setFullScreenData(state): void {
+    this.videoPlayer.parentElement.setAttribute('data-fullscreen', !!state ? 'true' : 'false');
+  }
+
+  public isFullScreen() {
+    return !!(document['fullScreen'] || document.webkitIsFullScreen || document['mozFullScreen'] || document['msFullscreenElement']
+      || document['fullscreenElement']);
+  }
+
+  public enterFullScreen(): void {
+    if (this.isFullScreen()) {
+      return;
+    }
+    let elem =  document.body;
+    let methodToBeInvoked = elem.requestFullscreen || elem.webkitRequestFullScreen
+      || elem['mozRequestFullscreen'] || elem['msRequestFullscreen'];
+    if (methodToBeInvoked) {
+      methodToBeInvoked.call(elem);
+      this.setFullScreenData(true);
+    }
+  }
+
+  public exitFullScreen(): void {
+    if (!this.isFullScreen()) {
+      return;
+    }
+    let methodToBeInvoked = document['exitFullscreen'] || document['webkitCancelFullScreen']
+      || document['mozCancelFullScreen'] || document['msExitFullscreen'];
+    if (methodToBeInvoked) {
+      methodToBeInvoked.call(document);
+      this.setFullScreenData(false);
+    }
   }
 
   public play(): void {
@@ -145,7 +194,9 @@ export class VideoPlayerComponent extends BaseComponent {
 
   public updateDisplayTime(): void {
     let time: number = this.videoPlayer.currentTime;
-    this.displayedTime = this.createTimeString(time) + '/LIVE';
+    this.displayedTime = this.createTimeString(time) + '/' + this.createTimeString(this.videoPlayer.duration);
+    if (!this.max) { this.max = this.videoPlayer.duration; }
+    this.value = this.videoPlayer.currentTime;
   }
 
   public createTimeString(time: number): string {
@@ -181,7 +232,7 @@ export class VideoPlayerComponent extends BaseComponent {
   }
 
   public onExit(): void {
-    this.videoPlayer.webkitExitFullScreen();
+    this.exitFullScreen();
     this.saveRating();
     this.hide();
   }
@@ -198,6 +249,18 @@ export class VideoPlayerComponent extends BaseComponent {
 
   public setAuthContext(value: boolean): void {
     this.authContext = value;
+  }
+
+  onProgressChange(event: Event): void {
+    let input = (<HTMLInputElement>event.target);
+    let sth = this.videoPlayer.seekable;
+    if (sth.length > 0) {
+      this.videoPlayer.currentTime = input.valueAsNumber;
+    }
+  }
+
+  onVideoMetadataLoaded(): void {
+    this.max = this.videoPlayer.duration;
   }
 
 }

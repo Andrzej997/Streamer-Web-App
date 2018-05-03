@@ -26,6 +26,7 @@ import {UploadImageMetadataDTO} from '../../model/image/upload.image.metadata.dt
 import {UploadEbookMetadataDTO} from '../../model/ebook/upload.ebook.metadata.dto';
 import {UsersDTO} from '../../model/users.dto';
 import {AuthService} from '../../service/auth-service/auth.service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-manage-content-view',
@@ -75,6 +76,11 @@ export class ManageContentViewComponent extends BaseComponent {
   private itemToDelete: MediaItem;
   private searchedUser: string;
 
+  musicEnabled = environment.musicEnabled;
+  ebookEnabled = environment.ebookEnabled;
+  imageEnabled = environment.imageEnabled;
+  videoEnabled = environment.videoEnabled;
+
   constructor(private musicService: MusicService,
               private videoService: VideoService,
               private imageService: ImageService,
@@ -88,22 +94,30 @@ export class ManageContentViewComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    this.musicService.getSongsAsAdmin().subscribe((value: SongDTO[]) => {
-      value.forEach((item: SongDTO) => item._rate = item._rating / 10);
-      this.songs = value;
-    });
-    this.videoService.getVideosAsAdmin().subscribe((value: VideoDTO[]) => {
-      value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
-      this.videos = value;
-    });
-    this.imageService.getImagesAsAdmin().subscribe((value: ImageDTO[]) => {
-      value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
-      this.images = value;
-    });
-    this.ebookService.getEbooksAsAdmin().subscribe((value: EbookDTO[]) => {
-      value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
-      this.ebooks = value;
-    });
+    if (this.musicEnabled) {
+      this.musicService.getSongsAsAdmin().subscribe((value: SongDTO[]) => {
+        value.forEach((item: SongDTO) => item._rate = item._rating / 10);
+        this.songs = value;
+      });
+    }
+    if (this.videoEnabled) {
+      this.videoService.getVideosAsAdmin().subscribe((value: VideoDTO[]) => {
+        value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
+        this.videos = value;
+      });
+    }
+    if (this.imageEnabled) {
+      this.imageService.getImagesAsAdmin().subscribe((value: ImageDTO[]) => {
+        value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
+        this.images = value;
+      });
+    }
+    if (this.ebookEnabled) {
+      this.ebookService.getEbooksAsAdmin().subscribe((value: EbookDTO[]) => {
+        value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
+        this.ebooks = value;
+      });
+    }
     this.authService.getAllUsers().subscribe((value: UsersDTO[]) => {
       this.users = value;
     })
@@ -260,26 +274,34 @@ export class ManageContentViewComponent extends BaseComponent {
   }
 
   public onSearchClick(): void {
-    this.musicService.getSongsAsAdmin(this.searchedUser).subscribe((value: SongDTO[]) => {
-      if (value == null) { this.songs = value; return; }
-      value.forEach((item: SongDTO) => item._rate = item._rating / 10);
-      this.songs = value;
-    });
-    this.videoService.getVideosAsAdmin(this.searchedUser).subscribe((value: VideoDTO[]) => {
-      if (value == null) { this.videos = value; return; }
-      value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
-      this.videos = value;
-    });
-    this.imageService.getImagesAsAdmin(this.searchedUser).subscribe((value: ImageDTO[]) => {
-      if (value == null) { this.images = value; return; }
-      value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
-      this.images = value;
-    });
-    this.ebookService.getEbooksAsAdmin(this.searchedUser).subscribe((value: EbookDTO[]) => {
-      if (value == null) { this.ebooks = value; return; }
-      value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
-      this.ebooks = value;
-    });
+    if (this.musicEnabled) {
+      this.musicService.getSongsAsAdmin(this.searchedUser).subscribe((value: SongDTO[]) => {
+        if (value == null) { this.songs = value; return; }
+        value.forEach((item: SongDTO) => item._rate = item._rating / 10);
+        this.songs = value;
+      });
+    }
+    if (this.videoEnabled) {
+      this.videoService.getVideosAsAdmin(this.searchedUser).subscribe((value: VideoDTO[]) => {
+        if (value == null) { this.videos = value; return; }
+        value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
+        this.videos = value;
+      });
+    }
+    if (this.imageEnabled) {
+      this.imageService.getImagesAsAdmin(this.searchedUser).subscribe((value: ImageDTO[]) => {
+        if (value == null) { this.images = value; return; }
+        value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
+        this.images = value;
+      });
+    }
+    if (this.ebookEnabled) {
+      this.ebookService.getEbooksAsAdmin(this.searchedUser).subscribe((value: EbookDTO[]) => {
+        if (value == null) { this.ebooks = value; return; }
+        value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
+        this.ebooks = value;
+      });
+    }
   }
 
   private findUsernameConnected(item: MediaItem): string {

@@ -24,6 +24,11 @@ export class AppComponent extends BaseComponent {
   mainContentStyle: string;
   menuStyle: string;
 
+  musicEnabled = environment.musicEnabled;
+  ebookEnabled = environment.ebookEnabled;
+  imageEnabled = environment.imageEnabled;
+  videoEnabled = environment.videoEnabled;
+
   @ViewChild('snackMain')
   private snack: SnackBarComponent;
 

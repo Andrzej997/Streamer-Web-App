@@ -76,10 +76,10 @@
     </a>
     <div id="sideNavbar" class="sidenav" [hidden]="!menuVisible">
       <a class="closebtn" (click)="onMenuShowHideClick()">&times;</a>
-      <a [routerLink]="['/music']" class="li" style="padding-top: 60px">music</a>
-      <a [routerLink]="['/video']" class="li">videos</a>
-      <a [routerLink]="['/ebook']" class="li">e-books</a>
-      <a [routerLink]="['/image']" class="li">images</a>
+      <a [routerLink]="['/music']" class="li" style="padding-top: 60px" *ngIf="musicEnabled">music</a>
+      <a [routerLink]="['/video']" class="li" *ngIf="videoEnabled">videos</a>
+      <a [routerLink]="['/ebook']" class="li" *ngIf="ebookEnabled">e-books</a>
+      <a [routerLink]="['/image']" class="li" *ngIf="imageEnabled">images</a>
     </div>
   </div>
   <div id="divMainPage">

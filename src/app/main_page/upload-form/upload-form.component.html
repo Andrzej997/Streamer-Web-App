@@ -3,10 +3,10 @@
     <label class="sr-only" for="selCategory">Category: </label>
     <select class="form-control" id="selCategory" name="selCategory"
             #selCategory="ngModel" [(ngModel)]="uploader.category">
-      <option value="M">Music</option>
-      <option value="V">Video</option>
-      <option value="I">Image</option>
-      <option value="E">Ebook</option>
+      <option value="M" *ngIf="musicEnabled">Music</option>
+      <option value="V" *ngIf="videoEnabled">Video</option>
+      <option value="I" *ngIf="imageEnabled">Image</option>
+      <option value="E" *ngIf="ebookEnabled">Ebook</option>
     </select>
   </div>
   <div class="form-group">

@@ -19,7 +19,7 @@ import {environment} from '../../environments/environment';
 export class MediaFileUploader extends FileUploader implements OnInit {
 
   private _endpoint: string = constants.mainEndpoint;
-  private _category: string = 'M';
+  private _category: string = 'V';
   private _oldCategory: string;
   private _musicQueue: Array<MetadataFileItem>;
   private _videoQueue: Array<MetadataFileItem>;

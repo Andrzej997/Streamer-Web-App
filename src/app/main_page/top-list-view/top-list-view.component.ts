@@ -23,6 +23,7 @@ import {AudioPlayerComponent} from '../../player/audio-player/audio-player.compo
 import {VideoPlayerComponent} from '../../player/video-player/video-player.component';
 import {ImageModalComponent} from '../../components/image-modal/image-modal.component';
 import {EbookModalComponent} from '../../components/ebook-modal/ebook-modal.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-top-list-view',
@@ -64,6 +65,11 @@ export class TopListViewComponent extends BaseComponent {
 
   private showSnack: boolean = false;
 
+  musicEnabled = environment.musicEnabled;
+  ebookEnabled = environment.ebookEnabled;
+  imageEnabled = environment.imageEnabled;
+  videoEnabled = environment.videoEnabled;
+
   constructor(private musicService: MusicService,
               private videoService: VideoService,
               private imageService: ImageService,
@@ -77,22 +83,30 @@ export class TopListViewComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    this.musicService.getTop10Songs(null).subscribe((value: SongDTO[]) => {
-      value.forEach((item: SongDTO) => item._rate = item._rating / 10);
-      this.top10Songs = value;
-    });
-    this.videoService.getTop10Videos(null).subscribe((value: VideoDTO[]) => {
-      value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
-      this.top10Videos = value;
-    });
-    this.imageService.getTop10Images(null).subscribe((value: ImageDTO[]) => {
-      value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
-      this.top10Images = value;
-    });
-    this.ebookService.getTop10Ebooks(null).subscribe((value: EbookDTO[]) => {
-      value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
-      this.top10Ebooks = value;
-    });
+    if (this.musicEnabled) {
+      this.musicService.getTop10Songs(null).subscribe((value: SongDTO[]) => {
+        value.forEach((item: SongDTO) => item._rate = item._rating / 10);
+        this.top10Songs = value;
+      });
+    }
+    if (this.videoEnabled) {
+      this.videoService.getTop10Videos(null).subscribe((value: VideoDTO[]) => {
+        value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
+        this.top10Videos = value;
+      });
+    }
+    if (this.imageEnabled) {
+      this.imageService.getTop10Images(null).subscribe((value: ImageDTO[]) => {
+        value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
+        this.top10Images = value;
+      });
+    }
+    if (this.ebookEnabled) {
+      this.ebookService.getTop10Ebooks(null).subscribe((value: EbookDTO[]) => {
+        value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
+        this.top10Ebooks = value;
+      });
+    }
     let sMessage: Observable<string> = this.route.queryParams.map(params => params['snackBarMessageTop'] || '');
     sMessage.subscribe((value) => this.message = value != null ? value : '');
     let showSnackBar: Observable<string> = this.route.queryParams.map(params => params['showSnackBarTop'] || 'false');
