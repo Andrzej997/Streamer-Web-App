@@ -9,7 +9,7 @@
       <li id="dpLogin" [hidden]="loggedIn" class="nav-item dropdown active" dropdown
           [isOpen]="showLoginForm" [autoClose]="false" #dpLogin>
         <a id="login-href" class="nav-link dropdown-toggle" dropdownToggle>LOGIN</a>
-        <ul *dropdownMenu role="menu" class="dropdown-menu float-lg-right" aria-labelledby="login-href">
+        <ul *dropdownMenu role="menu" class="dropdown-menu float-lg-right dropdown-menu-right" aria-labelledby="login-href">
           <app-login-form (loginEvent)="onLoginChange($event)"
                           (loginErrorEvent)="onLoginError($event)"></app-login-form>
         </ul>
@@ -23,7 +23,7 @@
       <li class="nav-item" [hidden]="!loggedIn">
         <a class="nav-link" [routerLink]="['/upload']">UPLOAD</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="musicEnabled">
         <a class="nav-link" [routerLink]="['/contact']">CONTACT</a>
       </li>
       <li class="nav-item">
@@ -35,7 +35,7 @@
           <li [hidden]="!loggedIn" role="menuitem">
             <a class="dropdown-link" style="color: #000000 !important;" [routerLink]="['/myfiles']">MY FILES</a>
           </li>
-          <li role="menuitem">
+          <li role="menuitem" *ngIf="musicEnabled">
             <a class="dropdown-link" style="color: #000000 !important;" [routerLink]="['/radio']">RADIO</a>
           </li>
           <li role="menuitem">
@@ -48,11 +48,11 @@
                [routerLink]="['/admin/manage-users']"
                [hidden]="!_isAdmin">DELETE USERS</a>
           </li>
-          <li role="menuitem">
+          <li role="menuitem" *ngIf="musicEnabled">
             <a style="color: #000000 !important;" class="dropdown-link" [routerLink]="['/about']">ABOUT</a>
           </li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem">
+          <li role="menuitem" *ngIf="musicEnabled">
             <a style="color: #000000 !important;" class="dropdown-link" [routerLink]="['/help']">HELP</a>
           </li>
         </ul>
@@ -70,7 +70,7 @@
   </div>
 </nav>
 <div class="main" style="overflow-y: auto">
-  <div id="divMenu">
+  <div id="divMenu" *ngIf="musicEnabled">
     <a [hidden]="menuVisible" (click)="onMenuShowHideClick()">
       <span style="font-size: 25px; position: fixed; top: 75px" class="glyphicon glyphicon-list"></span>
     </a>

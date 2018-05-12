@@ -194,8 +194,8 @@ export class VideoPlayerComponent extends BaseComponent {
 
   public updateDisplayTime(): void {
     let time: number = this.videoPlayer.currentTime;
-    this.displayedTime = this.createTimeString(time) + '/' + this.createTimeString(this.videoPlayer.duration);
-    if (!this.max) { this.max = this.videoPlayer.duration; }
+    this.displayedTime = this.createTimeString(time) + '/' + this.createTimeString(this.max);
+    if (isNaN(this.max) || this.max === Infinity) { this.max = this.videoPlayer.duration; }
     this.value = this.videoPlayer.currentTime;
   }
 
@@ -261,6 +261,11 @@ export class VideoPlayerComponent extends BaseComponent {
 
   onVideoMetadataLoaded(): void {
     this.max = this.videoPlayer.duration;
+  }
+
+  onVideoEnded(): void {
+    this.videoPlayer.currentTime = 0;
+    this.isPlaying = false;
   }
 
 }

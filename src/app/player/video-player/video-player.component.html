@@ -1,6 +1,7 @@
 <div id="videoPlayerPage" [hidden]="!visible">
   <div id="videoContainer" data-fullscreen="false">
   <video #videoTag crossOrigin="anonymous" (loadedmetadata)="onVideoMetadataLoaded()"
+         (ended)="onVideoEnded()"
          preload="auto" (timeupdate)="updateDisplayTime()" controls>
     <source #videoSrc style="z-index: -2 !important;">
   </video>
