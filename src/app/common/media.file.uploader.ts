@@ -134,6 +134,16 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   }
 
   public uploadItem(item: MetadataFileItem): void {
+    if (!!item.metadata && !!(<UploadVideoMetadataDTO>item.metadata)._video) {
+      item.formData = {
+        quality: (<UploadVideoMetadataDTO>item.metadata)._video._videoFileMetadata._resolution
+      };
+      this.onBuildItemForm = (fileItem, form) => {
+        form.append('quality', (<UploadVideoMetadataDTO>item.metadata)._video._videoFileMetadata._resolution);
+        return {fileItem, form};
+      }
+    }
+
     super.uploadItem(item);
   }
 

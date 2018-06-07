@@ -10,6 +10,7 @@ import {UploadVideoMetadataDTO} from '../../model/video/upload.video.metadata.dt
 import {VideoDTO} from '../../model/video/video.dto';
 import {SearchCriteria} from '../../view-objects/search.criteria';
 import {RateVideoDTO} from '../../model/video/rate.video.dto';
+import {TranscodeRequestDTO} from '../../model/video/transcode-request-dto';
 
 @Injectable()
 export class VideoService extends AbstractService {
@@ -128,4 +129,8 @@ export class VideoService extends AbstractService {
     return this.performDelete(url);
   }
 
+  public transcodeVideo(request: TranscodeRequestDTO): Observable<Number> {
+    let url = `${videoEndpoint}/auth/video/transcode`;
+    return this.performPost(url, JSON.stringify(request));
+  }
 }

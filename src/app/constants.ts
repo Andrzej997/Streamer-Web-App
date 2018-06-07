@@ -31,4 +31,6 @@ export let imageStreamAuthEndpoint = `${imageEndpoint}/auth/download`;
 export let ebookStreamEndpoint = `${ebookEndpoint}/noauth/download`;
 export let ebookStreamAuthEndpoint = `${ebookEndpoint}/auth/download`;
 
+export let videoThumbnailEndpoint = `${videoEndpoint}/noauth/thumbnail`;
+
 export let title = 'Streamer';
