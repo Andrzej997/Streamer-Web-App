@@ -71,6 +71,7 @@ export class EditVideoMetadataComponent extends BaseComponent {
       return;
     }
     this.videoMetadata = new UploadVideoMetadataDTO();
+    this.videoMetadata._video._videoFileMetadata._resolution = 'H720';
   }
 
   private prepareVideoMetadata(): void {

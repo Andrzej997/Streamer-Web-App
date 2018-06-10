@@ -25,9 +25,12 @@ export class VideoPlayerComponent extends BaseComponent {
   private videoPlayerElement: ElementRef;
   @ViewChild('videoSrc')
   private videoSourceElement: ElementRef;
+  @ViewChild('screenShot')
+  private canvasElement: ElementRef;
 
   private videoPlayer: HTMLVideoElement;
   private videoSource: HTMLSourceElement;
+  private canvas: HTMLCanvasElement;
 
   private max: number;
   private value: number;
@@ -38,6 +41,21 @@ export class VideoPlayerComponent extends BaseComponent {
   private displayedText: string = '';
   private displayedTime: string = '';
   private rate: number = 0;
+
+  private qualityOptions: QualityType[] = [
+    {key: 'H240', value: '240p', videoFileId: undefined, sortOrder: 1},
+    {key: 'H480', value: '480p', videoFileId: undefined, sortOrder: 2},
+    {key: 'H720', value: '720p', videoFileId: undefined, sortOrder: 3},
+    {key: 'H1080', value: '1080p', videoFileId: undefined, sortOrder: 4}
+  ];
+  private videoCurrentTime: number = undefined;
+  public currentQualities: QualityType[] = this.qualityOptions;
+  public quality: QualityType = this.qualityOptions[0];
+
+  private canvasHeight: number;
+  private canvasWidth: number;
+
+  private isLoading: boolean = false;
 
   constructor(private videoService: VideoService) {
     super();
@@ -57,31 +75,39 @@ export class VideoPlayerComponent extends BaseComponent {
     document.addEventListener('msfullscreenchange', () => {
       this.setFullScreenData(!!document['msFullscreenElement']);
     });
+    this.canvasHeight = window.screen.availHeight - 69;
+    this.canvasWidth = window.screen.availWidth;
   }
 
   public ngAfterViewInit(): void {
     this.videoPlayer = this.videoPlayerElement.nativeElement;
     this.videoSource = this.videoSourceElement.nativeElement;
+    this.canvas = this.canvasElement.nativeElement;
     this.videoPlayer.controls = false;
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
   }
 
-  private initPlayer(): void {
+  private initPlayer(fileId: number = undefined): void {
+    const id = fileId !== undefined ? fileId : !!this.playedVideo ? this.playedVideo._videoFileId : undefined;
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
       let authToken: string = localStorage.getItem(environment.tokenName);
       this.source = videoStreamAuthEndpoint
-        + '?username=' + username + '&id=' + this.playedVideo._videoFileId + '&authToken=' + authToken;
+        + '?username=' + username
+        + '&id=' + id
+        + '&authToken=' + authToken;
     } else {
-      this.source = videoStreamEndpoint + '?id=' + this.playedVideo._videoFileId;
+      this.source = videoStreamEndpoint
+        + '?id=' + id;
     }
     document.addEventListener('keyup', (event: KeyboardEvent) => {
       if (event.keyCode === 27) {
         this.hide();
       }
     });
+    this.prepareAvailableQualities();
     this.videoSource.src = this.source;
     this.videoSource.type = this.type;
     this.type = 'video/' + this.playedVideo._videoFileMetadata._extension;
@@ -90,6 +116,36 @@ export class VideoPlayerComponent extends BaseComponent {
     this.videoPlayer.load();
     this.createDisplayedText();
     this.rate = 0;
+  }
+
+  public onQualityChange(): void {
+    this.videoPlayer.pause();
+    this.videoCurrentTime = this.videoPlayer.currentTime;
+    this.isPlaying = false;
+    this.isLoading = true;
+    this.takeSnapshot();
+    this.initPlayer(this.quality.videoFileId);
+  }
+
+  public findMatchingQualityType(key: string, id: number): QualityType {
+    const result = this.qualityOptions.find((value => value.key === key));
+    result.videoFileId = id;
+    return result;
+  }
+
+  public prepareAvailableQualities(): void {
+    if (this.playedVideo == null) {
+      return;
+    }
+    const qualities: QualityType[] = [];
+    qualities.push(this.findMatchingQualityType(this.playedVideo._videoFileMetadata._resolution, this.playedVideo._videoFileMetadata._videoFileId));
+    if (this.playedVideo._videoFileMetadata._qualities != null && this.playedVideo._videoFileMetadata._qualities.length > 0) {
+      this.playedVideo._videoFileMetadata._qualities.forEach((item) => {
+        qualities.push(this.findMatchingQualityType(item._resolution, item._videoFileId));
+      });
+    }
+    qualities.sort((a, b) => a.sortOrder < b.sortOrder ? 1 : a.sortOrder > b.sortOrder ? -1 : 0);
+    this.currentQualities = qualities;
   }
 
   setFullScreenData(state): void {
@@ -166,6 +222,7 @@ export class VideoPlayerComponent extends BaseComponent {
   public show(video: VideoDTO): void {
     this.saveRating();
     this.playedVideo = video;
+    this.quality = this.findMatchingQualityType(this.playedVideo._videoFileMetadata._resolution, this.playedVideo._videoFileMetadata._videoFileId);
     this.visible = true;
     this.initPlayer();
     this.play();
@@ -261,6 +318,22 @@ export class VideoPlayerComponent extends BaseComponent {
 
   onVideoMetadataLoaded(): void {
     this.max = this.videoPlayer.duration;
+
+  }
+
+  onVideoCanPlay(): void {
+    if (this.videoCurrentTime !== undefined) {
+      this.videoPlayer.currentTime = this.videoCurrentTime;
+      this.videoCurrentTime = undefined;
+      this.play();
+      this.isLoading = false;
+    }
+  }
+
+  takeSnapshot() {
+    const context = this.canvas.getContext('2d');
+    context.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    context.drawImage(this.videoPlayer, 0, 0, this.canvas.width, this.canvas.height);
   }
 
   onVideoEnded(): void {
@@ -268,4 +341,11 @@ export class VideoPlayerComponent extends BaseComponent {
     this.isPlaying = false;
   }
 
+}
+
+interface QualityType {
+  key: string;
+  value: string;
+  videoFileId: number;
+  sortOrder: number;
 }

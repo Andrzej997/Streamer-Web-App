@@ -466,6 +466,16 @@
         <input type="number" class="form-control" id="inpYearV" placeholder="Year..."
                [ngModel]="videoMetadata?._video?._productionYear" name="inpYearV" #inpYearV="ngModel" readonly>
       </div>
+      <div class="form-group">
+        <label for="selQual">Maximum quality</label>
+        <select class="form-control" id="selQual" name="selQual"
+                #selQual="ngModel" [ngModel]="videoMetadata?._video?._videoFileMetadata?._resolution" readonly>
+          <option value="H240">240p</option>
+          <option value="H480">480p</option>
+          <option value="H720">720p</option>
+          <option value="H1080">1080p</option>
+        </select>
+      </div>
     </div>
   </section>
   <section>

@@ -1,10 +1,14 @@
 <div id="videoPlayerPage" [hidden]="!visible">
+  <div class="loader" style="z-index: 2147483647" *ngIf="isLoading"></div>
   <div id="videoContainer" data-fullscreen="false">
-  <video #videoTag crossOrigin="anonymous" (loadedmetadata)="onVideoMetadataLoaded()"
-         (ended)="onVideoEnded()"
+  <video #videoTag crossOrigin="anonymous" width="100%" height="auto" (loadedmetadata)="onVideoMetadataLoaded()" (canplay)="onVideoCanPlay()"
+         (ended)="onVideoEnded()" style="object-fit: cover"
          preload="auto" (timeupdate)="updateDisplayTime()" controls>
     <source #videoSrc style="z-index: -2 !important;">
   </video>
+    <div style="overflow: hidden">
+      <canvas #screenShot id="screenShot" [width]="canvasWidth" [height]="canvasHeight"></canvas>
+    </div>
   <div id="videoplayer" #videoPlayer class="player gradient controls">
     <div class="button-group">
       <button id="playButton" class="button gradient"
@@ -35,6 +39,11 @@
              [ngModel]="value"
              (change)="onProgressChange($event)"
       >
+      <select id="selQual" name="selQual" #selQual="ngModel" [(ngModel)]="quality" (change)="onQualityChange()">
+        <option *ngFor="let q of currentQualities" [ngValue]="q">
+          {{q.value}}
+        </option>
+      </select>
       <!--<div class="marquee-outer">-->
       <!--<div class="marquee-inner">{{displayedText}}</div>-->
       <!--</div>-->
