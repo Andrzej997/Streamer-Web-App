@@ -33,25 +33,25 @@
   <ul style="display:block; float:left;">
     <li class="navbar-nav" *ngFor="let video of top10Videos; let i = index"
         style="margin: 0 10px 10px 0; list-style-type: none">
-      <div class="rectangle">
+      <div class="rectangle" [style.background-image]="video._thumbnailSrc">
         <div class="vcontainer">
-        <button type="button" class="btn btn-success btn-xs"
+        <button type="button" class="btn btn-success btn-xs play"
                 (click)="onPlayClick(video, 'V')">
           <span class="glyphicon glyphicon-play"></span>
         </button>
-        <button type="button" class="btn btn-success btn-xs"
+        <button type="button" class="btn btn-success btn-xs info"
                 (click)="onInfoItemClick(video, 'V')">
           <span class="glyphicon glyphicon-info-sign"></span>
         </button>
         </div>
-        <label class="vcontainer" style="font-size: 12px; font-family: 'Times New Roman';">
+        <label class="vcontainer vlabel" style="font-size: 12px; font-family: 'Times New Roman';">
           {{video?._title}}
         </label>
         <rating [(ngModel)]="video._rate"
                 #inpRating="ngModel"
                 id="inpRating"
                 name="inpRating"
-                class="vcontainer"
+                class="vcontainer vrating"
                 [max]="10"
                 [readonly]="true">
         </rating>

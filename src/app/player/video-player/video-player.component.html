@@ -2,7 +2,7 @@
   <div class="loader" style="z-index: 2147483647" *ngIf="isLoading"></div>
   <div id="videoContainer" data-fullscreen="false">
   <video #videoTag crossOrigin="anonymous" width="100%" height="auto" (loadedmetadata)="onVideoMetadataLoaded()" (canplay)="onVideoCanPlay()"
-         (ended)="onVideoEnded()" style="object-fit: cover"
+         (ended)="onVideoEnded()" style="object-fit: cover" (waiting)="onWaiting()" [ngStyle]="{'display: none': isLoading}"
          preload="auto" (timeupdate)="updateDisplayTime()" controls>
     <source #videoSrc style="z-index: -2 !important;">
   </video>

@@ -5,6 +5,8 @@ import {VideoService} from '../../service/video-service/video.service';
 import {videoStreamEndpoint, videoStreamAuthEndpoint} from '../../constants';
 import {RateVideoDTO} from '../../model/video/rate.video.dto';
 import {environment} from '../../../environments/environment';
+import {ConnectionDataStatistics} from '../../workers/connection-data-statistics';
+import {ConnectionWorkerFactory} from '../../workers/connection-worker-factory';
 
 @Component({
   selector: 'app-video-player',
@@ -56,6 +58,9 @@ export class VideoPlayerComponent extends BaseComponent {
   private canvasWidth: number;
 
   private isLoading: boolean = false;
+  private detectQualityInd: number = 0;
+  private proposedQualities: QualityType[];
+  private factory: ConnectionWorkerFactory = new ConnectionWorkerFactory();
 
   constructor(private videoService: VideoService) {
     super();
@@ -221,8 +226,14 @@ export class VideoPlayerComponent extends BaseComponent {
 
   public show(video: VideoDTO): void {
     this.saveRating();
+    this.quality = undefined;
     this.playedVideo = video;
+    this.prepareAvailableQualities();
     this.quality = this.findMatchingQualityType(this.playedVideo._videoFileMetadata._resolution, this.playedVideo._videoFileMetadata._videoFileId);
+    const initialQuality = this.prepareInitialQuality();
+    if (initialQuality !== undefined) {
+      this.quality = initialQuality;
+    }
     this.visible = true;
     this.initPlayer();
     this.play();
@@ -250,10 +261,19 @@ export class VideoPlayerComponent extends BaseComponent {
   }
 
   public updateDisplayTime(): void {
+    this.isLoading = false;
     let time: number = this.videoPlayer.currentTime;
     this.displayedTime = this.createTimeString(time) + '/' + this.createTimeString(this.max);
-    if (isNaN(this.max) || this.max === Infinity) { this.max = this.videoPlayer.duration; }
+    if (this.max === undefined || isNaN(this.max) || this.max === Infinity) { this.max = this.videoPlayer.duration; }
     this.value = this.videoPlayer.currentTime;
+    if (this.detectQualityInd % 10 === 0) {
+      this.factory.doWork().subscribe((value) => {
+        if (value) {
+          this.detectOptimalQuality();
+        }
+      });
+    }
+    this.detectQualityInd++;
   }
 
   public createTimeString(time: number): string {
@@ -317,12 +337,122 @@ export class VideoPlayerComponent extends BaseComponent {
   }
 
   onVideoMetadataLoaded(): void {
-    this.max = this.videoPlayer.duration;
+    if (this.videoPlayer.duration !== undefined && !isNaN(this.videoPlayer.duration) && this.videoPlayer.duration > 0) {
+      this.max = this.videoPlayer.duration;
+    }
+    this.factory.doWork().subscribe((value) => {
+      if (value) {
+        this.detectOptimalQuality();
+      }
+    });
+  }
 
+  detectOptimalQuality(): void {
+    console.log(' start detection');
+    if (this.quality === undefined) {
+      console.log('undefined quality');
+      return;
+    }
+    const currentQuality = this.quality.key;
+    let proposedQuality = ConnectionDataStatistics.Instance.getProposedQuality(currentQuality);
+    if (!!proposedQuality && !!this.checkQualityInArray(proposedQuality) && proposedQuality !== this.quality.key) {
+      const q = this.checkQualityInArray(proposedQuality);
+      this.processProposedQuality(q);
+      this.checkCurrentQualityProposal();
+    }
+  }
+
+  private processProposedQuality(quality: QualityType): void {
+    if (quality === undefined) {
+      return;
+    }
+    if (this.proposedQualities === undefined) {
+      this.proposedQualities = [];
+    }
+    if (this.proposedQualities.length < 2) {
+      this.proposedQualities.push(quality);
+    } else {
+      this.proposedQualities.shift();
+      this.proposedQualities.push(quality);
+    }
+  }
+
+  private checkCurrentQualityProposal(): void {
+    let everythingMatches = true;
+    let lastKey = undefined;
+    this.proposedQualities.forEach((item) => {
+      if (lastKey === undefined) {
+        lastKey = item.key;
+      } else if (lastKey !== item.key) {
+        everythingMatches = false;
+      }
+    });
+    if (everythingMatches) {
+      let proposedQuality = this.proposedQualities[0];
+      proposedQuality = this.checkQualityInArray(proposedQuality.key);
+      proposedQuality = this.getMiddleQualityFirst(proposedQuality);
+      if (!!proposedQuality.key && !!this.checkQualityInArray(proposedQuality.key) && proposedQuality.key !== this.quality.key) {
+        this.quality = this.checkQualityInArray(proposedQuality.key);
+        console.log('quality changing ' + proposedQuality);
+        this.onQualityChange();
+      }
+    }
+  }
+
+  private getMiddleQualityFirst(proposedQuality: QualityType): QualityType {
+    const currentQuality = this.quality;
+    if (currentQuality === undefined) {
+      return proposedQuality;
+    }
+    let dif = currentQuality.sortOrder - proposedQuality.sortOrder;
+    if (dif > 0) {
+      if (dif > 1) {
+        return this.getOneLowerThanCurrentQuality();
+      } else {
+        return proposedQuality;
+      }
+    }
+    if (dif < 0) {
+      if (dif < 1) {
+        return this.getOneHigherThanCurrentQuality();
+      } else {
+        return proposedQuality;
+      }
+    }
+    return currentQuality;
+  }
+
+  private getOneLowerThanCurrentQuality(): QualityType {
+    const currentQuality = this.quality;
+    const result = this.currentQualities.find((item => item.sortOrder === currentQuality.sortOrder - 1));
+    if (result === undefined) {
+      return currentQuality;
+    }
+    return result;
+  }
+
+  private getOneHigherThanCurrentQuality(): QualityType {
+    const currentQuality = this.quality;
+    const result = this.currentQualities.find((item => item.sortOrder === currentQuality.sortOrder + 1));
+    if (result === undefined) {
+      return currentQuality;
+    }
+    return result;
+  }
+
+  private prepareInitialQuality(): QualityType {
+    const currentQuality = this.quality.key;
+    let proposedQuality = ConnectionDataStatistics.Instance.getProposedQuality(currentQuality);
+    return this.checkQualityInArray(proposedQuality);
+  }
+
+  checkQualityInArray(proposedQuality: string): QualityType {
+    return this.currentQualities.find((item => item.key === proposedQuality));
   }
 
   onVideoCanPlay(): void {
     if (this.videoCurrentTime !== undefined) {
+      console.log('onVideoCanPlay');
       this.videoPlayer.currentTime = this.videoCurrentTime;
       this.videoCurrentTime = undefined;
       this.play();
@@ -339,6 +469,17 @@ export class VideoPlayerComponent extends BaseComponent {
   onVideoEnded(): void {
     this.videoPlayer.currentTime = 0;
     this.isPlaying = false;
+  }
+
+  onWaiting(): void {
+    this.takeSnapshot();
+    this.isLoading = true;
+    console.log('on waiting');
+    this.factory.doWork().subscribe((value) => {
+      if (value) {
+        this.detectOptimalQuality();
+      }
+    });
   }
 
 }

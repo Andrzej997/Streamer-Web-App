@@ -3,6 +3,7 @@ import {VideoFileMetadataDTO} from './video.file.metadata.dto';
 import {FilmGenreDTO} from './film.genre.dto';
 import {VideoSerieDTO} from './video.serie.dto';
 import {MediaItem} from '../abstract/media.item';
+import {SafeStyle} from '@angular/platform-browser';
 
 export class VideoDTO implements MediaItem {
 
@@ -19,6 +20,8 @@ export class VideoDTO implements MediaItem {
   public _videoFileMetadata: VideoFileMetadataDTO;
   public _filmGenre: FilmGenreDTO;
   public _videoSerie: VideoSerieDTO;
+
+  public _thumbnailSrc: SafeStyle;
 
   public _rate: number;
 
@@ -150,5 +153,13 @@ export class VideoDTO implements MediaItem {
 
   set videoSerie(value: VideoSerieDTO) {
     this._videoSerie = value;
+  }
+
+  get thumbnailSrc(): SafeStyle {
+    return this._thumbnailSrc;
+  }
+
+  set thumbnailSrc(value: SafeStyle) {
+    this._thumbnailSrc = value;
   }
 }

@@ -24,6 +24,8 @@ import {VideoPlayerComponent} from '../../player/video-player/video-player.compo
 import {ImageModalComponent} from '../../components/image-modal/image-modal.component';
 import {EbookModalComponent} from '../../components/ebook-modal/ebook-modal.component';
 import {environment} from '../../../environments/environment';
+import {videoThumbnailEndpoint} from '../../constants';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-top-list-view',
@@ -74,7 +76,8 @@ export class TopListViewComponent extends BaseComponent {
               private videoService: VideoService,
               private imageService: ImageService,
               private ebookService: EbookService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private sanitizer: DomSanitizer) {
     super();
     this.top10Songs = [];
     this.top10Videos = [];
@@ -91,7 +94,11 @@ export class TopListViewComponent extends BaseComponent {
     }
     if (this.videoEnabled) {
       this.videoService.getTop10Videos(null).subscribe((value: VideoDTO[]) => {
-        value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
+        value.forEach((item: VideoDTO) => {
+          item._rate = item._rating / 10;
+          item._thumbnailSrc = this.sanitizer.bypassSecurityTrustStyle(
+            'url(' + videoThumbnailEndpoint + '?id=' + item._videoFileId + ')') ;
+        });
         this.top10Videos = value;
       });
     }

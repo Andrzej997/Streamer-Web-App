@@ -9,6 +9,7 @@ import {AuthService} from './service/auth-service/auth.service';
 import {tokenNotExpired} from 'angular2-jwt';
 import {environment} from '../environments/environment';
 import {BsDropdownContainerComponent, BsDropdownDirective} from 'ngx-bootstrap';
+import {ConnectionWorkerFactory} from './workers/connection-worker-factory';
 
 @Component({
   selector: 'app-root',
@@ -63,6 +64,14 @@ export class AppComponent extends BaseComponent {
     this.authService.isAdmin().subscribe((value: boolean) => {
       this._isAdmin = value;
     });
+    this.gatherNetworkStatistics();
+  }
+
+  public gatherNetworkStatistics(): void {
+    setTimeout(() => {
+      let factory: ConnectionWorkerFactory = new ConnectionWorkerFactory();
+      factory.doWork();
+    }, 1000);
   }
 
   public ngAfterViewChecked(): void {
