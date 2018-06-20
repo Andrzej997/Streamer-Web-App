@@ -228,6 +228,7 @@ export class VideoPlayerComponent extends BaseComponent {
     this.saveRating();
     this.quality = undefined;
     this.playedVideo = video;
+    this.proposedQualities = [];
     this.prepareAvailableQualities();
     this.quality = this.findMatchingQualityType(this.playedVideo._videoFileMetadata._resolution, this.playedVideo._videoFileMetadata._videoFileId);
     const initialQuality = this.prepareInitialQuality();
@@ -369,7 +370,7 @@ export class VideoPlayerComponent extends BaseComponent {
     if (this.proposedQualities === undefined) {
       this.proposedQualities = [];
     }
-    if (this.proposedQualities.length < 2) {
+    if (this.proposedQualities.length < 3) {
       this.proposedQualities.push(quality);
     } else {
       this.proposedQualities.shift();
@@ -380,6 +381,9 @@ export class VideoPlayerComponent extends BaseComponent {
   private checkCurrentQualityProposal(): void {
     let everythingMatches = true;
     let lastKey = undefined;
+    if (this.proposedQualities.length < 3) {
+      return;
+    }
     this.proposedQualities.forEach((item) => {
       if (lastKey === undefined) {
         lastKey = item.key;
