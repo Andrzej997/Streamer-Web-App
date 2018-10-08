@@ -1,9 +1,10 @@
-import {Component, ElementRef, SimpleChanges, ViewChild} from "@angular/core";
-import {SongDTO} from "../../model/music/song.dto";
-import {BaseComponent} from "../../base-component/base-component";
-import {musicStreamEndpoint, musicStreamAuthEndpoint} from "../../constants";
-import {MusicService} from "../../service/music-service/music.service";
-import {RateSongDTO} from "../../model/music/rate.song.dto";
+import {Component, ElementRef, SimpleChanges, ViewChild} from '@angular/core';
+import {SongDTO} from '../../model/music/song.dto';
+import {BaseComponent} from '../../base-component/base-component';
+import {musicStreamEndpoint, musicStreamAuthEndpoint} from '../../constants';
+import {MusicService} from '../../service/music-service/music.service';
+import {RateSongDTO} from '../../model/music/rate.song.dto';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-audio-player',
@@ -57,15 +58,15 @@ export class AudioPlayerComponent extends BaseComponent {
     this.isRadioSource = false;
     if (this.authContext) {
       let username: string = localStorage.getItem('username');
-      let authToken: string = localStorage.getItem('id_token');
+      let authToken: string = localStorage.getItem(environment.tokenName);
       this.source = musicStreamAuthEndpoint
-        + "?username=" + username + "&id=" + this.playedSong._fileId + "&authToken=" + authToken;
+        + '?username=' + username + '&id=' + this.playedSong._fileId + '&authToken=' + authToken;
     } else {
-      this.source = musicStreamEndpoint + "?id=" + this.playedSong._fileId;
+      this.source = musicStreamEndpoint + '?id=' + this.playedSong._fileId;
     }
     this.audioSource.src = this.source;
     this.audioSource.type = this.type;
-    this.type = "audio/" + this.playedSong._fileMetadata._extension;
+    this.type = 'audio/' + this.playedSong._fileMetadata._extension;
     this.musicPlayer.src = this.source;
     this.musicPlayer.load();
     this.createDisplayedText();
@@ -139,32 +140,32 @@ export class AudioPlayerComponent extends BaseComponent {
 
   public createDisplayedText(): void {
     if (this.isRadioSource) {
-      this.displayedText = "You are listening radio stream";
+      this.displayedText = 'You are listening radio stream';
     }
     let resultText: string;
     if (this.playedSong == null) {
       return;
     }
     for (let author of this.playedSong._authors) {
-      resultText = author._name + " " + author._surname;
-      resultText += ", ";
+      resultText = author._name + ' ' + author._surname;
+      resultText += ', ';
     }
     if (resultText.length > 2) {
       resultText = resultText.substring(0, resultText.length - 2);
     }
-    resultText += " " + this.playedSong._title;
+    resultText += ' ' + this.playedSong._title;
     this.displayedText = resultText;
   }
 
   public updateDisplayTime(): void {
     let time: number = this.musicPlayer.currentTime;
-    this.displayedTime = this.createTimeString(time) + "/LIVE";
+    this.displayedTime = this.createTimeString(time) + '/LIVE';
   }
 
   public createTimeString(time: number): string {
     let result: string;
     if (isNaN(time)) {
-      return "00:00";
+      return '00:00';
     }
     let hour = parseInt((time / 3600).toString());
     time = time % 3600;
@@ -172,11 +173,11 @@ export class AudioPlayerComponent extends BaseComponent {
     time = time % 60;
     let sec = parseInt(time.toString());
     if (hour > 0) {
-      result = this.createTimeNumberString(hour) + ":";
-      result += this.createTimeNumberString(min) + ":";
+      result = this.createTimeNumberString(hour) + ':';
+      result += this.createTimeNumberString(min) + ':';
       result += this.createTimeNumberString(sec);
     } else {
-      result = this.createTimeNumberString(min) + ":";
+      result = this.createTimeNumberString(min) + ':';
       result += this.createTimeNumberString(sec);
     }
     return result;
@@ -184,10 +185,10 @@ export class AudioPlayerComponent extends BaseComponent {
 
   public createTimeNumberString(num: number): string {
     if (isNaN(num)) {
-      return "00";
+      return '00';
     }
     if (num < 10) {
-      return "0" + num.toString();
+      return '0' + num.toString();
     } else {
       return num.toString();
     }

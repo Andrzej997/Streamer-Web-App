@@ -1,14 +1,14 @@
-import {Injectable} from "@angular/core";
-import {AuthHttp} from "angular2-jwt";
-import {AbstractService} from "../abstract-service/abstract.service";
-import {Observable} from "rxjs";
-import {ArtistDTO} from "../../model/image/artist.dto";
-import {imageEndpoint} from "../../constants";
-import {ImageTypeDTO} from "../../model/image/image.type.dto";
-import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
-import {ImageDTO} from "../../model/image/image.dto";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {RateImageDTO} from "../../model/image/rate.image.dto";
+import {Injectable} from '@angular/core';
+import {AuthHttp} from 'angular2-jwt';
+import {AbstractService} from '../abstract-service/abstract.service';
+import {Observable} from 'rxjs';
+import {ArtistDTO} from '../../model/image/artist.dto';
+import {imageEndpoint} from '../../constants';
+import {ImageTypeDTO} from '../../model/image/image.type.dto';
+import {UploadImageMetadataDTO} from '../../model/image/upload.image.metadata.dto';
+import {ImageDTO} from '../../model/image/image.dto';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {RateImageDTO} from '../../model/image/rate.image.dto';
 
 @Injectable()
 export class ImageService extends AbstractService {

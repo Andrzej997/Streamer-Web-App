@@ -1,14 +1,14 @@
-import {Component, SimpleChanges, Input, Output, EventEmitter} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {MetadataFileItem} from "../../common/metadata.file.item";
-import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
-import {ArtistDTO} from "../../model/image/artist.dto";
-import {Observable} from "rxjs";
-import {ImageTypeDTO} from "../../model/image/image.type.dto";
-import {ImageService} from "../../service/image-service/image.service";
-import {FileUtils} from "../../common/file.utils";
-import {TypeaheadMatch} from "ng2-bootstrap/typeahead/typeahead-match.class";
-import {ImageDTO} from "../../model/image/image.dto";
+import {Component, SimpleChanges, Input, Output, EventEmitter} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {MetadataFileItem} from '../../common/metadata.file.item';
+import {UploadImageMetadataDTO} from '../../model/image/upload.image.metadata.dto';
+import {ArtistDTO} from '../../model/image/artist.dto';
+import {Observable} from 'rxjs';
+import {ImageTypeDTO} from '../../model/image/image.type.dto';
+import {ImageService} from '../../service/image-service/image.service';
+import {FileUtils} from '../../common/file.utils';
+import {TypeaheadMatch} from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import {ImageDTO} from '../../model/image/image.dto';
 
 @Component({
   selector: 'app-edit-image-metadata',

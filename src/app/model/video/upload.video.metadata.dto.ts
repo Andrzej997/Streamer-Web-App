@@ -1,5 +1,5 @@
-import {VideoDTO} from "./video.dto";
-import {FileMetadata} from "../abstract/file.metadata";
+import {VideoDTO} from './video.dto';
+import {FileMetadata} from '../abstract/file.metadata';
 
 export class UploadVideoMetadataDTO implements FileMetadata {
 
@@ -7,6 +7,7 @@ export class UploadVideoMetadataDTO implements FileMetadata {
   public _username: string;
 
   constructor() {
+    this._username = localStorage.getItem('username');
     this._video = new VideoDTO();
   }
 

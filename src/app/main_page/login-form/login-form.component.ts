@@ -2,6 +2,7 @@ import {Component, Output, EventEmitter} from '@angular/core';
 import {AuthService} from '../../service/auth-service/auth.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../base-component/base-component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-login-form',
@@ -50,7 +51,7 @@ export class LoginFormComponent extends BaseComponent {
         .subscribe(res => {
             this._loggedIn = res != null && res.length > 0;
             if (this._loggedIn) {
-              localStorage.setItem('id_token', res);
+              localStorage.setItem(environment.tokenName, res);
               localStorage.setItem('username', this.userName);
             }
           },
@@ -64,7 +65,7 @@ export class LoginFormComponent extends BaseComponent {
         .subscribe(res => {
             this._loggedIn = res != null && res.length > 0;
             if (this._loggedIn) {
-              localStorage.setItem('id_token', res);
+              localStorage.setItem(environment.tokenName, res);
               localStorage.setItem('username', this.userName);
             }
           },

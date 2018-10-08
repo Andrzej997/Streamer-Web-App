@@ -1,15 +1,15 @@
-import {Component, ViewChild} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {BaseComponent} from "../../base-component/base-component";
-import {EbookDTO} from "../../model/ebook/ebook.dto";
-import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
-import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
-import {ModalDirective} from "ng2-bootstrap";
-import {EbookService} from "../../service/ebook-service/ebook.service";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {Observable} from "rxjs";
-import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
-import {EbookModalComponent} from "../../components/ebook-modal/ebook-modal.component";
+import {Component, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BaseComponent} from '../../base-component/base-component';
+import {EbookDTO} from '../../model/ebook/ebook.dto';
+import {MetadataInfoViewComponent} from '../../main_page/metadata-info-view/metadata-info-view.component';
+import {UploadEbookMetadataDTO} from '../../model/ebook/upload.ebook.metadata.dto';
+import {ModalDirective} from 'ngx-bootstrap';
+import {EbookService} from '../../service/ebook-service/ebook.service';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {Observable} from 'rxjs';
+import {SnackBarComponent} from '../../components/snack-bar/snack-bar.component';
+import {EbookModalComponent} from '../../components/ebook-modal/ebook-modal.component';
 
 @Component({
   selector: 'app-ebook-view',

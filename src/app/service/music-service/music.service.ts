@@ -1,15 +1,15 @@
-import {Injectable} from "@angular/core";
-import {AuthHttp} from "angular2-jwt";
-import {AbstractService} from "../abstract-service/abstract.service";
-import {Observable} from "rxjs";
-import {MusicArtistsDTO} from "../../model/music/music.artist.dto";
-import {musicEndpoint} from "../../constants";
-import {MusicAlbumDTO} from "../../model/music/music.album.dto";
-import {MusicGenreDTO} from "../../model/music/music.genre.dto";
-import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
-import {SongDTO} from "../../model/music/song.dto";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {RateSongDTO} from "../../model/music/rate.song.dto";
+import {Injectable} from '@angular/core';
+import {AuthHttp} from 'angular2-jwt';
+import {AbstractService} from '../abstract-service/abstract.service';
+import {Observable} from 'rxjs';
+import {MusicArtistsDTO} from '../../model/music/music.artist.dto';
+import {musicEndpoint} from '../../constants';
+import {MusicAlbumDTO} from '../../model/music/music.album.dto';
+import {MusicGenreDTO} from '../../model/music/music.genre.dto';
+import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {SongDTO} from '../../model/music/song.dto';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {RateSongDTO} from '../../model/music/rate.song.dto';
 
 @Injectable()
 export class MusicService extends AbstractService {

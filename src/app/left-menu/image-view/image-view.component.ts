@@ -1,15 +1,15 @@
-import {Component, ViewChild} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {BaseComponent} from "../../base-component/base-component";
-import {ImageDTO} from "../../model/image/image.dto";
-import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
-import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
-import {ModalDirective} from "ng2-bootstrap";
-import {ImageService} from "../../service/image-service/image.service";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {Observable} from "rxjs";
-import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
-import {ImageModalComponent} from "../../components/image-modal/image-modal.component";
+import {Component, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BaseComponent} from '../../base-component/base-component';
+import {ImageDTO} from '../../model/image/image.dto';
+import {MetadataInfoViewComponent} from '../../main_page/metadata-info-view/metadata-info-view.component';
+import {UploadImageMetadataDTO} from '../../model/image/upload.image.metadata.dto';
+import {ModalDirective} from 'ngx-bootstrap';
+import {ImageService} from '../../service/image-service/image.service';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {Observable} from 'rxjs';
+import {SnackBarComponent} from '../../components/snack-bar/snack-bar.component';
+import {ImageModalComponent} from '../../components/image-modal/image-modal.component';
 
 @Component({
   selector: 'app-image-view',

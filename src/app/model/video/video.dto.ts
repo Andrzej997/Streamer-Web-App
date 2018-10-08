@@ -1,8 +1,9 @@
-import {DirectorDTO} from "./director.dto";
-import {VideoFileMetadataDTO} from "./video.file.metadata.dto";
-import {FilmGenreDTO} from "./film.genre.dto";
-import {VideoSerieDTO} from "./video.serie.dto";
-import {MediaItem} from "../abstract/media.item";
+import {DirectorDTO} from './director.dto';
+import {VideoFileMetadataDTO} from './video.file.metadata.dto';
+import {FilmGenreDTO} from './film.genre.dto';
+import {VideoSerieDTO} from './video.serie.dto';
+import {MediaItem} from '../abstract/media.item';
+import {SafeStyle} from '@angular/platform-browser';
 
 export class VideoDTO implements MediaItem {
 
@@ -20,6 +21,8 @@ export class VideoDTO implements MediaItem {
   public _filmGenre: FilmGenreDTO;
   public _videoSerie: VideoSerieDTO;
 
+  public _thumbnailSrc: SafeStyle;
+
   public _rate: number;
 
   constructor() {
@@ -27,6 +30,21 @@ export class VideoDTO implements MediaItem {
     this._videoFileMetadata = new VideoFileMetadataDTO();
     this._filmGenre = new FilmGenreDTO();
     this._videoSerie = new VideoSerieDTO();
+  }
+
+  public fillEmptyItems(): void {
+    if (this._directorList == null) {
+      this._directorList = [];
+    }
+    if (this._videoFileMetadata == null) {
+      this._videoFileMetadata = new VideoFileMetadataDTO();
+    }
+    if (this._filmGenre == null) {
+      this._filmGenre = new FilmGenreDTO();
+    }
+    if (this._videoSerie == null) {
+      this._videoSerie = new VideoSerieDTO();
+    }
   }
 
   public getOwnerId(): number {
@@ -135,5 +153,13 @@ export class VideoDTO implements MediaItem {
 
   set videoSerie(value: VideoSerieDTO) {
     this._videoSerie = value;
+  }
+
+  get thumbnailSrc(): SafeStyle {
+    return this._thumbnailSrc;
+  }
+
+  set thumbnailSrc(value: SafeStyle) {
+    this._thumbnailSrc = value;
   }
 }

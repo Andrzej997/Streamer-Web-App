@@ -1,29 +1,30 @@
-import {Component, ViewChild} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {SongDTO} from "../../model/music/song.dto";
-import {VideoDTO} from "../../model/video/video.dto";
-import {ImageDTO} from "../../model/image/image.dto";
-import {EbookDTO} from "../../model/ebook/ebook.dto";
-import {MusicService} from "../../service/music-service/music.service";
-import {VideoService} from "../../service/video-service/video.service";
-import {ImageService} from "../../service/image-service/image.service";
-import {EbookService} from "../../service/ebook-service/ebook.service";
-import {MediaItem} from "../../model/abstract/media.item";
-import {ModalDirective} from "ng2-bootstrap";
-import {EditMusicMetadataComponent} from "../edit-music-metadata/edit-music-metadata.component";
-import {EditVideoMetadataComponent} from "../edit-video-metadata/edit-video-metadata.component";
-import {EditImageMetadataComponent} from "../edit-image-metadata/edit-image-metadata.component";
-import {EditEbookMetadataComponent} from "../edit-ebook-metadata/edit-ebook-metadata.component";
-import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
-import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
-import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
-import {FileMetadata} from "../../model/abstract/file.metadata";
-import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
-import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
-import {ImageModalComponent} from "../../components/image-modal/image-modal.component";
-import {EbookModalComponent} from "../../components/ebook-modal/ebook-modal.component";
-import {AssuranceModalComponent} from "../../components/assurance-modal/assurance-modal.component";
+import {Component, ViewChild} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {SongDTO} from '../../model/music/song.dto';
+import {VideoDTO} from '../../model/video/video.dto';
+import {ImageDTO} from '../../model/image/image.dto';
+import {EbookDTO} from '../../model/ebook/ebook.dto';
+import {MusicService} from '../../service/music-service/music.service';
+import {VideoService} from '../../service/video-service/video.service';
+import {ImageService} from '../../service/image-service/image.service';
+import {EbookService} from '../../service/ebook-service/ebook.service';
+import {MediaItem} from '../../model/abstract/media.item';
+import {ModalDirective} from 'ngx-bootstrap';
+import {EditMusicMetadataComponent} from '../edit-music-metadata/edit-music-metadata.component';
+import {EditVideoMetadataComponent} from '../edit-video-metadata/edit-video-metadata.component';
+import {EditImageMetadataComponent} from '../edit-image-metadata/edit-image-metadata.component';
+import {EditEbookMetadataComponent} from '../edit-ebook-metadata/edit-ebook-metadata.component';
+import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {UploadVideoMetadataDTO} from '../../model/video/upload.video.metadata.dto';
+import {UploadImageMetadataDTO} from '../../model/image/upload.image.metadata.dto';
+import {UploadEbookMetadataDTO} from '../../model/ebook/upload.ebook.metadata.dto';
+import {FileMetadata} from '../../model/abstract/file.metadata';
+import {AudioPlayerComponent} from '../../player/audio-player/audio-player.component';
+import {VideoPlayerComponent} from '../../player/video-player/video-player.component';
+import {ImageModalComponent} from '../../components/image-modal/image-modal.component';
+import {EbookModalComponent} from '../../components/ebook-modal/ebook-modal.component';
+import {AssuranceModalComponent} from '../../components/assurance-modal/assurance-modal.component';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-user-media-view',
@@ -70,6 +71,11 @@ export class UserMediaViewComponent extends BaseComponent {
 
   private itemToDelete: MediaItem;
 
+  musicEnabled = environment.musicEnabled;
+  ebookEnabled = environment.ebookEnabled;
+  imageEnabled = environment.imageEnabled;
+  videoEnabled = environment.videoEnabled;
+
   constructor(private musicService: MusicService,
               private videoService: VideoService,
               private imageService: ImageService,
@@ -82,22 +88,30 @@ export class UserMediaViewComponent extends BaseComponent {
   }
 
   public ngOnInit() {
-    this.musicService.getAllUserSongs().subscribe((value: SongDTO[]) => {
-      value.forEach((item: SongDTO) => item._rate = item._rating / 10);
-      this.userSongs = value;
-    });
-    this.videoService.getVideosAsAdmin().subscribe((value: VideoDTO[]) => {
-      value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
-      this.userVideos = value;
-    });
-    this.imageService.getImagesAsAdmin().subscribe((value: ImageDTO[])=> {
-      value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
-      this.userImages = value;
-    });
-    this.ebookService.getEbooksAsAdmin().subscribe((value: EbookDTO[]) => {
-      value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
-      this.userEbooks = value;
-    });
+    if (this.musicEnabled) {
+      this.musicService.getAllUserSongs().subscribe((value: SongDTO[]) => {
+        value.forEach((item: SongDTO) => item._rate = item._rating / 10);
+        this.userSongs = value;
+      });
+    }
+    if (this.videoEnabled) {
+      this.videoService.getAllUserVideos().subscribe((value: VideoDTO[]) => {
+        value.forEach((item: VideoDTO) => item._rate = item._rating / 10);
+        this.userVideos = value;
+      });
+    }
+    if (this.imageEnabled) {
+      this.imageService.getAllUserImages().subscribe((value: ImageDTO[]) => {
+        value.forEach((item: ImageDTO) => item._rate = item._rating / 10);
+        this.userImages = value;
+      });
+    }
+    if (this.ebookEnabled) {
+      this.ebookService.getAllUserEbooks().subscribe((value: EbookDTO[]) => {
+        value.forEach((item: EbookDTO) => item._rate = item._rating / 10);
+        this.userEbooks = value;
+      });
+    }
   }
 
   public onPlayClick(selectedItem: MediaItem, category: string): void {
@@ -210,29 +224,33 @@ export class UserMediaViewComponent extends BaseComponent {
       case 'M':
         index = this.userSongs.indexOf(<SongDTO> this.itemToDelete);
         this.musicService.deleteFileAndMetadata((<SongDTO>this.itemToDelete)._fileId).subscribe((value: boolean) => {
-          if (value)
+          if (value) {
             this.userSongs.splice(index, 1);
+          }
         });
         break;
       case 'V':
         index = this.userVideos.indexOf(<VideoDTO> this.itemToDelete);
         this.videoService.deleteFileAndMetadata((<VideoDTO>this.itemToDelete)._videoFileId).subscribe((value: boolean) => {
-          if (value)
+          if (value) {
             this.userVideos.splice(index, 1);
+          }
         });
         break;
       case 'I':
         index = this.userImages.indexOf(<ImageDTO>this.itemToDelete);
         this.imageService.deleteFileAndMetadata((<ImageDTO>this.itemToDelete)._imageFileId).subscribe((value: boolean) => {
-          if (value)
+          if (value) {
             this.userImages.splice(index, 1);
+          }
         });
         break;
       case 'E':
         index = this.userEbooks.indexOf(<EbookDTO>this.itemToDelete);
         this.ebookService.deleteFileAndMetadata((<EbookDTO>this.itemToDelete)._ebookFileId).subscribe((value: boolean) => {
-          if (value)
+          if (value) {
             this.userEbooks.splice(index, 1);
+          }
         });
         break;
     }

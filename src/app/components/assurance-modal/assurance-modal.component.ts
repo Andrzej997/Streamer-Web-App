@@ -1,6 +1,6 @@
-import {Component, Input, Output, EventEmitter, ViewChild, SimpleChanges} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {ModalDirective} from "ng2-bootstrap";
+import {Component, Input, Output, EventEmitter, ViewChild, SimpleChanges} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {ModalDirective} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-assurance-modal',
@@ -24,7 +24,7 @@ export class AssuranceModalComponent extends BaseComponent {
     if (this.inputText != null && this.inputText.length <= 0) {
       this.displayedText = this.inputText;
     } else {
-      this.displayedText = "Are you sure ?"
+      this.displayedText = 'Are you sure ?'
     }
   }
 
@@ -33,14 +33,14 @@ export class AssuranceModalComponent extends BaseComponent {
     if (change == null) {
       return;
     }
-    if (change.currentValue == change.previousValue) {
+    if (change.currentValue === change.previousValue) {
       return;
     }
     let text: string = <string>change.currentValue;
     if (text == null || text.length <= 0) {
       this.displayedText = text;
     } else {
-      this.displayedText = "Are you sure ?"
+      this.displayedText = 'Are you sure ?'
     }
   }
 

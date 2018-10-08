@@ -10,12 +10,12 @@
       <div class="form-group">
         <label for="inpTitle">Title: </label>
         <input type="text" class="form-control" id="inpTitle" placeholder="Title..."
-               [(ngModel)]="musicMetadata._song._title" name="inpTitle" #inpTitle="ngModel" readonly>
+               [ngModel]="musicMetadata?._song?._title" name="inpTitle" #inpTitle="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYear">Year: </label>
         <input type="number" class="form-control" id="inpYear" placeholder="Year..."
-               [(ngModel)]="musicMetadata._song._productionYear" name="inpYear" #inpYear="ngModel" readonly>
+               [ngModel]="musicMetadata?._song?._productionYear" name="inpYear" #inpYear="ngModel" readonly>
       </div>
     </div>
   </section>
@@ -35,7 +35,7 @@
         <tbody>
         <tr id="test" *ngFor="let author of musicMetadata._song._authors; let i = index">
           <td>
-            <input [(ngModel)]="author._name"
+            <input [ngModel]="author?._name"
                    placeholder="Name.."
                    class="form-control"
                    name="inpAuthorName"
@@ -44,7 +44,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._name2"
+            <input [ngModel]="author?._name2"
                    placeholder="Second name.."
                    class="form-control"
                    name="inpAuthorName2"
@@ -53,7 +53,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._surname"
+            <input [ngModel]="author?._surname"
                    placeholder="Surname.."
                    class="form-control"
                    name="inpAuthorSurname"
@@ -62,7 +62,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._birthYear"
+            <input [ngModel]="author?._birthYear"
                    type="number"
                    placeholder="Birth"
                    class="form-control"
@@ -73,7 +73,7 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author._deathYear"
+                   [ngModel]="author?._deathYear"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeath"
@@ -97,7 +97,7 @@
                placeholder="Album title..."
                name="inpAlbumTitle"
                #inpAlbumTitle="ngModel"
-               [(ngModel)]="musicMetadata._song._album._albumTitle"
+               [ngModel]="musicMetadata?._song?._album?._albumTitle"
                readonly>
       </div>
       <div class="form-group">
@@ -107,14 +107,14 @@
                placeholder="Album year..."
                name="inpAlbumYear"
                #inpAlbumYear="ngModel"
-               [(ngModel)]="musicMetadata._song._album._albumYear"
+               [ngModel]="musicMetadata?._song?._album?._albumYear"
                readonly>
       </div>
       <div class="form-group">
         <label for="taComments">Album comments: </label>
         <textarea class="form-control" id="taComments"
                   placeholder="Comments..."
-                  [(ngModel)]="musicMetadata._song._album._comments"
+                  [ngModel]="musicMetadata?._song?._album?._comments"
                   name="taComments"
                   readonly
                   #taComments="ngModel">
@@ -131,7 +131,7 @@
         <input type="text" class="form-control"
                id="inpGenre"
                placeholder="Genre..."
-               [(ngModel)]="musicMetadata._song._genre._name"
+               [ngModel]="musicMetadata?._song?._genre?._name"
                name="inpGenre"
                #inpGenre="ngModel"
                readonly>
@@ -141,7 +141,7 @@
         <input type="text" class="form-control"
                id="inpGenreComments"
                placeholder="Comments..."
-               [(ngModel)]="musicMetadata._song._genre._comments"
+               [ngModel]="musicMetadata?._song?._genre?._comments"
                name="inpGenreComments"
                readonly
                #inpGenreComments="ngModel">
@@ -151,7 +151,7 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="musicMetadata._song._rate"
+      <rating [ngModel]="musicMetadata?._song?._rate"
               #inpRating="ngModel"
               id="inpRating"
               name="inpRating"
@@ -162,7 +162,7 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublic"
-               [(ngModel)]="musicMetadata._song._fileMetadata._isPublic"
+               [ngModel]="musicMetadata?._song?._fileMetadata?._isPublic"
                name="inpIsPublic"
                disabled="disabled"
                #inpIsPublic="ngModel">
@@ -184,12 +184,12 @@
       <div class="form-group">
         <label for="inpTitleI">Title: </label>
         <input type="text" class="form-control" id="inpTitleI" placeholder="Title..."
-               [(ngModel)]="imageMetadata._imageDTO._title" name="inpTitleI" #inpTitleI="ngModel" readonly>
+               [ngModel]="imageMetadata?._imageDTO?._title" name="inpTitleI" #inpTitleI="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYearI">Year: </label>
         <input type="number" class="form-control" id="inpYearI" placeholder="Year..."
-               [(ngModel)]="imageMetadata._imageDTO._year" name="inpYearI" #inpYearI="ngModel" readonly>
+               [ngModel]="imageMetadata?._imageDTO?._year" name="inpYearI" #inpYearI="ngModel" readonly>
       </div>
     </div>
   </section>
@@ -209,7 +209,7 @@
         <tbody>
         <tr *ngFor="let author of imageMetadata._imageDTO._artistDTOList; let i = index">
           <td>
-            <input [(ngModel)]="author._name"
+            <input [ngModel]="author?._name"
                    placeholder="Name.."
                    class="form-control"
                    name="inpAuthorNameI"
@@ -218,7 +218,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._name2"
+            <input [ngModel]="author?._name2"
                    placeholder="Second name.."
                    class="form-control"
                    name="inpAuthorName2I"
@@ -227,7 +227,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._surname"
+            <input [ngModel]="author?._surname"
                    placeholder="Surname.."
                    class="form-control"
                    name="inpAuthorSurnameI"
@@ -237,7 +237,7 @@
           </td>
           <td>
             <input type="date"
-                   [(ngModel)]="author._birthYear"
+                   [ngModel]="author?._birthYear"
                    placeholder="Birth"
                    class="form-control"
                    name="inpAuthorBirthI"
@@ -247,7 +247,7 @@
           </td>
           <td>
             <input type="date"
-                   [(ngModel)]="author._deathYear"
+                   [ngModel]="author?._deathYear"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeathI"
@@ -268,7 +268,7 @@
         <input type="text" class="form-control"
                id="inpType"
                placeholder="Type..."
-               [(ngModel)]="imageMetadata._imageDTO._imageTypeDTO._name"
+               [ngModel]="imageMetadata?._imageDTO?._imageTypeDTO?._name"
                name="inpType"
                #inpType="ngModel"
                readonly>
@@ -278,7 +278,7 @@
         <input type="text" class="form-control"
                id="inpGenreCommentsI"
                placeholder="Comments..."
-               [(ngModel)]="imageMetadata._imageDTO._imageTypeDTO._comments"
+               [ngModel]="imageMetadata?._imageDTO?._imageTypeDTO?._comments"
                name="inpGenreCommentsI"
                #inpGenreCommentsI="ngModel"
                readonly>
@@ -288,7 +288,7 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="imageMetadata._imageDTO._rate"
+      <rating [ngModel]="imageMetadata?._imageDTO?._rate"
               #inpRatingI="ngModel"
               id="inpRatingI"
               name="inpRatingI"
@@ -299,7 +299,7 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublicI"
-               [(ngModel)]="imageMetadata._imageDTO._imageFileDTO._isPublic"
+               [ngModel]="imageMetadata?._imageDTO?._imageFileDTO?._isPublic"
                name="inpIsPublicI"
                #inpIsPublicI="ngModel"
                disabled="disabled">
@@ -321,12 +321,12 @@
       <div class="form-group">
         <label for="inpTitleE">Title: </label>
         <input type="text" class="form-control" id="inpTitleE" placeholder="Title..."
-               [(ngModel)]="ebookMetadata._ebookDTO._title" name="inpTitleE" #inpTitleE="ngModel" readonly>
+               [ngModel]="ebookMetadata?._ebookDTO?._title" name="inpTitleE" #inpTitleE="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYearE">Year: </label>
         <input type="number" class="form-control" id="inpYearE" placeholder="Year..."
-               [(ngModel)]="ebookMetadata._ebookDTO._year" name="inpYearE" #inpYearE="ngModel" readonly>
+               [ngModel]="ebookMetadata?._ebookDTO?._year" name="inpYearE" #inpYearE="ngModel" readonly>
       </div>
     </div>
   </section>
@@ -346,7 +346,7 @@
         <tbody>
         <tr *ngFor="let author of ebookMetadata._ebookDTO._writerDTOList; let i = index">
           <td>
-            <input [(ngModel)]="author._name"
+            <input [ngModel]="author?._name"
                    placeholder="Name.."
                    class="form-control"
                    name="inpAuthorNameE"
@@ -355,7 +355,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._name2"
+            <input [ngModel]="author?._name2"
                    placeholder="Second name.."
                    class="form-control"
                    name="inpAuthorName2E"
@@ -364,7 +364,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._surname"
+            <input [ngModel]="author?._surname"
                    placeholder="Surname.."
                    class="form-control"
                    name="inpAuthorSurnameE"
@@ -374,7 +374,7 @@
           </td>
           <td>
             <input type="date"
-                   [(ngModel)]="author._birthYear"
+                   [ngModel]="author?._birthYear"
                    placeholder="Birth"
                    class="form-control"
                    name="inpAuthorBirthE"
@@ -385,7 +385,7 @@
           </td>
           <td>
             <input type="date"
-                   [(ngModel)]="author._deathYear"
+                   [ngModel]="author?._deathYear"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeathE"
@@ -406,7 +406,7 @@
         <input type="text" class="form-control"
                id="inpGenreE"
                placeholder="Genre..."
-               [(ngModel)]="ebookMetadata._ebookDTO._literaryGenreDTO._name"
+               [ngModel]="ebookMetadata?._ebookDTO?._literaryGenreDTO?._name"
                name="inpGenreE"
                #inpGenreE="ngModel"
                readonly>
@@ -416,7 +416,7 @@
         <input type="text" class="form-control"
                id="inpGenreCommentsE"
                placeholder="Comments..."
-               [(ngModel)]="ebookMetadata._ebookDTO._literaryGenreDTO._comments"
+               [ngModel]="ebookMetadata?._ebookDTO?._literaryGenreDTO?._comments"
                name="inpGenreCommentsE"
                #inpGenreCommentsE="ngModel"
                readonly>
@@ -426,7 +426,7 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="ebookMetadata._ebookDTO._rate"
+      <rating [ngModel]="ebookMetadata?._ebookDTO?._rate"
               #inpRatingE="ngModel"
               id="inpRatingE"
               name="inpRatingE"
@@ -437,7 +437,7 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublicE"
-               [(ngModel)]="ebookMetadata._ebookDTO._ebookFileMetadataDTO._isPublic"
+               [ngModel]="ebookMetadata?._ebookDTO?._ebookFileMetadataDTO?._isPublic"
                name="inpIsPublicE"
                #inpIsPublicE="ngModel"
                disabled="disabled">
@@ -459,12 +459,22 @@
       <div class="form-group">
         <label for="inpTitleV">Title: </label>
         <input type="text" class="form-control" id="inpTitleV" placeholder="Title..."
-               [(ngModel)]="videoMetadata._video._title" name="inpTitleV" #inpTitleV="ngModel" readonly>
+               [ngModel]="videoMetadata?._video?._title" name="inpTitleV" #inpTitleV="ngModel" readonly>
       </div>
       <div class="form-group">
         <label for="inpYearV">Year: </label>
         <input type="number" class="form-control" id="inpYearV" placeholder="Year..."
-               [(ngModel)]="videoMetadata._video._productionYear" name="inpYearV" #inpYearV="ngModel" readonly>
+               [ngModel]="videoMetadata?._video?._productionYear" name="inpYearV" #inpYearV="ngModel" readonly>
+      </div>
+      <div class="form-group">
+        <label for="selQual">Maximum quality</label>
+        <select class="form-control" id="selQual" name="selQual"
+                #selQual="ngModel" [ngModel]="videoMetadata?._video?._videoFileMetadata?._resolution" readonly>
+          <option value="H240">240p</option>
+          <option value="H480">480p</option>
+          <option value="H720">720p</option>
+          <option value="H1080">1080p</option>
+        </select>
       </div>
     </div>
   </section>
@@ -484,7 +494,7 @@
         <tbody>
         <tr *ngFor="let author of videoMetadata._video._directorList; let i = index">
           <td>
-            <input [(ngModel)]="author._name"
+            <input [ngModel]="author?._name"
                    placeholder="Name.."
                    class="form-control"
                    name="inpAuthorNameV"
@@ -493,7 +503,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._name2"
+            <input [ngModel]="author?._name2"
                    placeholder="Second name.."
                    class="form-control"
                    name="inpAuthorName2V"
@@ -502,7 +512,7 @@
                    readonly>
           </td>
           <td>
-            <input [(ngModel)]="author._surname"
+            <input [ngModel]="author?._surname"
                    placeholder="Surname.."
                    class="form-control"
                    name="inpAuthorSurnameV"
@@ -512,7 +522,7 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author._birthYear"
+                   [ngModel]="author?._birthYear"
                    placeholder="Birth"
                    class="form-control"
                    name="inpAuthorBirthV"
@@ -522,7 +532,7 @@
           </td>
           <td>
             <input type="number"
-                   [(ngModel)]="author._deathYear"
+                   [ngModel]="author?._deathYear"
                    placeholder="Death"
                    class="form-control"
                    name="inpAuthorDeathV"
@@ -546,7 +556,7 @@
                placeholder="Serie title..."
                name="inpSerieTitleV"
                #inpSerieTitleV="ngModel"
-               [(ngModel)]="videoMetadata._video._videoSerie._title"
+               [ngModel]="videoMetadata?._video?._videoSerie?._title"
                readonly>
       </div>
       <div class="form-group">
@@ -556,7 +566,7 @@
                placeholder="Serie number..."
                name="inpSerieNumberV"
                #inpSerieNumberV="ngModel"
-               [(ngModel)]="videoMetadata._video._videoSerie._number"
+               [ngModel]="videoMetadata?._video?._videoSerie?._number"
                readonly>
       </div>
       <div class="form-group">
@@ -566,14 +576,14 @@
                placeholder="Serie year..."
                name="inpSerieYearV"
                #inpSerieYearV="ngModel"
-               [(ngModel)]="videoMetadata._video._videoSerie._year"
+               [ngModel]="videoMetadata?._video?._videoSerie?._year"
                readonly>
       </div>
       <div class="form-group">
         <label for="taSerieCommentsV">Serie comments: </label>
         <textarea class="form-control" id="taSerieCommentsV"
                   placeholder="Comments..."
-                  [(ngModel)]="videoMetadata._video._videoSerie._comments"
+                  [ngModel]="videoMetadata?._video?._videoSerie?._comments"
                   name="taSerieCommentsV"
                   #taSerieCommentsV="ngModel"
                   readonly>
@@ -590,7 +600,7 @@
         <input type="text" class="form-control"
                id="inpGenreV"
                placeholder="Genre..."
-               [(ngModel)]="videoMetadata._video._filmGenre._name"
+               [ngModel]="videoMetadata?._video?._filmGenre?._name"
                name="inpGenreV"
                #inpGenreV="ngModel"
                readonly>
@@ -600,7 +610,7 @@
         <input type="text" class="form-control"
                id="inpGenreCommentsV"
                placeholder="Comments..."
-               [(ngModel)]="videoMetadata._video._filmGenre._comments"
+               [ngModel]="videoMetadata?._video?._filmGenre?._comments"
                name="inpGenreCommentsV"
                #inpGenreCommentsV="ngModel"
                readonly>
@@ -610,7 +620,7 @@
   <div class="form-group" style="overflow-y: auto">
     <div style="float: left; margin-left: 20px">
       <label>Rating: </label>
-      <rating [(ngModel)]="videoMetadata._video._rate"
+      <rating [ngModel]="videoMetadata?._video?._rate"
               #inpRatingV="ngModel"
               id="inpRatingV"
               name="inpRatingV"
@@ -621,7 +631,7 @@
     <div style="float: right; margin-right: 25px">
       <label>
         <input type="checkbox" id="inpIsPublicV"
-               [(ngModel)]="videoMetadata._video._videoFileMetadata._isPublic"
+               [ngModel]="videoMetadata?._video?._videoFileMetadata?._isPublic"
                name="inpIsPublicV"
                #inpIsPublicV="ngModel"
                disabled="disabled">

@@ -1,8 +1,8 @@
-import {Component, ViewChild} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {AuthService} from "../../service/auth-service/auth.service";
-import {UsersDTO} from "../../model/users.dto";
-import {AssuranceModalComponent} from "../../components/assurance-modal/assurance-modal.component";
+import {Component, ViewChild} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {AuthService} from '../../service/auth-service/auth.service';
+import {UsersDTO} from '../../model/users.dto';
+import {AssuranceModalComponent} from '../../components/assurance-modal/assurance-modal.component';
 
 @Component({
   selector: 'app-manage-users-view',

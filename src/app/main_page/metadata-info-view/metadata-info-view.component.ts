@@ -1,10 +1,10 @@
 import {Component, SimpleChanges, Input} from '@angular/core';
-import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
-import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {UploadImageMetadataDTO} from "../../model/image/upload.image.metadata.dto";
-import {UploadEbookMetadataDTO} from "../../model/ebook/upload.ebook.metadata.dto";
-import {FileMetadata} from "../../model/abstract/file.metadata";
-import {BaseComponent} from "../../base-component/base-component";
+import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {UploadVideoMetadataDTO} from '../../model/video/upload.video.metadata.dto';
+import {UploadImageMetadataDTO} from '../../model/image/upload.image.metadata.dto';
+import {UploadEbookMetadataDTO} from '../../model/ebook/upload.ebook.metadata.dto';
+import {FileMetadata} from '../../model/abstract/file.metadata';
+import {BaseComponent} from '../../base-component/base-component';
 
 @Component({
   selector: 'app-metadata-info-view',

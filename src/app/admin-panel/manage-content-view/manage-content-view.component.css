@@ -61,8 +61,14 @@ label {
 }
 
 .vcontainer {
-  min-height: 8em;
-  display: table-row;
+  display: inherit;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
   text-align: center;
   vertical-align: middle;
+}
+
+h1 {
+  padding-bottom: 1%;
+  padding-left: 1%;
 }

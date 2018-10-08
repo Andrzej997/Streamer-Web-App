@@ -1,5 +1,5 @@
 .rectangle {
-  width: 120px;
+  width: 200px;
   height: 200px;
   border: 0;
   alignment: center;
@@ -48,17 +48,22 @@ li:nth-child(n+9) {
 
 label {
   text-align: center;
-  max-width: 80%;
+  max-width: 100%;
   color: #00133f;
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 2.5em;
   max-height: 5.0em;
+  font-size: 14px;
 }
 
 .vcontainer {
-  min-height: 8em;
-  display: table-row;
+  display: inherit;
   text-align: center;
   vertical-align: middle;
+}
+
+h1 {
+  padding-bottom: 2%;
+  padding-left: 1%;
 }

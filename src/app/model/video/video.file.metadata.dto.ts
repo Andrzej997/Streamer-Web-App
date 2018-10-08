@@ -1,3 +1,5 @@
+import {VideoQualityDto} from './video-quality-dto';
+
 export class VideoFileMetadataDTO {
 
   public _videoFileId: number;
@@ -6,6 +8,8 @@ export class VideoFileMetadataDTO {
   public _extension: string;
   public _creationDate: Date;
   public _isPublic: boolean;
+  public _resolution: string;
+  public _qualities: VideoQualityDto[];
 
   constructor() {
 
@@ -57,5 +61,21 @@ export class VideoFileMetadataDTO {
 
   set isPublic(value: boolean) {
     this._isPublic = value;
+  }
+
+  get resolution(): string {
+    return this._resolution;
+  }
+
+  set resolution(value: string) {
+    this._resolution = value;
+  }
+
+  get qualities(): VideoQualityDto[] {
+    return this._qualities;
+  }
+
+  set qualities(value: VideoQualityDto[]) {
+    this._qualities = value;
   }
 }

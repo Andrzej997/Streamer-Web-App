@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
-import {Http} from "@angular/http";
-import {AuthHttp, AuthConfig} from "angular2-jwt";
+import {Component} from '@angular/core';
+import {Http} from '@angular/http';
+import {AuthHttp, AuthConfig} from 'angular2-jwt';
+import {environment} from '../../environments/environment';
 
 
 //noinspection TsLint
@@ -14,8 +15,8 @@ export class AuthProvider extends AuthHttp {
     super(new AuthConfig({
       headerName: 'AuthHeader',
       headerPrefix: '',
-      tokenName: 'id_token',
-      tokenGetter: (() => localStorage.getItem('id_token')),
+      tokenName: environment.tokenName,
+      tokenGetter: (() => localStorage.getItem(environment.tokenName)),
       globalHeaders: [{'Content-Type': 'application/json'}],
       noJwtError: true,
       noTokenScheme: true

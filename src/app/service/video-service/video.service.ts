@@ -1,15 +1,16 @@
-import {Injectable} from "@angular/core";
-import {AuthHttp} from "angular2-jwt";
-import {AbstractService} from "../abstract-service/abstract.service";
-import {Observable} from "rxjs";
-import {DirectorDTO} from "../../model/video/director.dto";
-import {videoEndpoint} from "../../constants";
-import {VideoSerieDTO} from "../../model/video/video.serie.dto";
-import {FilmGenreDTO} from "../../model/video/film.genre.dto";
-import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {VideoDTO} from "../../model/video/video.dto";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {RateVideoDTO} from "../../model/video/rate.video.dto";
+import {Injectable} from '@angular/core';
+import {AuthHttp} from 'angular2-jwt';
+import {AbstractService} from '../abstract-service/abstract.service';
+import {Observable} from 'rxjs';
+import {DirectorDTO} from '../../model/video/director.dto';
+import {videoEndpoint} from '../../constants';
+import {VideoSerieDTO} from '../../model/video/video.serie.dto';
+import {FilmGenreDTO} from '../../model/video/film.genre.dto';
+import {UploadVideoMetadataDTO} from '../../model/video/upload.video.metadata.dto';
+import {VideoDTO} from '../../model/video/video.dto';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {RateVideoDTO} from '../../model/video/rate.video.dto';
+import {TranscodeRequestDTO} from '../../model/video/transcode-request-dto';
 
 @Injectable()
 export class VideoService extends AbstractService {
@@ -128,4 +129,8 @@ export class VideoService extends AbstractService {
     return this.performDelete(url);
   }
 
+  public transcodeVideo(request: TranscodeRequestDTO): Observable<Number> {
+    let url = `${videoEndpoint}/auth/video/transcode`;
+    return this.performPost(url, JSON.stringify(request));
+  }
 }

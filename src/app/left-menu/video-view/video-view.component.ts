@@ -1,15 +1,15 @@
-import {Component, ViewChild} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {BaseComponent} from "../../base-component/base-component";
-import {VideoDTO} from "../../model/video/video.dto";
-import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
-import {UploadVideoMetadataDTO} from "../../model/video/upload.video.metadata.dto";
-import {ModalDirective} from "ng2-bootstrap";
-import {VideoService} from "../../service/video-service/video.service";
-import {Observable} from "rxjs";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
-import {VideoPlayerComponent} from "../../player/video-player/video-player.component";
+import {Component, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {BaseComponent} from '../../base-component/base-component';
+import {VideoDTO} from '../../model/video/video.dto';
+import {MetadataInfoViewComponent} from '../../main_page/metadata-info-view/metadata-info-view.component';
+import {UploadVideoMetadataDTO} from '../../model/video/upload.video.metadata.dto';
+import {ModalDirective} from 'ngx-bootstrap';
+import {VideoService} from '../../service/video-service/video.service';
+import {Observable} from 'rxjs';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {SnackBarComponent} from '../../components/snack-bar/snack-bar.component';
+import {VideoPlayerComponent} from '../../player/video-player/video-player.component';
 
 @Component({
   selector: 'app-video-view',

@@ -2,9 +2,10 @@
   <div class="search row" style="width: 95%; alignment: center">
     <div class="input-group">
       <input type="text" class="form-control" placeholder="Search by username"
+             (keyup)="onSearchKeyUp($event)"
              [(ngModel)]="searchedUser" name="searchedUserInput" #searchedUserInput="ngModel">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button" (click)="onSearchClick()">
+        <button class="btn btn-default" type="button" (click)="onSearchClick()" style="height: 100%; width: 50px">
           <span class="glyphicon glyphicon-search"></span>
         </button>
       </span>

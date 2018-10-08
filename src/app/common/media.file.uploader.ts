@@ -1,24 +1,25 @@
-import {OnInit, Injectable} from "@angular/core";
-import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from "ng2-file-upload";
-import {FileItem} from "ng2-file-upload/file-upload/file-item.class";
-import * as constants from "../constants";
-import {MusicService} from "../service/music-service/music.service";
-import {MetadataFileItem} from "./metadata.file.item";
-import {FileMetadata} from "../model/abstract/file.metadata";
-import {Observable} from "rxjs";
-import {UploadSongMetadataDTO} from "../model/music/upload.song.metadata.dto";
-import {UploadVideoMetadataDTO} from "../model/video/upload.video.metadata.dto";
-import {VideoService} from "../service/video-service/video.service";
-import {ImageService} from "../service/image-service/image.service";
-import {UploadImageMetadataDTO} from "../model/image/upload.image.metadata.dto";
-import {UploadEbookMetadataDTO} from "../model/ebook/upload.ebook.metadata.dto";
-import {EbookService} from "../service/ebook-service/ebook.service";
+import {OnInit, Injectable} from '@angular/core';
+import {FileUploader, FileUploaderOptions, ParsedResponseHeaders} from 'ng2-file-upload';
+import {FileItem} from 'ng2-file-upload/file-upload/file-item.class';
+import * as constants from '../constants';
+import {MusicService} from '../service/music-service/music.service';
+import {MetadataFileItem} from './metadata.file.item';
+import {FileMetadata} from '../model/abstract/file.metadata';
+import {Observable} from 'rxjs';
+import {UploadSongMetadataDTO} from '../model/music/upload.song.metadata.dto';
+import {UploadVideoMetadataDTO} from '../model/video/upload.video.metadata.dto';
+import {VideoService} from '../service/video-service/video.service';
+import {ImageService} from '../service/image-service/image.service';
+import {UploadImageMetadataDTO} from '../model/image/upload.image.metadata.dto';
+import {UploadEbookMetadataDTO} from '../model/ebook/upload.ebook.metadata.dto';
+import {EbookService} from '../service/ebook-service/ebook.service';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class MediaFileUploader extends FileUploader implements OnInit {
 
   private _endpoint: string = constants.mainEndpoint;
-  private _category: string = 'M';
+  private _category: string = 'V';
   private _oldCategory: string;
   private _musicQueue: Array<MetadataFileItem>;
   private _videoQueue: Array<MetadataFileItem>;
@@ -26,7 +27,7 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   private _ebookQueue: Array<MetadataFileItem>;
   private _uploadOptions: FileUploaderOptions = {
     authTokenHeader: 'AuthHeader',
-    authToken: localStorage.getItem('id_token'), disableMultipart: false,
+    authToken: localStorage.getItem(environment.tokenName), disableMultipart: false,
     isHTML5: true
   };
   private _typeFilter: string = 'audio/*';
@@ -133,6 +134,16 @@ export class MediaFileUploader extends FileUploader implements OnInit {
   }
 
   public uploadItem(item: MetadataFileItem): void {
+    if (!!item.metadata && !!(<UploadVideoMetadataDTO>item.metadata)._video) {
+      item.formData = {
+        quality: (<UploadVideoMetadataDTO>item.metadata)._video._videoFileMetadata._resolution
+      };
+      this.onBuildItemForm = (fileItem, form) => {
+        form.append('quality', (<UploadVideoMetadataDTO>item.metadata)._video._videoFileMetadata._resolution);
+        return {fileItem, form};
+      }
+    }
+
     super.uploadItem(item);
   }
 

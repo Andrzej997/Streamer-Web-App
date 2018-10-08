@@ -48,7 +48,7 @@ li:nth-of-type(n+9) {
 
 label {
   text-align: center;
-  max-width: 180px;
+  max-width: 90%;
   color: #00133f;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -57,8 +57,13 @@ label {
 }
 
 .vcontainer {
-  min-height: 8em;
-  display: table-row;
+  display: inherit;
   text-align: center;
   vertical-align: middle;
+  padding-bottom: 1rem;
+}
+
+h1 {
+  padding-bottom: 1%;
+  padding-left: 1%;
 }

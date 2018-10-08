@@ -1,15 +1,15 @@
-import {Component, ViewChild} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
-import {SongDTO} from "../../model/music/song.dto";
-import {BaseComponent} from "../../base-component/base-component";
-import {MetadataInfoViewComponent} from "../../main_page/metadata-info-view/metadata-info-view.component";
-import {UploadSongMetadataDTO} from "../../model/music/upload.song.metadata.dto";
-import {ModalDirective} from "ng2-bootstrap";
-import {MusicService} from "../../service/music-service/music.service";
-import {SearchCriteria} from "../../view-objects/search.criteria";
-import {Observable} from "rxjs";
-import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
-import {AudioPlayerComponent} from "../../player/audio-player/audio-player.component";
+import {Component, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {SongDTO} from '../../model/music/song.dto';
+import {BaseComponent} from '../../base-component/base-component';
+import {MetadataInfoViewComponent} from '../../main_page/metadata-info-view/metadata-info-view.component';
+import {UploadSongMetadataDTO} from '../../model/music/upload.song.metadata.dto';
+import {ModalDirective} from 'ngx-bootstrap';
+import {MusicService} from '../../service/music-service/music.service';
+import {SearchCriteria} from '../../view-objects/search.criteria';
+import {Observable} from 'rxjs';
+import {SnackBarComponent} from '../../components/snack-bar/snack-bar.component';
+import {AudioPlayerComponent} from '../../player/audio-player/audio-player.component';
 
 @Component({
   selector: 'app-music-view',

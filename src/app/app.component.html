@@ -1,14 +1,15 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded fixed-top">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+<nav class="navbar navbar-expand-lg navbar-light bg-faded fixed-top">
+  <button class="navbar-toggler" type="button" data-toggle="collapse"
           data-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand area" [routerLink]="['/top']">Streamer</a>
   <div class="collapse navbar-collapse" id="mainNavbar">
     <ul class="navbar-nav ml-auto">
-      <li id="dpLogin" [hidden]="loggedIn" class="nav-item dropdown" dropdown [isOpen]="showLoginForm">
+      <li id="dpLogin" [hidden]="loggedIn" class="nav-item dropdown active" dropdown
+          [isOpen]="showLoginForm" [autoClose]="false" #dpLogin>
         <a id="login-href" class="nav-link dropdown-toggle" dropdownToggle>LOGIN</a>
-        <ul dropdownMenu role="menu" class="dropdown-menu pull-right" aria-labelledby="login-href">
+        <ul *dropdownMenu role="menu" class="dropdown-menu float-lg-right dropdown-menu-right" aria-labelledby="login-href">
           <app-login-form (loginEvent)="onLoginChange($event)"
                           (loginErrorEvent)="onLoginError($event)"></app-login-form>
         </ul>
@@ -22,19 +23,19 @@
       <li class="nav-item" [hidden]="!loggedIn">
         <a class="nav-link" [routerLink]="['/upload']">UPLOAD</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="musicEnabled">
         <a class="nav-link" [routerLink]="['/contact']">CONTACT</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/top']">TOP</a>
       </li>
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item dropdown" dropdown [autoClose]="true" #dpMore *ngIf="loggedIn">
         <a id="more-href" class="nav-link dropdown-toggle" dropdownToggle>MORE</a>
-        <ul dropdownMenu role="menu" aria-labelledby="more-href" class="dropdown-menu pull-right">
+        <ul *dropdownMenu role="menu" aria-labelledby="more-href" class="dropdown-menu dropdown-menu-right">
           <li [hidden]="!loggedIn" role="menuitem">
             <a class="dropdown-link" style="color: #000000 !important;" [routerLink]="['/myfiles']">MY FILES</a>
           </li>
-          <li role="menuitem">
+          <li role="menuitem" *ngIf="musicEnabled">
             <a class="dropdown-link" style="color: #000000 !important;" [routerLink]="['/radio']">RADIO</a>
           </li>
           <li role="menuitem">
@@ -47,20 +48,20 @@
                [routerLink]="['/admin/manage-users']"
                [hidden]="!_isAdmin">DELETE USERS</a>
           </li>
-          <li role="menuitem">
+          <li role="menuitem" *ngIf="musicEnabled">
             <a style="color: #000000 !important;" class="dropdown-link" [routerLink]="['/about']">ABOUT</a>
           </li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem">
+          <li role="menuitem" *ngIf="musicEnabled">
             <a style="color: #000000 !important;" class="dropdown-link" [routerLink]="['/help']">HELP</a>
           </li>
         </ul>
       </li>
-      <li class="nav-item dropdown" dropdown autoClose="disabled">
+      <li class="nav-item dropdown active" dropdown [autoClose]="false" #dpSearch>
         <a id="search-href" class="nav-link dropdown-toggle" dropdownToggle>
           <span class="glyphicon glyphicon-search"></span>
         </a>
-        <ul dropdownMenu role="menu" aria-labelledby="search-href" class="dropdown-menu pull-right">
+        <ul *dropdownMenu role="menu" aria-labelledby="search-href" class="dropdown-menu dropdown-menu-right">
           <app-search-component [filterType]="'ALL'" [type]="'M'"
                                 (search)="onSearchData($event)"></app-search-component>
         </ul>
@@ -69,16 +70,16 @@
   </div>
 </nav>
 <div class="main" style="overflow-y: auto">
-  <div id="divMenu">
+  <div id="divMenu" *ngIf="musicEnabled">
     <a [hidden]="menuVisible" (click)="onMenuShowHideClick()">
       <span style="font-size: 25px; position: fixed; top: 75px" class="glyphicon glyphicon-list"></span>
     </a>
     <div id="sideNavbar" class="sidenav" [hidden]="!menuVisible">
       <a class="closebtn" (click)="onMenuShowHideClick()">&times;</a>
-      <a [routerLink]="['/music']" class="li" style="padding-top: 60px">music</a>
-      <a [routerLink]="['/video']" class="li">videos</a>
-      <a [routerLink]="['/ebook']" class="li">e-books</a>
-      <a [routerLink]="['/image']" class="li">images</a>
+      <a [routerLink]="['/music']" class="li" style="padding-top: 60px" *ngIf="musicEnabled">music</a>
+      <a [routerLink]="['/video']" class="li" *ngIf="videoEnabled">videos</a>
+      <a [routerLink]="['/ebook']" class="li" *ngIf="ebookEnabled">e-books</a>
+      <a [routerLink]="['/image']" class="li" *ngIf="imageEnabled">images</a>
     </div>
   </div>
   <div id="divMainPage">

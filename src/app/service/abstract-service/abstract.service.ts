@@ -1,5 +1,6 @@
 import {Response, Headers, RequestOptions} from '@angular/http';
 import {Observable} from 'rxjs';
+import 'rxjs/Rx';
 import {AuthHttp} from 'angular2-jwt';
 
 export abstract class AbstractService {
