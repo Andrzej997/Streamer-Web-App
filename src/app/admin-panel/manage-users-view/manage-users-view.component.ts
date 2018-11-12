@@ -11,7 +11,7 @@ import {AssuranceModalComponent} from '../../components/assurance-modal/assuranc
 })
 export class ManageUsersViewComponent extends BaseComponent {
 
-  private usersDTO: UsersDTO[];
+  public usersDTO: UsersDTO[];
   private userToDelete: UsersDTO;
 
   @ViewChild('assuranceModalUsers')

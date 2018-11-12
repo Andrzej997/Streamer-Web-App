@@ -28,7 +28,7 @@ export class ImageModalComponent extends BaseComponent {
 
   private authContext: boolean = false;
   private type: string;
-  private rate: number = 0;
+  public rate: number = 0;
 
   constructor(private imageService: ImageService) {
     super();

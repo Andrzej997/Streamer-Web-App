@@ -17,9 +17,9 @@ export class AudioPlayerComponent extends BaseComponent {
   public visible: boolean = false;
   public source: string = '';
 
-  private isPlaying: boolean = false;
-  private isMuted: boolean = false;
-  private volume: number = 1.0;
+  public isPlaying: boolean = false;
+  public isMuted: boolean = false;
+  public volume: number = 1.0;
 
   @ViewChild('audioTag')
   private musicPlayerElement: ElementRef;
@@ -32,9 +32,9 @@ export class AudioPlayerComponent extends BaseComponent {
   public authContext: boolean = false;
 
   private type: string;
-  private displayedText: string = '';
-  private displayedTime: string = '';
-  private rate: number = 0;
+  public displayedText: string = '';
+  public displayedTime: string = '';
+  public rate: number = 0;
 
   public isRadioSource: boolean = false;
 

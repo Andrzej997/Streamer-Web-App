@@ -11,7 +11,7 @@ export class AssuranceModalComponent extends BaseComponent {
 
   @Input() public inputText: string;
   @Output() public close = new EventEmitter<boolean>();
-  private displayedText: string;
+  public displayedText: string;
 
   @ViewChild('deleteValidationModal')
   public deleteValidationModal: ModalDirective;

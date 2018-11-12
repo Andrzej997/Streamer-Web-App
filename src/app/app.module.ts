@@ -1,10 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpModule} from '@angular/http';
+import {Http, HttpModule, RequestOptions} from '@angular/http';
 import {BsDropdownModule, ModalModule, TypeaheadModule, RatingModule, ProgressbarModule} from 'ngx-bootstrap';
 import {FileUploadModule} from 'ng2-file-upload';
-import {AuthHttp} from 'angular2-jwt';
+import {AuthHttp, AuthConfig } from 'angular2-jwt';
 import {AppComponent} from './app.component';
 import {AuthService} from './service/auth-service/auth.service';
 import {AppRoutingModule} from './app-routing.module';
@@ -17,7 +17,6 @@ import {AboutViewComponent} from './main_page/about-view/about-view.component';
 import {HelpViewComponent} from './main_page/help-view/help-view.component';
 import {SnackBarComponent} from './components/snack-bar/snack-bar.component';
 import {AuthGuard} from './common/auth.guard';
-import {AuthProvider} from './common/auth.provider';
 import {ChangePasswordFormComponent} from './main_page/change-password-form/change-password-form.component';
 import {UploadFormComponent} from './main_page/upload-form/upload-form.component';
 import {MediaFileUploader} from './common/media.file.uploader';
@@ -45,6 +44,24 @@ import {ManageContentViewComponent} from './admin-panel/manage-content-view/mana
 import {AssuranceModalComponent} from './components/assurance-modal/assurance-modal.component';
 import {AdminGuard} from './common/admin.guard';
 import {RadioViewComponent} from './main_page/radio-view/radio-view.component';
+import {RECAPTCHA_LANGUAGE, RECAPTCHA_SETTINGS, RecaptchaModule, RecaptchaSettings} from 'ng-recaptcha';
+import {RecaptchaFormsModule} from 'ng-recaptcha/forms';
+import {environment} from '../environments/environment';
+import { PasswordInputDirective } from './common/password-input.directive';
+import { EmailValidatorDirective } from './common/email-validator.directive';
+
+
+export function authHttpServiceFactory(http: Http, options: RequestOptions) {
+  return new AuthHttp(new AuthConfig({
+    headerName: 'AuthHeader',
+    headerPrefix: '',
+    tokenName: environment.tokenName,
+    tokenGetter: (() => localStorage.getItem(environment.tokenName)),
+    globalHeaders: [{'Content-Type': 'application/json'}],
+    noJwtError: true,
+    noTokenScheme: true
+  }), http, options);
+}
 
 //noinspection TsLint
 @NgModule({
@@ -78,7 +95,9 @@ import {RadioViewComponent} from './main_page/radio-view/radio-view.component';
     ManageUsersViewComponent,
     ManageContentViewComponent,
     AssuranceModalComponent,
-    RadioViewComponent
+    RadioViewComponent,
+    PasswordInputDirective,
+    EmailValidatorDirective,
   ],
   imports: [
     BrowserModule,
@@ -91,18 +110,26 @@ import {RadioViewComponent} from './main_page/radio-view/radio-view.component';
     ModalModule.forRoot(),
     TypeaheadModule.forRoot(),
     RatingModule.forRoot(),
-    ProgressbarModule.forRoot()
+    ProgressbarModule.forRoot(),
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [
     AuthService,
     AuthGuard,
     AdminGuard,
-    {provide: AuthHttp, useClass: AuthProvider},
+    {
+      provide: AuthHttp,
+      useFactory: authHttpServiceFactory,
+      deps: [Http, RequestOptions]
+    },
     MediaFileUploader,
     MusicService,
     VideoService,
     ImageService,
     EbookService,
+    {provide: RECAPTCHA_SETTINGS, useValue: { siteKey: environment.siteCaptchaKey } as RecaptchaSettings},
+    {provide: RECAPTCHA_LANGUAGE, useValue: 'en'},
     {provide: 'Window', useValue: window}
   ],
   bootstrap: [AppComponent]

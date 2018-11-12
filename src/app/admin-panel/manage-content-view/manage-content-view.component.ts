@@ -74,7 +74,7 @@ export class ManageContentViewComponent extends BaseComponent {
   private ebookModal: EbookModalComponent;
 
   private itemToDelete: MediaItem;
-  private searchedUser: string;
+  public searchedUser: string;
 
   musicEnabled = environment.musicEnabled;
   ebookEnabled = environment.ebookEnabled;

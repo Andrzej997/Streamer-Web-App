@@ -19,9 +19,9 @@ export class VideoPlayerComponent extends BaseComponent {
   public visible: boolean = false;
   public source: string = '';
 
-  private isPlaying: boolean = false;
-  private isMuted: boolean = false;
-  private volume: number = 1.0;
+  public isPlaying: boolean = false;
+  public isMuted: boolean = false;
+  public volume: number = 1.0;
 
   @ViewChild('videoTag')
   private videoPlayerElement: ElementRef;
@@ -34,15 +34,15 @@ export class VideoPlayerComponent extends BaseComponent {
   private videoSource: HTMLSourceElement;
   private canvas: HTMLCanvasElement;
 
-  private max: number;
-  private value: number;
+  public max: number;
+  public value: number;
 
   public authContext: boolean = false;
 
   private type: string;
-  private displayedText: string = '';
-  private displayedTime: string = '';
-  private rate: number = 0;
+  public displayedText: string = '';
+  public displayedTime: string = '';
+  public rate: number = 0;
 
   private qualityOptions: QualityType[] = [
     {key: 'H240', value: '240p', videoFileId: undefined, sortOrder: 1},
@@ -54,10 +54,10 @@ export class VideoPlayerComponent extends BaseComponent {
   public currentQualities: QualityType[] = this.qualityOptions;
   public quality: QualityType = this.qualityOptions[0];
 
-  private canvasHeight: number;
-  private canvasWidth: number;
+  public canvasHeight: number;
+  public canvasWidth: number;
 
-  private isLoading: boolean = false;
+  public isLoading: boolean = false;
   private detectQualityInd: number = 0;
   private proposedQualities: QualityType[];
   private factory: ConnectionWorkerFactory = new ConnectionWorkerFactory();
@@ -267,12 +267,14 @@ export class VideoPlayerComponent extends BaseComponent {
     this.displayedTime = this.createTimeString(time) + '/' + this.createTimeString(this.max);
     if (this.max === undefined || isNaN(this.max) || this.max === Infinity) { this.max = this.videoPlayer.duration; }
     this.value = this.videoPlayer.currentTime;
-    if (this.detectQualityInd % 10 === 0) {
-      this.factory.doWork().subscribe((value) => {
-        if (value) {
-          this.detectOptimalQuality();
-        }
-      });
+    if (environment.speedDetectionEnabled) {
+      if (this.detectQualityInd % 10 === 0) {
+        this.factory.doWork().subscribe((value) => {
+          if (value) {
+            this.detectOptimalQuality();
+          }
+        });
+      }
     }
     this.detectQualityInd++;
   }
@@ -341,11 +343,13 @@ export class VideoPlayerComponent extends BaseComponent {
     if (this.videoPlayer.duration !== undefined && !isNaN(this.videoPlayer.duration) && this.videoPlayer.duration > 0) {
       this.max = this.videoPlayer.duration;
     }
-    this.factory.doWork().subscribe((value) => {
-      if (value) {
-        this.detectOptimalQuality();
-      }
-    });
+    if (environment.speedDetectionEnabled) {
+      this.factory.doWork().subscribe((value) => {
+        if (value) {
+          this.detectOptimalQuality();
+        }
+      });
+    }
   }
 
   detectOptimalQuality(): void {
@@ -479,11 +483,13 @@ export class VideoPlayerComponent extends BaseComponent {
     this.takeSnapshot();
     this.isLoading = true;
     console.log('on waiting');
-    this.factory.doWork().subscribe((value) => {
-      if (value) {
-        this.detectOptimalQuality();
-      }
-    });
+    if (environment.speedDetectionEnabled) {
+      this.factory.doWork().subscribe((value) => {
+        if (value) {
+          this.detectOptimalQuality();
+        }
+      });
+    }
   }
 
 }

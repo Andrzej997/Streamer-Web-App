@@ -16,3 +16,11 @@ select {
   margin-left: 1rem;
   margin-top: 1rem;
 }
+
+.text-center-div {
+  text-align: center;
+}
+
+re-captcha {
+  display: inline-block;
+}

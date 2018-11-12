@@ -1,8 +1,9 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import {Component, Output, EventEmitter, ViewChild} from '@angular/core';
 import {AuthService} from '../../service/auth-service/auth.service';
 import {Router} from '@angular/router';
 import {BaseComponent} from '../../base-component/base-component';
 import {environment} from '../../../environments/environment';
+import {RecaptchaComponent} from 'ng-recaptcha';
 
 @Component({
   selector: 'app-login-form',
@@ -17,6 +18,11 @@ export class LoginFormComponent extends BaseComponent {
   registerMode: boolean = false;
   userName: string;
   password: string;
+  captcha: string;
+  siteKey: string;
+
+  @ViewChild('captchaInp')
+  captchaInp: RecaptchaComponent;
 
   @Output() loginEvent = new EventEmitter<boolean>();
   @Output() loginErrorEvent = new EventEmitter<string>();
@@ -26,6 +32,13 @@ export class LoginFormComponent extends BaseComponent {
     super();
     this.userName = '';
     this.password = '';
+    this.siteKey = environment.siteCaptchaKey;
+  }
+
+  ngOnInit(): void {
+  }
+
+  resolved(captchaResponse: string) {
   }
 
   onSubmit() {
@@ -41,18 +54,22 @@ export class LoginFormComponent extends BaseComponent {
     this.errorMessage = value;
     console.log('onError' + this.errorMessage);
     this.loginErrorEvent.emit(this.errorMessage);
+    this.captchaInp.reset();
   }
 
   login() {
     if (!this.userName || !this.password) {
       return;
     } else if (this.userName.indexOf('@') < 0) {
-      this.authSevice.login(this.userName, this.password)
+      let pass = encodeURIComponent(this.password);
+      this.authSevice.login(this.userName, pass)
         .subscribe(res => {
             this._loggedIn = res != null && res.length > 0;
             if (this._loggedIn) {
               localStorage.setItem(environment.tokenName, res);
               localStorage.setItem('username', this.userName);
+            } else {
+              this.captchaInp.reset();
             }
           },
           error => this.onError(error),
@@ -61,12 +78,15 @@ export class LoginFormComponent extends BaseComponent {
           }
         );
     } else {
-      this.authSevice.loginByEmail(this.userName, this.password)
+      let pass = encodeURIComponent(this.password);
+      this.authSevice.loginByEmail(this.userName, pass)
         .subscribe(res => {
             this._loggedIn = res != null && res.length > 0;
             if (this._loggedIn) {
               localStorage.setItem(environment.tokenName, res);
               localStorage.setItem('username', this.userName);
+            } else {
+              this.captchaInp.reset();
             }
           },
           error => this.onError(error),
@@ -76,7 +96,6 @@ export class LoginFormComponent extends BaseComponent {
         );
     }
   }
-
 
   get loggedIn(): boolean {
     return this._loggedIn;
