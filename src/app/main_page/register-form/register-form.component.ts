@@ -1,8 +1,9 @@
-import {Component, Output, EventEmitter} from '@angular/core';
+import {Component, Output, EventEmitter, ViewChild} from '@angular/core';
 import {AuthService} from '../../service/auth-service/auth.service';
 import {Router, NavigationExtras} from '@angular/router';
 import {BaseComponent} from '../../base-component/base-component';
 import {environment} from '../../../environments/environment';
+import {RecaptchaComponent} from 'ng-recaptcha';
 
 @Component({
   selector: 'app-register-form',
@@ -20,21 +21,32 @@ export class RegisterFormComponent extends BaseComponent {
   usernameExists: boolean = false;
   emailNotUnique: boolean = false;
 
+  captcha: string;
+  siteKey: string;
+
   @Output() onRegisteredChange = new EventEmitter<boolean>();
+
+  @ViewChild('captchaInp')
+  captchaInp: RecaptchaComponent;
 
   constructor(private authService: AuthService,
               private router: Router) {
     super();
+    this.siteKey = environment.siteCaptchaKey;
   }
 
+  resolved(captchaResponse: string) {
+  }
 
   public register() {
     this.authService.register(this.username, this.password, this.email)
       .subscribe((result) => {
           this.onRegister(result);
         },
-        (error) => console.log(error)
-      );
+        (error) => {
+        console.log(error);
+        this.captchaInp.reset();
+      });
   }
 
   onRegister(result: string) {
@@ -47,6 +59,8 @@ export class RegisterFormComponent extends BaseComponent {
         queryParams: {'showSnackBarTop': 'true', 'snackBarMessageTop': 'Registration successful'}
       };
       this.router.navigate(['/top'], params);
+    } else {
+      this.captchaInp.reset();
     }
   }
 
@@ -62,7 +76,4 @@ export class RegisterFormComponent extends BaseComponent {
       .subscribe(success => this.emailNotUnique = <boolean>success,
         error => console.log(error));
   }
-
-
-
 }

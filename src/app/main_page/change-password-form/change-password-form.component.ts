@@ -1,9 +1,11 @@
-import {Component, ViewChild} from "@angular/core";
-import {BaseComponent} from "../../base-component/base-component";
-import {AuthService} from "../../service/auth-service/auth.service";
-import {Router, NavigationExtras} from "@angular/router";
-import {ChangePasswordDTO} from "../../model/change.password.dto";
-import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component";
+import {Component, ViewChild} from '@angular/core';
+import {BaseComponent} from '../../base-component/base-component';
+import {AuthService} from '../../service/auth-service/auth.service';
+import {Router, NavigationExtras} from '@angular/router';
+import {ChangePasswordDTO} from '../../model/change.password.dto';
+import {SnackBarComponent} from '../../components/snack-bar/snack-bar.component';
+import {RecaptchaComponent} from 'ng-recaptcha';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-change-password-form',
@@ -12,24 +14,34 @@ import {SnackBarComponent} from "../../components/snack-bar/snack-bar.component"
 })
 export class ChangePasswordFormComponent extends BaseComponent {
 
-  private username: string;
-  private oldPassword: string = '';
-  private newPassword: string = '';
-  private repeatPassword: string = '';
+  username: string;
+  oldPassword: string = '';
+  newPassword: string = '';
+  repeatPassword: string = '';
 
-  private oldPasswordValid: boolean = true;
-  private passwordChangeSuccess: boolean = false;
+  oldPasswordValid: boolean = true;
+  passwordChangeSuccess: boolean = false;
+
+  captcha: string;
+  siteKey: string;
+
+  @ViewChild('captchaInp')
+  captchaInp: RecaptchaComponent;
 
   @ViewChild('snackChangePassword')
-  private snack: SnackBarComponent;
+  snack: SnackBarComponent;
 
   constructor(private authService: AuthService,
               private router: Router) {
     super();
+    this.siteKey = environment.siteCaptchaKey;
   }
 
   public ngOnInit(): void {
     this.username = localStorage.getItem('username');
+  }
+
+  resolved(captchaResponse: string) {
   }
 
   public validateOldPassword() {
@@ -55,6 +67,7 @@ export class ChangePasswordFormComponent extends BaseComponent {
           this.snack._message = 'Error - password not changed';
           this.snack._timeout = 3000;
           this.snack._visible = true;
+          this.captchaInp.reset();
           this.snack.showSnackMessageError();
           console.log(error);
         });

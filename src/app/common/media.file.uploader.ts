@@ -30,7 +30,7 @@ export class MediaFileUploader extends FileUploader implements OnInit {
     authToken: localStorage.getItem(environment.tokenName), disableMultipart: false,
     isHTML5: true
   };
-  private _typeFilter: string = 'audio/*';
+  _typeFilter: string = 'audio/*';
 
   constructor(private musicService: MusicService,
               private videoService: VideoService,

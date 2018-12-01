@@ -18,7 +18,7 @@ export class MetadataInfoViewComponent extends BaseComponent {
   private imageMetadata: UploadImageMetadataDTO;
   private ebookMetadata: UploadEbookMetadataDTO;
 
-  @Input() private category: string;
+  @Input() category: string;
 
   public metadata: FileMetadata;
 

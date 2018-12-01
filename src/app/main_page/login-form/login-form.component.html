@@ -22,6 +22,14 @@
           </div>
         </div>
         <div class="form-group">
+          <re-captcha id="captchaInp" (resolved)="resolved($event)" [siteKey]="siteKey" required
+                      [(ngModel)]="captcha" name="captchaInp" #captchaInp="ngModel"></re-captcha>
+          <div [hidden]="captchaInp.valid || captchaInp.pristine"
+               class="alert alert-danger">
+            Captcha is required
+          </div>
+        </div>
+        <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block" [disabled]="!loginForm.form.valid">Sign in</button>
         </div>
       </form>

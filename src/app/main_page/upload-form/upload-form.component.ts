@@ -13,15 +13,15 @@ import {environment} from '../../../environments/environment';
 export class UploadFormComponent extends BaseComponent {
 
   @ViewChild('metadataModal') public metadataModal: ModalDirective;
-  private selectedItem: MetadataFileItem;
-  private _isAllItemsValid: boolean = false;
+  selectedItem: MetadataFileItem;
+  _isAllItemsValid: boolean = false;
 
   musicEnabled = environment.musicEnabled;
   ebookEnabled = environment.ebookEnabled;
   imageEnabled = environment.imageEnabled;
   videoEnabled = environment.videoEnabled;
 
-  constructor(private uploader: MediaFileUploader) {
+  constructor(public uploader: MediaFileUploader) {
     super();
   }
 

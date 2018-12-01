@@ -9,5 +9,7 @@ export const environment = {
   musicEnabled: false,
   ebookEnabled: false,
   imageEnabled: false,
-  videoEnabled: true
+  videoEnabled: true,
+  siteCaptchaKey: '6LcOyHcUAAAAAGhiqpgiXVlGhIAWtMelId9UAEEO',
+  speedDetectionEnabled: false
 };

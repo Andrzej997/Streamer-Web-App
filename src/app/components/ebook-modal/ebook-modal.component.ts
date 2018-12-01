@@ -27,7 +27,7 @@ export class EbookModalComponent extends BaseComponent {
   private ebookComponent: HTMLEmbedElement;
 
   private authContext: boolean = false;
-  private rate: number = 0;
+  public rate: number = 0;
 
   constructor(private ebookService: EbookService) {
     super();
