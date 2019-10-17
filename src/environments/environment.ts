@@ -8,8 +8,8 @@ export const environment = {
   tokenName: 'id_token',
   musicEnabled: false,
   ebookEnabled: false,
-  imageEnabled: false,
-  videoEnabled: true,
+  imageEnabled: true,
+  videoEnabled: false,
   siteCaptchaKey: '6LcOyHcUAAAAAGhiqpgiXVlGhIAWtMelId9UAEEO',
   speedDetectionEnabled: false
 };

@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
-  serverEndpoint: 'http://18.197.154.20:8080',
+  serverEndpoint: 'http://localhost/gateway',
   tokenName: 'id_token',
   musicEnabled: false,
   ebookEnabled: false,
-  imageEnabled: false,
-  videoEnabled: true,
+  imageEnabled: true,
+  videoEnabled: false,
   siteCaptchaKey: '6LcOyHcUAAAAAGhiqpgiXVlGhIAWtMelId9UAEEO',
   speedDetectionEnabled: false
 };
